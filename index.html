@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#005B52"/>
   <title>Flexi Learning Evidence</title>
   <link rel="manifest" href="manifest.json"/>
+  <script src="standards.js"></script>
   <style>
     :root{
       --teal:#005B52;--teal-l:#007A6E;--teal-f:#E6F2F1;
@@ -26,7 +27,6 @@
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
     body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-    /* HEADER */
     .hdr{background:var(--teal);color:#fff;padding:13px 16px 11px;padding-top:calc(13px + var(--st));display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
     .logo{width:33px;height:33px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--teal);flex-shrink:0}
     .hdr h1{font-size:16px;font-weight:700;line-height:1.2}
@@ -34,21 +34,17 @@
     .hdr-r{margin-left:auto}
     .icon-btn{background:rgba(255,255,255,.18);border:none;color:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer}
 
-    /* NAV */
     .nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;padding-bottom:var(--sb);z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,.07)}
     .nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:9px 2px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:10px;font-weight:500}
     .nb .ic{font-size:20px}
     .nb.on{color:var(--teal)}
 
-    /* MAIN */
     .main{padding:13px;padding-bottom:calc(76px + var(--sb));max-width:600px;margin:0 auto}
     .view{display:none}.view.on{display:block}
 
-    /* CARDS */
     .card{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);padding:14px;margin-bottom:10px}
     .ct{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
 
-    /* HERO */
     .hero{background:linear-gradient(135deg,var(--teal),var(--teal-l));border-radius:18px;padding:22px 16px;text-align:center;color:#fff;margin-bottom:13px;box-shadow:var(--sh-lg)}
     .hero .hi{font-size:40px;margin-bottom:5px}
     .hero h2{font-size:19px;font-weight:800;margin-bottom:3px}
@@ -56,13 +52,11 @@
     .hbtn{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:var(--teal);font-size:14px;font-weight:800;padding:12px 26px;border-radius:50px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(212,164,55,.4)}
     .hbtn:active{opacity:.85}
 
-    /* STATS */
     .srow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:11px}
     .sc{background:var(--surface);border-radius:12px;padding:10px 6px;text-align:center;box-shadow:var(--sh)}
     .sn{font-size:21px;font-weight:800;color:var(--teal)}
     .sl2{font-size:10px;color:var(--muted);margin-top:1px}
 
-    /* FORM */
     .fg{margin-bottom:12px}
     label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
     label .req{color:var(--burg)}
@@ -70,8 +64,8 @@
     select:focus,input:focus,textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,91,82,.1)}
     textarea{resize:none}
 
-    /* YEAR GRID */
-    .year-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+    /* YEAR GRID — Reception to Year 10 */
+    .year-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
     .yc{padding:9px 4px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);transition:all .15s}
     .yc.on{background:var(--teal);border-color:var(--teal);color:#fff}
 
@@ -83,6 +77,10 @@
     .subj-card.sm{border-color:var(--mat);background:var(--mat-bg);color:var(--mat)}
     .both-note{font-size:11px;color:var(--both);background:var(--both-bg);border:1px solid var(--both-bd);border-radius:8px;padding:7px 10px;margin-top:6px;display:none}
     .both-note.on{display:block}
+
+    /* WORK SAMPLE LINK */
+    .ws-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;background:var(--teal-f);border:1px solid var(--teal);border-radius:8px;padding:6px 11px;margin-bottom:10px}
+    .ws-link:hover{background:var(--teal);color:#fff}
 
     /* STRANDS */
     .strand-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
@@ -127,14 +125,12 @@
     .fi{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;font-size:20px;gap:2px}
     .fi span{font-size:9px;color:var(--muted)}
 
-    /* BUTTONS */
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:700;border:none;cursor:pointer;width:100%}
     .btn-p{background:var(--teal);color:#fff}
     .btn-s{background:var(--bg);color:var(--teal);border:1.5px solid var(--teal)}
     .btn-d{background:#FEF2F2;color:var(--danger);border:1.5px solid #FECACA}
     .btn:active{opacity:.8}
 
-    /* FILTERS / SEARCH */
     .sb{margin-bottom:9px}
     .sb input{width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--border);font-size:14px}
     .fr{display:flex;gap:5px;overflow-x:auto;padding-bottom:4px;margin-bottom:9px;scrollbar-width:none}
@@ -144,7 +140,6 @@
     .fc.fe.on{background:var(--eng);border-color:var(--eng)}
     .fc.fm.on{background:var(--mat);border-color:var(--mat)}
 
-    /* EVIDENCE ITEMS */
     .ei{background:var(--surface);border-radius:12px;padding:12px;margin-bottom:7px;box-shadow:var(--sh);border-left:4px solid var(--teal)}
     .ei.eng{border-left-color:var(--eng)}
     .ei.mat{border-left-color:var(--mat)}
@@ -155,7 +150,6 @@
     .etg{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600}
     .etg.e{background:var(--eng-bg);color:var(--eng)}
     .etg.m{background:var(--mat-bg);color:var(--mat)}
-    .etg.b{background:var(--both-bg);color:var(--both)}
     .etg.y{background:var(--gold-l);color:#7A5800}
     .etg.g{background:var(--teal-f);color:var(--teal)}
     .etg.lv{background:#F0FDF4;color:#166534}
@@ -168,7 +162,6 @@
     .ab.p{color:var(--teal);border-color:var(--teal)}
     .ab.d{color:var(--danger);border-color:#FECACA}
 
-    /* STUDENTS */
     .sti{background:var(--surface);border-radius:12px;padding:12px;margin-bottom:7px;box-shadow:var(--sh);display:flex;align-items:center;gap:10px;cursor:pointer}
     .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-l));color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .si2{flex:1}
@@ -193,7 +186,7 @@
     .gcd-sub{font-size:11px;color:var(--muted)}
     .gcd-desc{font-size:13px;line-height:1.6}
 
-    /* STEP INDICATOR */
+    /* STEPS */
     .steps{display:flex;align-items:center;gap:5px;margin-bottom:14px}
     .stp{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0}
     .stp.on{background:var(--teal);border-color:var(--teal);color:#fff}
@@ -209,13 +202,11 @@
     .mh{width:32px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 13px}
     .mt{font-size:17px;font-weight:800;margin-bottom:13px}
 
-    /* TOAST */
-    .toast{position:fixed;bottom:calc(76px + var(--sb) + 8px);left:50%;transform:translateX(-50%) translateY(14px);background:#1E1E1E;color:#fff;padding:10px 17px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all .25s;z-index:400;white-space:nowrap}
+    .toast{position:fixed;bottom:calc(76px + var(--sb) + 8px);left:50%;transform:translateX(-50%) translateY(14px);background:#1E1E1E;color:#fff;padding:10px 17px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all .25s;z-index:400;white-space:nowrap;max-width:90vw;text-align:center}
     .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
     .toast.ok{background:var(--ok)}
     .toast.er{background:var(--danger)}
 
-    /* MISC */
     .divider{height:1px;background:var(--border);margin:11px 0}
     .info-box{background:var(--teal-f);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--teal);line-height:1.6;margin-bottom:11px}
     .empty{text-align:center;padding:40px 14px;color:var(--muted)}
@@ -229,7 +220,7 @@
   <div class="logo">FL</div>
   <div>
     <h1>Flexi Learning Evidence</h1>
-    <div class="sub">ACARA V9 · English & Maths · Years 7–10</div>
+    <div class="sub">ACARA V9 · English & Maths · Reception–Year 10</div>
   </div>
   <div class="hdr-r">
     <button class="icon-btn" onclick="showView('glossary')">📖 Glossary</button>
@@ -243,7 +234,7 @@
     <div class="hero">
       <div class="hi">📚</div>
       <h2>Capture Learning Evidence</h2>
-      <p>Link student work to ACARA V9 Achievement Standards</p>
+      <p>Link student work to ACARA V9 Achievement Standards · Reception–Year 10</p>
       <button class="hbtn" onclick="openCapture()">＋ New Evidence</button>
     </div>
     <div class="srow">
@@ -259,16 +250,12 @@
 
   <!-- EVIDENCE -->
   <div class="view" id="view-evidence">
-    <div class="sb"><input type="text" id="evQ" placeholder="Search student, standard, subject…" oninput="renderEvidence()"/></div>
+    <div class="sb"><input type="text" id="evQ" placeholder="Search student, standard, subject, year…" oninput="renderEvidence()"/></div>
     <div class="fr">
-      <div class="fc on"  onclick="setF(this,'all')">All</div>
+      <div class="fc on" onclick="setF(this,'all')">All</div>
       <div class="fc fe"  onclick="setF(this,'English')">📖 English</div>
       <div class="fc fm"  onclick="setF(this,'Mathematics')">🔢 Maths</div>
       <div class="fc"     onclick="setF(this,'Both')">🔀 Both</div>
-      <div class="fc"     onclick="setF(this,'Year 7')">Yr 7</div>
-      <div class="fc"     onclick="setF(this,'Year 8')">Yr 8</div>
-      <div class="fc"     onclick="setF(this,'Year 9')">Yr 9</div>
-      <div class="fc"     onclick="setF(this,'Year 10')">Yr 10</div>
     </div>
     <div id="evidenceList"></div>
   </div>
@@ -317,9 +304,10 @@
       </div>
     </div>
     <div class="card" style="font-size:13px;color:var(--muted);line-height:1.7;margin-top:6px">
-      <strong style="color:var(--text)">Flexi Learning Evidence v2.1</strong><br>
-      ACARA V9 · English & Mathematics · Years 7–10<br>
-      Edmund Rice Flexible Schools · SA/WA Region
+      <strong style="color:var(--text)">Flexi Learning Evidence v3.0</strong><br>
+      ACARA V9 · English & Mathematics · Reception–Year 10<br>
+      Edmund Rice Flexible Schools · SA/WA Region<br>
+      <span style="font-size:11px">App label: "Reception" = ACARA "Foundation"</span>
     </div>
   </div>
 </main>
@@ -332,7 +320,7 @@
   <button class="nb"    id="nav-settings" onclick="showView('settings')"><span class="ic">⚙️</span>Settings</button>
 </nav>
 
-<!-- ══ CAPTURE MODAL ══ -->
+<!-- CAPTURE MODAL -->
 <div class="ov" id="capModal">
   <div class="modal">
     <div class="mh"></div>
@@ -343,7 +331,7 @@
       <div class="stp"    id="sp4">4</div>
     </div>
 
-    <!-- STEP 1 -->
+    <!-- STEP 1: Student + Task + Working-at Year -->
     <div id="cs1">
       <div class="mt">👤 Who & What Task?</div>
       <div class="fg">
@@ -352,10 +340,12 @@
       </div>
       <div class="fg">
         <label>Task / Activity Name <span class="req">*</span></label>
-        <input type="text" id="cTask" placeholder="e.g. Persuasive Writing Task, Algebra Assessment…"/>
+        <input type="text" id="cTask" placeholder="e.g. Persuasive Writing, Number Patterns Assessment…"/>
       </div>
       <div class="fg">
-        <label>Working at Year Level <span class="req">*</span></label>
+        <label>Working at Year Level <span class="req">*</span>
+          <span style="font-size:11px;font-weight:400;color:var(--muted)"> — standards will match this level</span>
+        </label>
         <div class="year-grid" id="yearGrid"></div>
       </div>
       <div style="display:flex;gap:7px;margin-top:4px">
@@ -364,40 +354,53 @@
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 2: Subject + Standards + Work Samples -->
     <div id="cs2" style="display:none">
       <div class="mt">🎯 Subject & Standards</div>
       <div class="fg">
-        <label>Subject(s) <span class="req">*</span> <span style="font-size:11px;font-weight:400;color:var(--muted)">— select one or both</span></label>
+        <label>Subject(s) <span class="req">*</span>
+          <span style="font-size:11px;font-weight:400;color:var(--muted)"> — select one or both</span>
+        </label>
         <div class="subj-grid">
           <div class="subj-card" id="sc-eng" onclick="toggleSubj('English')"><span class="si">📖</span>English</div>
           <div class="subj-card" id="sc-mat" onclick="toggleSubj('Mathematics')"><span class="si">🔢</span>Mathematics</div>
         </div>
-        <div class="both-note" id="bothNote">📌 Both subjects selected — choose standards from each below.</div>
+        <div class="both-note" id="bothNote">📌 Both selected — choose standards from each below.</div>
       </div>
+
+      <!-- English section -->
       <div id="engSection" style="display:none">
-        <div class="info-box">📖 <strong>English</strong> — select achievement standards</div>
+        <div class="info-box" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+          <span>📖 <strong>English</strong> — <span id="engYearLabel"></span> Achievement Standards</span>
+          <a id="engWsLink" href="#" target="_blank" class="ws-link">🔗 ACARA Work Samples</a>
+        </div>
         <div class="fg"><label>Strand</label><div class="strand-row" id="engStrands"></div></div>
         <div class="std-list" id="engStdList"></div>
         <div class="sel-sum" id="engSelSum"></div>
         <div class="divider"></div>
       </div>
+
+      <!-- Maths section -->
       <div id="matSection" style="display:none">
-        <div class="info-box" style="background:var(--mat-bg);color:var(--mat)">🔢 <strong>Mathematics</strong> — select achievement standards</div>
+        <div class="info-box" style="background:var(--mat-bg);color:var(--mat);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+          <span>🔢 <strong>Mathematics</strong> — <span id="matYearLabel"></span> Achievement Standards</span>
+          <a id="matWsLink" href="#" target="_blank" class="ws-link" style="color:var(--mat);border-color:var(--mat);background:var(--mat-bg)">🔗 ACARA Work Samples</a>
+        </div>
         <div class="fg"><label>Strand</label><div class="strand-row" id="matStrands"></div></div>
         <div class="std-list" id="matStdList"></div>
         <div class="sel-sum" id="matSelSum"></div>
       </div>
+
       <div style="display:flex;gap:7px;margin-top:12px">
         <button class="btn btn-s" onclick="showStep(1)" style="flex:1">← Back</button>
         <button class="btn btn-p" onclick="nextStep2()" style="flex:2">Next →</button>
       </div>
     </div>
 
-    <!-- STEP 3 -->
+    <!-- STEP 3: General Capabilities -->
     <div id="cs3" style="display:none">
       <div class="mt">⭐ General Capabilities</div>
-      <div class="info-box">Select any General Capabilities this task develops.</div>
+      <div class="info-box">Select any General Capabilities this task develops. Optional — skip if not applicable.</div>
       <div class="gc-grid" id="capGrid"></div>
       <div style="display:flex;gap:7px;margin-top:12px">
         <button class="btn btn-s" onclick="showStep(2)" style="flex:1">← Back</button>
@@ -405,12 +408,12 @@
       </div>
     </div>
 
-    <!-- STEP 4 -->
+    <!-- STEP 4: Observation + Evidence -->
     <div id="cs4" style="display:none">
       <div class="mt">📝 Observation & Evidence</div>
       <div class="fg">
         <label>Teacher Observation <span class="req">*</span></label>
-        <textarea id="cObs" placeholder="Describe what the student did, said, wrote or created…" rows="3"></textarea>
+        <textarea id="cObs" placeholder="Describe what the student did, said, wrote or created that demonstrates this standard…" rows="3"></textarea>
       </div>
       <div class="fg">
         <label>Level of Achievement</label>
@@ -424,7 +427,7 @@
       <div class="fg">
         <label>Cognitive Verb(s) Used</label>
         <input type="text" id="cVerbs" placeholder="e.g. analyse, evaluate, create…"/>
-        <div style="font-size:11px;color:var(--muted);margin-top:4px">See 📖 Glossary tab for definitions.</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">See 📖 Glossary for definitions and examples.</div>
       </div>
       <div class="fg">
         <label>📎 Attach Evidence</label>
@@ -442,7 +445,7 @@
       </div>
       <div class="fg">
         <label>Next Steps</label>
-        <textarea id="cNext" placeholder="What will you do next to support this student?" rows="2"></textarea>
+        <textarea id="cNext" placeholder="What will you do next to support this student's progress?" rows="2"></textarea>
       </div>
       <div style="display:flex;gap:7px">
         <button class="btn btn-s" onclick="showStep(3)" style="flex:1">← Back</button>
@@ -462,13 +465,17 @@
     <div class="fg"><label>Enrolled Year Level</label>
       <select id="nYear">
         <option value="">Select…</option>
-        <option>Year 7</option><option>Year 8</option><option>Year 9</option><option>Year 10</option>
+        <option>Reception</option><option>Year 1</option><option>Year 2</option>
+        <option>Year 3</option><option>Year 4</option><option>Year 5</option>
+        <option>Year 6</option><option>Year 7</option><option>Year 8</option>
+        <option>Year 9</option><option>Year 10</option>
       </select>
     </div>
     <div class="fg"><label>Campus</label>
       <select id="nCampus">
         <option value="">Select…</option>
-        <option>FAME</option><option>Elizabeth</option><option>Davoren Park</option><option>Geraldton</option><option>Other</option>
+        <option>FAME</option><option>Elizabeth</option>
+        <option>Davoren Park</option><option>Geraldton</option><option>Other</option>
       </select>
     </div>
     <div style="display:flex;gap:7px">
@@ -493,153 +500,49 @@
 
 <script>
 // ═══════════════════════════════════════
-//  DATA: ACARA V9 STANDARDS
+//  GENERAL CAPABILITIES
 // ═══════════════════════════════════════
-const STD={
-  English:{
-    'Year 7':{strands:['Speaking & Listening','Reading & Viewing','Writing & Creating'],standards:[
-      {code:'AC9E7S1',strand:'Speaking & Listening',text:'Interact with others and listen to and create spoken and/or multimodal texts including literary texts, discussing, expressing and expanding ideas with evidence for different purposes and audiences.'},
-      {code:'AC9E7S2',strand:'Speaking & Listening',text:'Adopt text structures to organise, develop and link ideas in spoken and multimodal texts.'},
-      {code:'AC9E7S3',strand:'Speaking & Listening',text:'Adopt language features including literary devices, multimodal features and features of voice in spoken and multimodal texts.'},
-      {code:'AC9E7R1',strand:'Reading & Viewing',text:'Read, view and comprehend texts created to inform, influence and/or engage audiences, identifying how ideas are portrayed and how texts are influenced by contexts.'},
-      {code:'AC9E7R2',strand:'Reading & Viewing',text:'Identify the aesthetic qualities of texts and how text structures, language features including literary devices and visual features shape meaning.'},
-      {code:'AC9E7R3',strand:'Reading & Viewing',text:'Identify how techniques such as vectors, angle and/or social distance in visual texts can be used to create a perspective.'},
-      {code:'AC9E7W1',strand:'Writing & Creating',text:'Create written and/or multimodal texts, including literary texts, for different purposes and audiences, expressing and expanding on ideas with evidence.'},
-      {code:'AC9E7W2',strand:'Writing & Creating',text:'Adopt text structures to organise, develop and link ideas in written and multimodal texts.'},
-      {code:'AC9E7W3',strand:'Writing & Creating',text:'Adopt language features including literary devices and/or multimodal features in written and multimodal texts.'},
-    ]},
-    'Year 8':{strands:['Speaking & Listening','Reading & Viewing','Writing & Creating'],standards:[
-      {code:'AC9E8S1',strand:'Speaking & Listening',text:'Interact with others and listen to and create spoken and/or multimodal texts including literary texts, discussing, expressing and elaborating on ideas with supporting evidence for different purposes and audiences.'},
-      {code:'AC9E8S2',strand:'Speaking & Listening',text:'Select and vary text structures to organise, develop and link ideas in spoken and multimodal texts.'},
-      {code:'AC9E8S3',strand:'Speaking & Listening',text:'Select and vary language features including literary devices, multimodal features and features of voice in spoken texts.'},
-      {code:'AC9E8R1',strand:'Reading & Viewing',text:'Read, view and comprehend a range of texts created to inform, influence and/or engage audiences, explaining how ideas are represented and how texts reflect or challenge contexts.'},
-      {code:'AC9E8R2',strand:'Reading & Viewing',text:'Explain the aesthetic qualities of texts and how text structures shape meaning, and analyse the effect of language features including literary devices and visual features.'},
-      {code:'AC9E8R3',strand:'Reading & Viewing',text:'Explain how language features, including rhetorical devices and conventions of genres, are used to represent ideas and perspectives.'},
-      {code:'AC9E8W1',strand:'Writing & Creating',text:'Create written and/or multimodal texts, including literary texts, for different purposes and audiences, expressing and elaborating on ideas with supporting evidence.'},
-      {code:'AC9E8W2',strand:'Writing & Creating',text:'Select and vary text structures to organise, develop and link ideas in written and multimodal texts.'},
-      {code:'AC9E8W3',strand:'Writing & Creating',text:'Select and vary language features including literary devices and/or multimodal features in written and multimodal texts.'},
-    ]},
-    'Year 9':{strands:['Speaking & Listening','Reading & Viewing','Writing & Creating'],standards:[
-      {code:'AC9E9S1',strand:'Speaking & Listening',text:'Interact with others and listen to and create spoken and multimodal texts including literary texts, discussing and expanding on ideas, shaping meaning and providing substantiation for a range of purposes and audiences.'},
-      {code:'AC9E9S2',strand:'Speaking & Listening',text:'Select and experiment with text structures to organise and develop ideas in spoken and multimodal texts.'},
-      {code:'AC9E9S3',strand:'Speaking & Listening',text:'Select and experiment with language features including literary devices, multimodal features and features of voice in spoken texts.'},
-      {code:'AC9E9R1',strand:'Reading & Viewing',text:'Read, view and comprehend texts created to inform, influence and/or engage audiences, analysing how ideas are represented and how texts are positioned within or challenge contexts.'},
-      {code:'AC9E9R2',strand:'Reading & Viewing',text:'Analyse the aesthetic qualities of texts and how text structures, language features including literary devices and visual features create meaning and effect.'},
-      {code:'AC9E9R3',strand:'Reading & Viewing',text:'Analyse how language features, including rhetorical devices and conventions, are used across texts to represent ideas, perspectives and/or stances.'},
-      {code:'AC9E9W1',strand:'Writing & Creating',text:'Create written and multimodal texts, including literary texts, for a range of purposes and audiences, discussing and expanding on ideas, shaping meaning and providing substantiation.'},
-      {code:'AC9E9W2',strand:'Writing & Creating',text:'Select and experiment with text structures to organise and develop ideas in written and multimodal texts.'},
-      {code:'AC9E9W3',strand:'Writing & Creating',text:'Select and experiment with language features including literary devices and/or multimodal features in written texts.'},
-    ]},
-    'Year 10':{strands:['Speaking & Listening','Reading & Viewing','Writing & Creating'],standards:[
-      {code:'AC9E10S1',strand:'Speaking & Listening',text:'Interact with others and listen to and create spoken and multimodal texts including literary texts, discussing ideas and responses to representations, making connections and providing substantiation for a range of purposes and audiences.'},
-      {code:'AC9E10S2',strand:'Speaking & Listening',text:'Select and experiment with text structures to organise and develop ideas in spoken and multimodal texts.'},
-      {code:'AC9E10S3',strand:'Speaking & Listening',text:'Select, vary and experiment with language features including rhetorical and literary devices, and multimodal features and features of voice in spoken texts.'},
-      {code:'AC9E10R1',strand:'Reading & Viewing',text:'Read, view and comprehend texts created to inform, influence and/or engage audiences, evaluating how ideas are represented and how texts are positioned within, reflect or challenge contexts and perspectives.'},
-      {code:'AC9E10R2',strand:'Reading & Viewing',text:'Evaluate the aesthetic qualities of texts and analyse how text structures, language features including rhetorical and literary devices and visual features create meaning and effect.'},
-      {code:'AC9E10R3',strand:'Reading & Viewing',text:'Evaluate how language features, including rhetorical devices and conventions, are used across texts to construct and challenge representations of ideas, perspectives and/or stances.'},
-      {code:'AC9E10W1',strand:'Writing & Creating',text:'Create written and multimodal texts, including literary texts, for a range of purposes and audiences, discussing ideas and responses to representations, making connections and providing substantiation.'},
-      {code:'AC9E10W2',strand:'Writing & Creating',text:'Select and experiment with text structures to organise and develop ideas in written and multimodal texts.'},
-      {code:'AC9E10W3',strand:'Writing & Creating',text:'Select, vary and experiment with language features including rhetorical and literary devices and/or multimodal features in written texts.'},
-    ]}
-  },
-  Mathematics:{
-    'Year 7':{strands:['Number','Algebra','Measurement','Space','Statistics','Probability'],standards:[
-      {code:'AC9M7N1',strand:'Number',text:'Represent natural numbers in expanded form and as products of prime factors using exponent notation, solving problems involving squares of numbers and square roots of perfect square numbers.'},
-      {code:'AC9M7N2',strand:'Number',text:'Solve problems involving addition and subtraction of integers, using all 4 operations with positive fractions and decimals and choosing efficient calculation strategies.'},
-      {code:'AC9M7N3',strand:'Number',text:'Choose between equivalent representations of rational numbers and percentages to assist in calculations, and use mathematical modelling to solve practical problems involving rational numbers, percentages and ratios in financial and other applied contexts.'},
-      {code:'AC9M7A1',strand:'Algebra',text:'Use algebraic expressions to represent situations, describe relationships between variables from authentic data and substitute values into formulas to determine unknown values.'},
-      {code:'AC9M7A2',strand:'Algebra',text:'Solve linear equations with natural number solutions and create tables of values related to algebraic expressions and formulas, describing the effect of variation.'},
-      {code:'AC9M7M1',strand:'Measurement',text:'Solve problems involving the perimeter and area of composite shapes using appropriate metric units, and solve problems involving volume of right prisms.'},
-      {code:'AC9M7M2',strand:'Measurement',text:'Demonstrate the relationship between the area of a parallelogram and a rectangle, and solve problems involving duration and time zones.'},
-      {code:'AC9M7SP1',strand:'Space',text:'Classify triangles, quadrilaterals and other polygons and describe their properties, and identify and reason about angle relationships.'},
-      {code:'AC9M7SP2',strand:'Space',text:'Represent objects and transformations in the plane using coordinates, and describe the effects of transformations.'},
-      {code:'AC9M7ST1',strand:'Statistics',text:'Acquire data sets for discrete and continuous numerical variables and calculate mean, median, mode and range, interpreting the variation in data using these measures.'},
-      {code:'AC9M7ST2',strand:'Statistics',text:'Create and interpret different representations of data sets including stem-and-leaf plots, and describe and compare distributions of data.'},
-      {code:'AC9M7P1',strand:'Probability',text:'Identify the sample space for single-stage events, assign probabilities to the outcomes and predict frequencies for experiments.'},
-    ]},
-    'Year 8':{strands:['Number','Algebra','Measurement','Space','Statistics','Probability'],standards:[
-      {code:'AC9M8N1',strand:'Number',text:'Recognise irrational numbers and terminating or recurring decimals, and apply the exponent laws to calculations with numbers involving positive integer exponents.'},
-      {code:'AC9M8N2',strand:'Number',text:'Solve problems involving the 4 operations with integers and positive rational numbers, using mathematical modelling to solve practical problems involving ratios, percentages and rates in measurement and financial contexts.'},
-      {code:'AC9M8A1',strand:'Algebra',text:'Apply algebraic properties to rearrange, expand and factorise linear expressions.'},
-      {code:'AC9M8A2',strand:'Algebra',text:'Graph linear relations and solve linear equations with rational solutions and one-variable inequalities, graphically and algebraically.'},
-      {code:'AC9M8M1',strand:'Measurement',text:'Use appropriate metric units when solving measurement problems involving the perimeter and area of composite shapes, and volume of right prisms.'},
-      {code:'AC9M8M2',strand:'Measurement',text:'Use Pythagoras\' theorem to solve measurement problems involving unknown lengths of right-angle triangles, and use formulas to solve problems involving the area and circumference of circles.'},
-      {code:'AC9M8M3',strand:'Measurement',text:'Solve problems of duration involving 12- and 24-hour cycles across multiple time zones.'},
-      {code:'AC9M8SP1',strand:'Space',text:'Use 3 dimensions to locate and describe position, identify conditions for congruency and similarity in shapes.'},
-      {code:'AC9M8SP2',strand:'Space',text:'Apply the properties of quadrilaterals to solve problems.'},
-      {code:'AC9M8ST1',strand:'Statistics',text:'Conduct statistical investigations and explain the implications of obtaining data through sampling, and analyse and describe the distribution of data.'},
-      {code:'AC9M8ST2',strand:'Statistics',text:'Compare the variation in distributions of random samples of the same and different size from a given population with respect to shape, measures of central tendency and range.'},
-      {code:'AC9M8P1',strand:'Probability',text:'Represent the possible combinations of 2 events with tables and diagrams, and determine related probabilities to solve practical problems.'},
-    ]},
-    'Year 9':{strands:['Number','Algebra','Measurement','Space','Statistics','Probability'],standards:[
-      {code:'AC9M9N1',strand:'Number',text:'Recognise and use rational and irrational numbers to solve problems, and extend and apply the exponent laws with positive integers to variables.'},
-      {code:'AC9M9A1',strand:'Algebra',text:'Expand binomial products and factorise monic quadratic expressions.'},
-      {code:'AC9M9A2',strand:'Algebra',text:'Find the distance between 2 points on the Cartesian plane, and the gradient and midpoint of a line segment, and use mathematical modelling to solve problems involving change in financial and other applied contexts.'},
-      {code:'AC9M9A3',strand:'Algebra',text:'Graph quadratic functions and solve monic quadratic equations with integer roots algebraically.'},
-      {code:'AC9M9M1',strand:'Measurement',text:'Solve problems involving the surface area and volume of prisms and cylinders, using appropriate units.'},
-      {code:'AC9M9M2',strand:'Measurement',text:'Solve problems involving ratio and scale in similar figures, and apply Pythagoras\' theorem and trigonometry to solve right-angle triangle problems.'},
-      {code:'AC9M9SP1',strand:'Space',text:'Apply the enlargement transformation to shapes and describe the relationship between the original and image, and identify line and rotational symmetry.'},
-      {code:'AC9M9SP2',strand:'Space',text:'Describe the effects of transformations of 2D shapes using coordinates.'},
-      {code:'AC9M9ST1',strand:'Statistics',text:'Analyse data from primary and secondary sources, including bivariate numerical data, and calculate and interpret measures of spread and central tendency.'},
-      {code:'AC9M9ST2',strand:'Statistics',text:'Identify everyday questions and issues involving at least one numerical and at least one categorical variable, and collect data directly and from secondary sources.'},
-      {code:'AC9M9P1',strand:'Probability',text:'List all outcomes for two-step chance experiments, both with and without replacement, using tree diagrams or arrays, and assign probabilities to outcomes.'},
-      {code:'AC9M9P2',strand:'Probability',text:'Calculate relative frequencies from given or collected data to estimate probabilities of events involving "and", "or" and "not" and verify using simulation.'},
-    ]},
-    'Year 10':{strands:['Number','Algebra','Measurement','Space','Statistics','Probability'],standards:[
-      {code:'AC9M10N1',strand:'Number',text:'Recognise the effect of using approximations of real numbers in repeated calculations, and solve problems involving the use of scientific notation and significant figures.'},
-      {code:'AC9M10A1',strand:'Algebra',text:'Expand and factorise expressions and solve equations algebraically, and use algebraic reasoning to model situations and solve problems.'},
-      {code:'AC9M10A2',strand:'Algebra',text:'Graph and describe linear, quadratic and other non-linear relationships, and solve related equations graphically and algebraically.'},
-      {code:'AC9M10A3',strand:'Algebra',text:'Substitute into and use simple algebraic models of authentic situations, interpreting and reviewing the model in context.'},
-      {code:'AC9M10M1',strand:'Measurement',text:'Solve problems involving surface area and volume of right pyramids, right cones, spheres and related composite solids, using appropriate units.'},
-      {code:'AC9M10M2',strand:'Measurement',text:'Apply trigonometry to solve problems involving angles of elevation and depression, and find unknown lengths and angles in non-right-angle triangles.'},
-      {code:'AC9M10SP1',strand:'Space',text:'Apply deductive reasoning to proofs involving shapes in the plane, and interpret and use congruence and similarity.'},
-      {code:'AC9M10SP2',strand:'Space',text:'Describe and perform combinations of transformations of shapes, and describe the results.'},
-      {code:'AC9M10ST1',strand:'Statistics',text:'Compare data distributions for continuous numerical variables using appropriate data displays including box plots, and calculate and interpret quartiles and interquartile range.'},
-      {code:'AC9M10ST2',strand:'Statistics',text:'Evaluate statistical reports in the media and other places by linking claims to displays, statistics and representative data.'},
-      {code:'AC9M10P1',strand:'Probability',text:'Describe the results of two- and three-step chance experiments, both with and without replacement, assign probabilities to outcomes and determine probabilities of events.'},
-      {code:'AC9M10P2',strand:'Probability',text:'Investigate reports of surveys in digital media and elsewhere for information on how data were obtained to estimate population means and medians.'},
-    ]}
-  }
-};
-
 const GC=[
   {id:'cct',icon:'💡',name:'Critical & Creative Thinking',short:'CCT',desc:'Students develop critical and creative thinking by learning to generate and evaluate knowledge, clarify concepts and ideas, seek possibilities, consider alternatives and solve problems.',elements:['Inquiring','Generating','Analysing','Evaluating','Reflecting']},
-  {id:'dl', icon:'💻',name:'Digital Literacy',short:'DL', desc:'Students develop digital literacy as they learn to use technology with confidence, creativity and purpose to access, create, communicate and share information and solve problems.',elements:['Digital safety','Creating solutions','Communicating digitally','Managing digital systems']},
-  {id:'eu', icon:'⚖️',name:'Ethical Understanding',short:'EU', desc:'Students develop ethical understanding as they learn to identify and investigate the nature of ethical concepts, values and principles, and understand how reasoning can help ethical judgment.',elements:['Understanding ethical concepts','Reasoning in decision-making','Exploring values','Character and self-awareness']},
-  {id:'iu', icon:'🌏',name:'Intercultural Understanding',short:'IU', desc:'Students develop intercultural understanding as they learn to value their own cultures, languages and beliefs, and those of others, and understand how personal, group and national identities are shaped.',elements:['Recognising culture','Reflecting on intercultural experiences','Communicating across cultures','Acting with sensitivity']},
-  {id:'lit',icon:'📖',name:'Literacy',short:'Lit',desc:'Students develop literacy as they learn to listen to, read, view, speak, write, create and reflect on increasingly complex texts across a range of contexts, purposes, audiences and technologies.',elements:['Comprehending texts','Composing texts','Text knowledge','Grammar knowledge','Word knowledge','Visual knowledge']},
-  {id:'num',icon:'🔢',name:'Numeracy',short:'Num',desc:'Students develop numeracy as they learn to use mathematical knowledge and skills to solve problems and make sense of their world in a wide range of situations.',elements:['Number sense','Measurement & geometry','Statistics & probability','Problem-solving','Reasoning']},
+  {id:'dl', icon:'💻',name:'Digital Literacy',            short:'DL', desc:'Students develop digital literacy as they learn to use technology with confidence, creativity and purpose to access, create, communicate and share information and solve problems.',elements:['Digital safety','Creating solutions','Communicating digitally','Managing digital systems']},
+  {id:'eu', icon:'⚖️',name:'Ethical Understanding',       short:'EU', desc:'Students develop ethical understanding as they learn to identify and investigate ethical concepts, values and principles, and understand how reasoning can help ethical judgment.',elements:['Understanding ethical concepts','Reasoning in decision-making','Exploring values','Character and self-awareness']},
+  {id:'iu', icon:'🌏',name:'Intercultural Understanding', short:'IU', desc:'Students develop intercultural understanding as they learn to value their own cultures, languages and beliefs, and those of others.',elements:['Recognising culture','Reflecting on intercultural experiences','Communicating across cultures','Acting with sensitivity']},
+  {id:'lit',icon:'📖',name:'Literacy',                    short:'Lit',desc:'Students develop literacy as they learn to listen to, read, view, speak, write, create and reflect on increasingly complex texts across a range of contexts, purposes and audiences.',elements:['Comprehending texts','Composing texts','Text knowledge','Grammar knowledge','Word knowledge','Visual knowledge']},
+  {id:'num',icon:'🔢',name:'Numeracy',                    short:'Num',desc:'Students develop numeracy as they learn to use mathematical knowledge and skills to solve problems and make sense of their world in a wide range of situations.',elements:['Number sense','Measurement & geometry','Statistics & probability','Problem-solving','Reasoning']},
   {id:'psc',icon:'🤝',name:'Personal & Social Capability',short:'PSC',desc:'Students develop personal and social capability as they learn to understand themselves and others, and manage their relationships, lives, work and learning more effectively.',elements:['Self-awareness','Self-management','Social awareness','Social management']},
 ];
 
+// ═══════════════════════════════════════
+//  COGNITIVE VERBS
+// ═══════════════════════════════════════
 const VERBS=[
-  {verb:'Identify',  cat:'Retrieval',            col:'#6B7280',def:'Locate, select or recognise information, facts or details.',              eg:'Identify the key themes in the text.'},
-  {verb:'Recall',    cat:'Retrieval',            col:'#6B7280',def:'Retrieve information from memory without cues.',                          eg:'Recall the steps in the scientific method.'},
-  {verb:'Recognise', cat:'Retrieval',            col:'#6B7280',def:'Identify something previously encountered or learned.',                    eg:'Recognise patterns in a data set.'},
-  {verb:'Name',      cat:'Retrieval',            col:'#6B7280',def:'Give the name or label of something.',                                    eg:'Name the parts of a plant cell.'},
-  {verb:'Select',    cat:'Retrieval',            col:'#6B7280',def:'Choose from a range of options or information.',                          eg:'Select evidence from the text to support your view.'},
-  {verb:'Use',       cat:'Retrieval',            col:'#6B7280',def:'Apply known information, tools or skills in a given context.',             eg:'Use correct punctuation in your writing.'},
-  {verb:'Describe',  cat:'Comprehension',        col:'#1D4ED8',def:'Give an account of characteristics, qualities or features.',              eg:'Describe the setting of the story.'},
-  {verb:'Explain',   cat:'Comprehension',        col:'#1D4ED8',def:'Make something clear by giving a detailed account, including reasons.',    eg:'Explain why the character made that decision.'},
-  {verb:'Summarise', cat:'Comprehension',        col:'#1D4ED8',def:'Give a brief account of the main points, leaving out unnecessary detail.', eg:'Summarise the key events of the chapter.'},
-  {verb:'Interpret', cat:'Comprehension',        col:'#1D4ED8',def:'Explain the meaning or significance of something.',                       eg:'Interpret the data shown in the graph.'},
-  {verb:'Discuss',   cat:'Comprehension',        col:'#1D4ED8',def:'Talk or write about a topic, considering different aspects or viewpoints.', eg:'Discuss the impact of the event on the community.'},
-  {verb:'Analyse',   cat:'Analysis',             col:'#7C3AED',def:'Examine something methodically, identifying key elements and relationships.',eg:'Analyse how the composer uses rhythm to create tension.'},
-  {verb:'Compare',   cat:'Analysis',             col:'#7C3AED',def:'Identify similarities and differences between two or more things.',         eg:'Compare the two characters\' responses to conflict.'},
-  {verb:'Examine',   cat:'Analysis',             col:'#7C3AED',def:'Investigate or scrutinise something carefully and in detail.',              eg:'Examine the evidence for and against the argument.'},
-  {verb:'Infer',     cat:'Analysis',             col:'#7C3AED',def:'Draw a conclusion from evidence and reasoning rather than explicit statement.',eg:'Infer the author\'s attitude from their language choices.'},
-  {verb:'Connect',   cat:'Analysis',             col:'#7C3AED',def:'Establish a relationship or link between ideas, texts or concepts.',        eg:'Connect the themes of this text to your own experiences.'},
-  {verb:'Predict',   cat:'Analysis',             col:'#7C3AED',def:'Use evidence or reasoning to forecast what will happen.',                  eg:'Predict what the data suggests about future trends.'},
-  {verb:'Create',    cat:'Knowledge Utilisation',col:'#005B52',def:'Produce something new or original by combining ideas or materials innovatively.',eg:'Create a multimodal text that persuades your audience.'},
-  {verb:'Evaluate',  cat:'Knowledge Utilisation',col:'#005B52',def:'Make a judgement about the value or quality of something based on criteria and evidence.',eg:'Evaluate the effectiveness of the author\'s argument.'},
-  {verb:'Justify',   cat:'Knowledge Utilisation',col:'#005B52',def:'Support an argument or decision with reasons and evidence.',                eg:'Justify your interpretation with reference to the text.'},
-  {verb:'Investigate',cat:'Knowledge Utilisation',col:'#005B52',def:'Carry out a systematic inquiry to find out about something.',             eg:'Investigate the relationship between the two variables.'},
-  {verb:'Elaborate', cat:'Knowledge Utilisation',col:'#005B52',def:'Add more detail, depth or explanation to an idea or response.',             eg:'Elaborate on your initial response with further examples.'},
-  {verb:'Reflect on',cat:'Knowledge Utilisation',col:'#005B52',def:'Think carefully and deeply about something, including its implications for future action.',eg:'Reflect on what you have learned and how it changed your thinking.'},
-  {verb:'Apply',     cat:'Knowledge Utilisation',col:'#005B52',def:'Use knowledge, understanding or skills in a new or practical context.',     eg:'Apply the formula to solve the problem.'},
+  {verb:'Identify',   cat:'Retrieval',            col:'#6B7280',def:'Locate, select or recognise information, facts or details.',               eg:'Identify the key themes in the text.'},
+  {verb:'Recall',     cat:'Retrieval',            col:'#6B7280',def:'Retrieve information from memory without cues.',                           eg:'Recall the steps in the scientific method.'},
+  {verb:'Recognise',  cat:'Retrieval',            col:'#6B7280',def:'Identify something previously encountered or learned.',                     eg:'Recognise patterns in a data set.'},
+  {verb:'Name',       cat:'Retrieval',            col:'#6B7280',def:'Give the name or label of something.',                                     eg:'Name the parts of a plant cell.'},
+  {verb:'Select',     cat:'Retrieval',            col:'#6B7280',def:'Choose from a range of options or information.',                           eg:'Select evidence from the text to support your view.'},
+  {verb:'Use',        cat:'Retrieval',            col:'#6B7280',def:'Apply known information, tools or skills in a given context.',              eg:'Use correct punctuation in your writing.'},
+  {verb:'Describe',   cat:'Comprehension',        col:'#1D4ED8',def:'Give an account of the characteristics, qualities or features of something.',eg:'Describe the setting of the story.'},
+  {verb:'Explain',    cat:'Comprehension',        col:'#1D4ED8',def:'Make something clear by giving a detailed account, including reasons.',     eg:'Explain why the character made that decision.'},
+  {verb:'Summarise',  cat:'Comprehension',        col:'#1D4ED8',def:'Give a brief account of the main points, leaving out unnecessary detail.',  eg:'Summarise the key events of the chapter.'},
+  {verb:'Interpret',  cat:'Comprehension',        col:'#1D4ED8',def:'Explain the meaning or significance of something.',                        eg:'Interpret the data shown in the graph.'},
+  {verb:'Discuss',    cat:'Comprehension',        col:'#1D4ED8',def:'Talk or write about a topic, considering different aspects or viewpoints.',  eg:'Discuss the impact of the event on the community.'},
+  {verb:'Analyse',    cat:'Analysis',             col:'#7C3AED',def:'Examine something methodically, identifying key elements and their relationships.',eg:'Analyse how the composer uses rhythm to create tension.'},
+  {verb:'Compare',    cat:'Analysis',             col:'#7C3AED',def:'Identify similarities and differences between two or more things.',          eg:'Compare the two characters\' responses to conflict.'},
+  {verb:'Examine',    cat:'Analysis',             col:'#7C3AED',def:'Investigate or scrutinise something carefully and in detail.',               eg:'Examine the evidence for and against the argument.'},
+  {verb:'Infer',      cat:'Analysis',             col:'#7C3AED',def:'Draw a conclusion from evidence and reasoning rather than explicit statement.',eg:'Infer the author\'s attitude from their language choices.'},
+  {verb:'Connect',    cat:'Analysis',             col:'#7C3AED',def:'Establish a relationship or link between ideas, texts or concepts.',         eg:'Connect the themes of this text to your own experiences.'},
+  {verb:'Predict',    cat:'Analysis',             col:'#7C3AED',def:'Use evidence or reasoning to forecast what will happen.',                   eg:'Predict what the data suggests about future trends.'},
+  {verb:'Create',     cat:'Knowledge Utilisation',col:'#005B52',def:'Produce something new or original by combining ideas or materials innovatively.',eg:'Create a multimodal text that persuades your audience.'},
+  {verb:'Evaluate',   cat:'Knowledge Utilisation',col:'#005B52',def:'Make a judgement about the value or quality of something based on criteria and evidence.',eg:'Evaluate the effectiveness of the author\'s argument.'},
+  {verb:'Justify',    cat:'Knowledge Utilisation',col:'#005B52',def:'Support an argument or decision with reasons and evidence.',                 eg:'Justify your interpretation with reference to the text.'},
+  {verb:'Investigate',cat:'Knowledge Utilisation',col:'#005B52',def:'Carry out a systematic inquiry to find out about something.',                eg:'Investigate the relationship between the two variables.'},
+  {verb:'Elaborate',  cat:'Knowledge Utilisation',col:'#005B52',def:'Add more detail, depth or explanation to an idea or response.',              eg:'Elaborate on your initial response with further examples.'},
+  {verb:'Reflect on', cat:'Knowledge Utilisation',col:'#005B52',def:'Think carefully and deeply about something, including its implications for future action.',eg:'Reflect on what you have learned and how it changed your thinking.'},
+  {verb:'Apply',      cat:'Knowledge Utilisation',col:'#005B52',def:'Use knowledge, understanding or skills in a new or practical context.',      eg:'Apply the formula to solve the problem.'},
 ];
 
-const YEAR_LEVELS=['Reception','Year 1','Year 2','Year 3','Year 4','Year 5','Year 6','Year 7','Year 8','Year 9','Year 10'];
+const ALL_YEARS=['Reception','Year 1','Year 2','Year 3','Year 4','Year 5','Year 6','Year 7','Year 8','Year 9','Year 10'];
 
 // ═══════════════════════════════════════
 //  STATE
@@ -662,17 +565,17 @@ function init(){
 //  STORAGE
 // ═══════════════════════════════════════
 function load(){
-  try{S.evidence=JSON.parse(localStorage.getItem('fle3_ev')||'[]');}catch(e){S.evidence=[];}
-  try{S.students=JSON.parse(localStorage.getItem('fle3_st')||'[]');}catch(e){S.students=[];}
-  try{const c=JSON.parse(localStorage.getItem('fle3_cfg')||'{}');S.settings={...S.settings,...c};}catch(e){}
+  try{S.evidence=JSON.parse(localStorage.getItem('fle4_ev')||'[]');}catch(e){S.evidence=[];}
+  try{S.students=JSON.parse(localStorage.getItem('fle4_st')||'[]');}catch(e){S.students=[];}
+  try{const c=JSON.parse(localStorage.getItem('fle4_cfg')||'{}');S.settings={...S.settings,...c};}catch(e){}
 }
 function persist(){
-  localStorage.setItem('fle3_ev',JSON.stringify(S.evidence));
-  localStorage.setItem('fle3_st',JSON.stringify(S.students));
+  localStorage.setItem('fle4_ev',JSON.stringify(S.evidence));
+  localStorage.setItem('fle4_st',JSON.stringify(S.students));
 }
 
 // ═══════════════════════════════════════
-//  NAV
+//  NAVIGATION
 // ═══════════════════════════════════════
 function showView(name){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
@@ -686,29 +589,32 @@ function showView(name){
 }
 
 // ═══════════════════════════════════════
-//  STEP NAVIGATION — ONE CLEAN FUNCTION
+//  STEP NAVIGATION
 // ═══════════════════════════════════════
 function showStep(n){
   [1,2,3,4].forEach(i=>{
     document.getElementById('cs'+i).style.display=i===n?'block':'none';
-    const el=document.getElementById('sp'+i);
-    el.className='stp'+(i<n?' dn':i===n?' on':'');
-    if(i<4){
-      document.getElementById('sl'+i).className='sl3'+(i<n?' dn':'');
-    }
+    document.getElementById('sp'+i).className='stp'+(i<n?' dn':i===n?' on':'');
+    if(i<4) document.getElementById('sl'+i).className='sl3'+(i<n?' dn':'');
   });
 }
 
-// Step 1 → 2 with validation
 function nextStep1(){
   if(!document.getElementById('cStu').value){toast('Please select a student','er');return;}
   if(!document.getElementById('cTask').value.trim()){toast('Please enter a task name','er');return;}
   if(!cap.workingAt){toast('Please select a working-at year level','er');return;}
   cap.task=document.getElementById('cTask').value.trim();
+  // Reset subjects when year changes
+  cap.subjects=[]; cap.engSel=[]; cap.matSel=[];
+  cap.engStrand=''; cap.matStrand='';
+  document.getElementById('sc-eng').className='subj-card';
+  document.getElementById('sc-mat').className='subj-card';
+  document.getElementById('engSection').style.display='none';
+  document.getElementById('matSection').style.display='none';
+  document.getElementById('bothNote').classList.remove('on');
   showStep(2);
 }
 
-// Step 2 → 3 with validation
 function nextStep2(){
   if(!cap.subjects.length){toast('Please select at least one subject','er');return;}
   if(cap.engSel.length+cap.matSel.length===0){toast('Please select at least one achievement standard','er');return;}
@@ -719,13 +625,14 @@ function nextStep2(){
 //  YEAR GRID
 // ═══════════════════════════════════════
 function buildYearGrid(){
-  document.getElementById('yearGrid').innerHTML=YEAR_LEVELS.map(y=>
+  document.getElementById('yearGrid').innerHTML=ALL_YEARS.map(y=>
     `<div class="yc" onclick="pickYear(this,'${y}')">${y}</div>`
   ).join('');
 }
 function pickYear(el,y){
   document.querySelectorAll('.yc').forEach(c=>c.classList.remove('on'));
-  el.classList.add('on'); cap.workingAt=y;
+  el.classList.add('on');
+  cap.workingAt=y;
 }
 
 // ═══════════════════════════════════════
@@ -775,10 +682,8 @@ function openCapture(){
 function toggleSubj(subj){
   const isEng=subj==='English';
   const card=document.getElementById(isEng?'sc-eng':'sc-mat');
-  const cls=isEng?'se':'sm';
   const sec=document.getElementById(isEng?'engSection':'matSection');
-  const year=cap.workingAt||'Year 7';
-  const acYear=['Year 7','Year 8','Year 9','Year 10'].includes(year)?year:'Year 7';
+  const year=cap.workingAt||'Reception';
 
   if(cap.subjects.includes(subj)){
     cap.subjects=cap.subjects.filter(s=>s!==subj);
@@ -787,9 +692,18 @@ function toggleSubj(subj){
     if(isEng)cap.engSel=[]; else cap.matSel=[];
   } else {
     cap.subjects.push(subj);
-    card.className='subj-card '+cls;
+    card.className='subj-card '+(isEng?'se':'sm');
     sec.style.display='block';
-    buildStrandUI(subj,acYear);
+    buildStrandUI(subj,year);
+    // Set work sample link
+    const wsUrl=ACARA_WORK_SAMPLES[subj][year];
+    if(isEng){
+      document.getElementById('engYearLabel').textContent=year;
+      document.getElementById('engWsLink').href=wsUrl;
+    } else {
+      document.getElementById('matYearLabel').textContent=year;
+      document.getElementById('matWsLink').href=wsUrl;
+    }
   }
   document.getElementById('bothNote').classList.toggle('on',cap.subjects.length===2);
 }
@@ -797,10 +711,12 @@ function toggleSubj(subj){
 function buildStrandUI(subj,year){
   const isEng=subj==='English';
   const data=STD[subj][year];
+  if(!data)return;
   const stEl=document.getElementById(isEng?'engStrands':'matStrands');
   const acls=isEng?'ae':'am';
   const first=data.strands[0];
   if(isEng)cap.engStrand=first; else cap.matStrand=first;
+
   stEl.innerHTML=data.strands.map((s,i)=>
     `<div class="sp${i===0?' '+acls:''}" onclick="pickStrand('${subj}','${s}',this)">${s}</div>`
   ).join('');
@@ -813,14 +729,13 @@ function pickStrand(subj,strand,el){
     .querySelectorAll('.sp').forEach(p=>p.classList.remove('ae','am'));
   el.classList.add(acls);
   if(isEng)cap.engStrand=strand; else cap.matStrand=strand;
-  const year=cap.workingAt||'Year 7';
-  const acYear=['Year 7','Year 8','Year 9','Year 10'].includes(year)?year:'Year 7';
-  renderStdCards(subj,acYear,strand);
+  renderStdCards(subj,cap.workingAt||'Reception',strand);
 }
 
 function renderStdCards(subj,year,strand){
   const isEng=subj==='English', selKey=isEng?'engSel':'matSel';
   const data=STD[subj][year];
+  if(!data)return;
   const items=data.standards.filter(s=>s.strand===strand);
   const listEl=document.getElementById(isEng?'engStdList':'matStdList');
   const selEl=document.getElementById(isEng?'engSelSum':'matSelSum');
@@ -842,13 +757,14 @@ function renderStdCards(subj,year,strand){
 
 function toggleStd(subj,code){
   const isEng=subj==='English', selKey=isEng?'engSel':'matSel';
-  const year=cap.workingAt||'Year 7';
-  const acYear=['Year 7','Year 8','Year 9','Year 10'].includes(year)?year:'Year 7';
-  const std=STD[subj][acYear].standards.find(s=>s.code===code);
+  const year=cap.workingAt||'Reception';
+  const data=STD[subj][year];
+  if(!data)return;
+  const std=data.standards.find(s=>s.code===code);
   if(!std)return;
   const idx=cap[selKey].findIndex(s=>s.code===code);
   if(idx>=0)cap[selKey].splice(idx,1); else cap[selKey].push({...std,subject:subj});
-  renderStdCards(subj,acYear,isEng?cap.engStrand:cap.matStrand);
+  renderStdCards(subj,year,isEng?cap.engStrand:cap.matStrand);
 }
 
 // ═══════════════════════════════════════
@@ -881,6 +797,11 @@ function saveEv(){
   const stuSel=document.getElementById('cStu');
   const student=S.students.find(s=>s.id===stuSel.value);
   const allStds=[...cap.engSel,...cap.matSel];
+  const wsLinks={};
+  cap.subjects.forEach(subj=>{
+    wsLinks[subj]=ACARA_WORK_SAMPLES[subj][cap.workingAt]||'https://www.australiancurriculum.edu.au/resources/work-samples';
+  });
+
   const ev={
     id:'ev_'+Date.now(),
     studentId:stuSel.value,
@@ -894,6 +815,7 @@ function saveEv(){
     level:document.getElementById('cLvl').value,
     cogVerbs:document.getElementById('cVerbs').value.trim(),
     nextSteps:document.getElementById('cNext').value.trim(),
+    wsLinks,
     staffName:S.settings.staffName,
     campus:S.settings.campus||(student?student.campus:''),
     date:new Date().toISOString(),
@@ -944,7 +866,10 @@ function renderStudents(){
     const ini=(s.firstName[0]||'')+(s.lastName[0]||'');
     return`<div class="sti" onclick="filterByStu('${s.id}')">
       <div class="av">${ini}</div>
-      <div class="si2"><div class="sn2">${s.lastName}, ${s.firstName}</div><div class="sm2">${[s.year,s.campus].filter(Boolean).join(' · ')}</div></div>
+      <div class="si2">
+        <div class="sn2">${s.lastName}, ${s.firstName}</div>
+        <div class="sm2">${[s.year,s.campus].filter(Boolean).join(' · ')}</div>
+      </div>
       <div class="rc">${cnt} records</div>
     </div>`;
   }).join('');
@@ -966,13 +891,12 @@ function renderEvidence(){
   const q=(document.getElementById('evQ')?.value||'').toLowerCase();
   const list=document.getElementById('evidenceList');
   const items=S.evidence.filter(e=>{
-    const matchQ=!q||`${e.studentName} ${e.task} ${(e.subjects||[]).join(' ')} ${e.workingAt} ${(e.standards||[]).map(s=>s.text+s.code).join(' ')} ${e.observation}`.toLowerCase().includes(q);
+    const matchQ=!q||`${e.studentName} ${e.task} ${(e.subjects||[]).join(' ')} ${e.workingAt} ${(e.standards||[]).map(s=>s.text+' '+s.code).join(' ')} ${e.observation}`.toLowerCase().includes(q);
     const isBoth=(e.subjects||[]).length===2;
     const matchF=curFilter==='all'
       ||(curFilter==='Both'&&isBoth)
       ||(curFilter==='English'&&!isBoth&&(e.subjects||[]).includes('English'))
-      ||(curFilter==='Mathematics'&&!isBoth&&(e.subjects||[]).includes('Mathematics'))
-      ||e.workingAt===curFilter;
+      ||(curFilter==='Mathematics'&&!isBoth&&(e.subjects||[]).includes('Mathematics'));
     return matchQ&&matchF;
   });
   if(!items.length){list.innerHTML=`<div class="empty"><div class="ei2">📋</div><p>No evidence found.<br>${q?'Try a different search.':'Tap + New Evidence to start!'}</p></div>`;return;}
@@ -1017,10 +941,15 @@ function renderRecent(){
     </div>`;
   }).join('');
 }
+
 function viewDet(id){
   const e=S.evidence.find(ev=>ev.id===id); if(!e)return;
   const isBoth=(e.subjects||[]).length===2;
   const col=isBoth?'var(--both)':(e.subjects||[]).includes('English')?'var(--eng)':'var(--mat)';
+  const wsLinksHtml=Object.entries(e.wsLinks||{}).map(([subj,url])=>
+    `<a href="${url}" target="_blank" class="ws-link" style="margin-right:5px">${subj==='English'?'📖':'🔢'} ${subj} Work Samples →</a>`
+  ).join('');
+
   document.getElementById('detContent').innerHTML=`
     <div class="mt">📋 Evidence Record</div>
     <div style="margin-bottom:11px">
@@ -1033,8 +962,9 @@ function viewDet(id){
         <span class="etg y" style="font-size:12px">Working at: ${e.workingAt}</span>
         ${e.level?`<span class="etg lv" style="font-size:12px">${e.level}</span>`:''}
       </div>
-      ${e.task?`<div style="font-size:13px;font-weight:700;margin-bottom:3px">Task: ${e.task}</div>`:''}
-      ${e.cogVerbs?`<div style="font-size:12px;color:var(--muted)">Cognitive verbs: <em>${e.cogVerbs}</em></div>`:''}
+      ${e.task?`<div style="font-size:13px;font-weight:700;margin-bottom:4px">Task: ${e.task}</div>`:''}
+      ${e.cogVerbs?`<div style="font-size:12px;color:var(--muted);margin-bottom:6px">Cognitive verbs: <em>${e.cogVerbs}</em></div>`:''}
+      ${wsLinksHtml?`<div style="margin-top:6px">${wsLinksHtml}</div>`:''}
     </div>
     <div class="card">
       <div class="ct">Achievement Standards</div>
@@ -1085,7 +1015,8 @@ function renderGlossary(){
     const caps=GC.filter(gc=>!q||gc.name.toLowerCase().includes(q)||gc.desc.toLowerCase().includes(q));
     if(!caps.length){el.innerHTML=`<div class="empty"><div class="ei2">🔍</div><p>No capabilities match "${q}".</p></div>`;return;}
     el.innerHTML=caps.map(gc=>`<div class="gc-detail">
-      <div class="gcd-hdr"><div class="gcd-icon">${gc.icon}</div>
+      <div class="gcd-hdr">
+        <div class="gcd-icon">${gc.icon}</div>
         <div><div class="gcd-name">${gc.name}</div><div class="gcd-sub">${gc.short} · ACARA V9 General Capability</div></div>
       </div>
       <div class="gcd-desc">${gc.desc}</div>
@@ -1101,32 +1032,48 @@ function printRec(id){
   const e=S.evidence.find(ev=>ev.id===id); if(!e)return;
   const isBoth=(e.subjects||[]).length===2;
   const col=isBoth?'#0E7490':(e.subjects||[]).includes('English')?'#1D4ED8':'#7C3AED';
+  const wsHtml=Object.entries(e.wsLinks||{}).map(([subj,url])=>
+    `<a href="${url}" style="color:${col};margin-right:10px;font-size:12px">${subj} Work Samples →</a>`
+  ).join('');
   const html=`<!DOCTYPE html><html><head><title>Learning Evidence — ${e.studentName}</title>
-  <style>body{font-family:'Segoe UI',sans-serif;padding:30px;max-width:760px;margin:0 auto;color:#1E1E1E}
-  h1{color:#005B52;font-size:21px;margin-bottom:2px}.meta{color:#6B7280;font-size:13px;margin-bottom:18px}
-  h2{color:${col};font-size:12px;text-transform:uppercase;letter-spacing:1px;margin:16px 0 6px}
-  .std{border-left:3px solid ${col};padding:7px 11px;margin-bottom:7px;background:#F8F8FF;border-radius:4px}
-  .code{font-family:monospace;font-size:10px;color:${col};margin-bottom:2px}
-  .obs{font-size:14px;line-height:1.7;background:#F9FAFB;padding:11px;border-radius:6px}
-  .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:600;margin:2px}
-  .b-lv{background:#F0FDF4;color:#166534}.b-y{background:#F5E6B8;color:#7A5800}.b-gc{background:#FFF7ED;color:#C2410C}
-  img{max-width:155px;border-radius:6px;margin:3px;vertical-align:top}
-  .footer{margin-top:28px;padding-top:11px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF}
-  @media print{body{padding:14px}}</style></head><body>
+  <style>
+    body{font-family:'Segoe UI',sans-serif;padding:30px;max-width:760px;margin:0 auto;color:#1E1E1E}
+    h1{color:#005B52;font-size:21px;margin-bottom:2px}
+    .meta{color:#6B7280;font-size:13px;margin-bottom:16px}
+    h2{color:${col};font-size:12px;text-transform:uppercase;letter-spacing:1px;margin:16px 0 6px}
+    .std{border-left:3px solid ${col};padding:7px 11px;margin-bottom:7px;background:#F8F8FF;border-radius:4px}
+    .code{font-family:monospace;font-size:10px;color:${col};margin-bottom:2px}
+    .obs{font-size:14px;line-height:1.7;background:#F9FAFB;padding:11px;border-radius:6px}
+    .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:600;margin:2px}
+    .b-lv{background:#F0FDF4;color:#166534}
+    .b-y{background:#F5E6B8;color:#7A5800}
+    .b-gc{background:#FFF7ED;color:#C2410C}
+    img{max-width:155px;border-radius:6px;margin:3px;vertical-align:top}
+    .footer{margin-top:28px;padding-top:11px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF}
+    a{color:${col}}
+    @media print{body{padding:14px}}
+  </style></head><body>
   <h1>Learning Evidence Record</h1>
-  <div class="meta"><strong>${e.studentName}</strong>${e.campus?' · '+e.campus:''}<br>
-  Task: <strong>${e.task||'—'}</strong>${e.staffName?' · Teacher: '+e.staffName:''}<br>
-  Date: ${fd(e.date)} · Subjects: <strong>${(e.subjects||[]).join(' & ')}</strong></div>
+  <div class="meta">
+    <strong>${e.studentName}</strong>${e.campus?' · '+e.campus:''}<br>
+    Task: <strong>${e.task||'—'}</strong>${e.staffName?' · Teacher: '+e.staffName:''}<br>
+    Date: ${fd(e.date)} · Subject(s): <strong>${(e.subjects||[]).join(' & ')}</strong>
+  </div>
   <span class="badge b-y">Working at: ${e.workingAt}</span>
   ${e.level?`<span class="badge b-lv">${e.level}</span>`:''}
   ${e.cogVerbs?`<span class="badge" style="background:#F3F4F6;color:#374151">Verbs: ${e.cogVerbs}</span>`:''}
+  ${wsHtml?`<div style="margin-top:10px">${wsHtml}</div>`:''}
   <h2>Achievement Standards</h2>
-  ${(e.standards||[]).map(s=>`<div class="std"><div class="code">${s.code} · ${s.strand} · ${s.subject}</div><div style="font-size:13px;line-height:1.5">${s.text}</div></div>`).join('')}
+  ${(e.standards||[]).map(s=>`<div class="std"><div class="code">${s.code} · ${s.strand} · ${s.subject} · Working at ${e.workingAt}</div><div style="font-size:13px;line-height:1.5">${s.text}</div></div>`).join('')}
   ${(e.caps||[]).length?`<h2>General Capabilities</h2><div>${e.caps.map(c=>`<span class="badge b-gc">${c.icon} ${c.name}</span>`).join('')}</div>`:''}
   <h2>Teacher Observation</h2><div class="obs">${e.observation||'—'}</div>
   ${e.nextSteps?`<h2>Next Steps</h2><div class="obs">${e.nextSteps}</div>`:''}
-  ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length?`<h2>Evidence Photos</h2>${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}">`).join('')}`:''}
-  <div class="footer">Flexi Learning Evidence · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region<br>Generated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}</div>
+  ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length
+    ?`<h2>Evidence Photos</h2>${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}">`).join('')}`:''}
+  <div class="footer">
+    Flexi Learning Evidence v3.0 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region<br>
+    Generated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}
+  </div>
   </body></html>`;
   const w=window.open('','_blank'); w.document.write(html); w.document.close(); w.print();
 }
@@ -1140,22 +1087,50 @@ function updateStats(){
   document.getElementById('stToday').textContent=S.evidence.filter(e=>new Date(e.date).toDateString()===today).length;
   document.getElementById('stStudents').textContent=S.students.length;
 }
-function applySettings(){document.getElementById('sName').value=S.settings.staffName||'';document.getElementById('sCampus').value=S.settings.campus||'';}
-function saveSettings(){S.settings.staffName=document.getElementById('sName').value.trim();S.settings.campus=document.getElementById('sCampus').value;localStorage.setItem('fle3_cfg',JSON.stringify(S.settings));toast('✅ Saved!','ok');}
+function applySettings(){
+  document.getElementById('sName').value=S.settings.staffName||'';
+  document.getElementById('sCampus').value=S.settings.campus||'';
+}
+function saveSettings(){
+  S.settings.staffName=document.getElementById('sName').value.trim();
+  S.settings.campus=document.getElementById('sCampus').value;
+  localStorage.setItem('fle4_cfg',JSON.stringify(S.settings));
+  toast('✅ Saved!','ok');
+}
 function exportCSV(){
   if(!S.evidence.length){toast('No evidence to export','er');return;}
   const h=['Date','Student','Task','WorkingAt','Subjects','Standards','GeneralCapabilities','Level','CognitiveVerbs','Observation','NextSteps','Staff','Campus'];
-  const rows=S.evidence.map(e=>[fd(e.date),e.studentName,e.task,e.workingAt,(e.subjects||[]).join(' & '),(e.standards||[]).map(s=>s.code).join('; '),(e.caps||[]).map(c=>c.short).join('; '),e.level||'',e.cogVerbs||'',e.observation,e.nextSteps||'',e.staffName||'',e.campus||''].map(v=>`"${(v||'').replace(/"/g,'""')}"`));
+  const rows=S.evidence.map(e=>[
+    fd(e.date),e.studentName,e.task,e.workingAt,
+    (e.subjects||[]).join(' & '),
+    (e.standards||[]).map(s=>s.code).join('; '),
+    (e.caps||[]).map(c=>c.short).join('; '),
+    e.level||'',e.cogVerbs||'',e.observation,
+    e.nextSteps||'',e.staffName||'',e.campus||''
+  ].map(v=>`"${(v||'').replace(/"/g,'""')}"`));
   dl([h,...rows].map(r=>r.join(',')).join('\n'),`Flexi_Learning_${ts()}.csv`,'text/csv');
   toast('✅ CSV exported!','ok');
 }
-function backupJSON(){dl(JSON.stringify({version:'2.1',exported:new Date().toISOString(),evidence:S.evidence,students:S.students},null,2),`Flexi_Backup_${ts()}.json`,'application/json');toast('✅ Backup downloaded!','ok');}
+function backupJSON(){
+  dl(JSON.stringify({version:'3.0',exported:new Date().toISOString(),evidence:S.evidence,students:S.students},null,2),
+    `Flexi_Backup_${ts()}.json`,'application/json');
+  toast('✅ Backup downloaded!','ok');
+}
 function restoreJSON(){document.getElementById('jsonIn').click();}
 function handleJSON(input){
   const f=input.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=e=>{try{const d=JSON.parse(e.target.result);if(!d.evidence||!d.students)throw 0;if(!confirm(`Restore ${d.evidence.length} records and ${d.students.length} students?`))return;S.evidence=d.evidence;S.students=d.students;persist();updateStats();renderRecent();renderEvidence();renderStudents();populateStuDrop();toast('✅ Restored!','ok');}catch(err){toast('❌ Invalid backup','er');}};
-  r.readAsText(f);input.value='';
+  r.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(!d.evidence||!d.students)throw 0;
+      if(!confirm(`Restore ${d.evidence.length} records and ${d.students.length} students?`))return;
+      S.evidence=d.evidence; S.students=d.students;
+      persist(); updateStats(); renderRecent(); renderEvidence(); renderStudents(); populateStuDrop();
+      toast('✅ Restored!','ok');
+    }catch(err){toast('❌ Invalid backup','er');}
+  };
+  r.readAsText(f); input.value='';
 }
 function importCSV(){document.getElementById('csvIn').click();}
 function handleCSV(input){
@@ -1168,23 +1143,35 @@ function handleCSV(input){
     let n=0;
     lines.slice(1).forEach(l=>{
       const v=l.split(',').map(x=>x.trim().replace(/"/g,''));
-      const o={};h.forEach((hh,i)=>o[hh]=v[i]||'');
+      const o={}; h.forEach((hh,i)=>o[hh]=v[i]||'');
       const first=o.firstname||o['first name']||o.first||'';
       const last=o.lastname||o['last name']||o.last||'';
       if(!first&&!last)return;
-      S.students.push({id:'st_'+Date.now()+'_'+n,firstName:first,lastName:last,year:o.year||o['year level']||'',campus:o.campus||o.site||''});n++;
+      S.students.push({id:'st_'+Date.now()+'_'+n,firstName:first,lastName:last,
+        year:o.year||o['year level']||'',campus:o.campus||o.site||''});
+      n++;
     });
-    persist();renderStudents();populateStuDrop();toast(`✅ Imported ${n} students`,'ok');
+    persist(); renderStudents(); populateStuDrop();
+    toast(`✅ Imported ${n} students`,'ok');
   };
-  r.readAsText(f);input.value='';
+  r.readAsText(f); input.value='';
 }
-function clearAll(){if(!confirm('Clear ALL data? Back up first!\nThis cannot be undone.'))return;S.evidence=[];S.students=[];persist();updateStats();renderRecent();renderEvidence();renderStudents();toast('🗑 Cleared','');}
+function clearAll(){
+  if(!confirm('Clear ALL data? Back up first!\nThis cannot be undone.'))return;
+  S.evidence=[]; S.students=[]; persist();
+  updateStats(); renderRecent(); renderEvidence(); renderStudents();
+  toast('🗑 Cleared','');
+}
 
 // ═══════════════════════════════════════
 //  HELPERS
 // ═══════════════════════════════════════
 function closeModal(id){document.getElementById(id).classList.remove('on');}
-function toast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className=`toast ${type} on`;setTimeout(()=>t.classList.remove('on'),3000);}
+function toast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className=`toast ${type} on`;
+  setTimeout(()=>t.classList.remove('on'),3000);
+}
 function fd(d){if(!d)return'—';return new Date(d).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});}
 function ts(){return new Date().toISOString().split('T')[0];}
 function dl(c,n,m){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:m}));a.download=n;a.click();}

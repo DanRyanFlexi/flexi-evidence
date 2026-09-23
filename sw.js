@@ -1,6 +1,6 @@
-// Flexi Learning Evidence v2.1 — Service Worker
-const CACHE = 'flexi-learning-v2-1';
-const SHELL = ['./index.html', './manifest.json'];
+// Flexi Learning Evidence v3.0 — Service Worker
+const CACHE = 'flexi-learning-v3';
+const SHELL = ['./index.html', './standards.js', './manifest.json'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
