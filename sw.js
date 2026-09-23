@@ -1,5 +1,5 @@
-// Flexi Learning Evidence v2.0 — Service Worker
-const CACHE = 'flexi-learning-v2';
+// Flexi Learning Evidence v2.1 — Service Worker
+const CACHE = 'flexi-learning-v2-1';
 const SHELL = ['./index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
@@ -8,8 +8,9 @@ self.addEventListener('install', e => {
 
 self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
-    .then(() => self.clients.claim())
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
 });
 
