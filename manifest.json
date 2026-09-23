@@ -1,8 +1,8 @@
 {
-  "name": "Flexi Evidence Capture",
-  "short_name": "Flexi Evidence",
-  "description": "Learning Adjustment Evidence Capture for Edmund Rice Flexible Schools",
-  "start_url": "./flexi-evidence-pwa.html",
+  "name": "Flexi Learning Evidence",
+  "short_name": "Flexi Learning",
+  "description": "ACARA V9 Learning Evidence Capture — English & Mathematics Years 7–10",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#005B52",
   "theme_color": "#005B52",

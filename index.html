@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Flexi Evidence" />
+  <meta name="apple-mobile-web-app-title" content="Flexi Learning" />
   <meta name="theme-color" content="#005B52" />
-  <title>Flexi Evidence Capture</title>
+  <title>Flexi Learning Evidence</title>
   <link rel="manifest" href="manifest.json" />
-
   <style>
-    /* ── FLEXI SCHOOLS BRAND TOKENS ── */
     :root {
       --teal:       #005B52;
       --teal-light: #007A6E;
@@ -19,6 +17,10 @@
       --burgundy:   #7A1F3D;
       --gold:       #D4A437;
       --gold-light: #F5E6B8;
+      --english:    #1D4ED8;
+      --english-bg: #EFF6FF;
+      --maths:      #7C3AED;
+      --maths-bg:   #F5F3FF;
       --bg:         #F4F5F3;
       --surface:    #FFFFFF;
       --text:       #1E1E1E;
@@ -27,663 +29,516 @@
       --danger:     #C0392B;
       --success:    #1A7A50;
       --radius:     14px;
-      --shadow:     0 2px 12px rgba(0,0,0,0.10);
-      --shadow-lg:  0 8px 32px rgba(0,0,0,0.15);
+      --shadow:     0 2px 12px rgba(0,0,0,0.09);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.14);
       --font:       'Segoe UI', system-ui, -apple-system, sans-serif;
+      --safe-top:    env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
     /* ── HEADER ── */
     .app-header {
-      background: var(--teal);
-      color: white;
-      padding: 16px 20px 12px;
-      padding-top: calc(16px + env(safe-area-inset-top, 0px));
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      background: var(--teal); color: white;
+      padding: 14px 18px 12px;
+      padding-top: calc(14px + var(--safe-top));
+      display: flex; align-items: center; gap: 12px;
+      position: sticky; top: 0; z-index: 100;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
-    .app-header .logo {
-      width: 36px; height: 36px;
-      background: var(--gold);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 800; color: var(--teal); flex-shrink: 0;
-    }
-    .app-header h1 { font-size: 18px; font-weight: 700; line-height: 1.2; }
-    .app-header .subtitle { font-size: 11px; opacity: 0.75; }
-    .header-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
-    .sync-badge {
-      font-size: 11px; padding: 4px 10px; border-radius: 20px;
-      background: rgba(255,255,255,0.15); color: white; cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.3);
-      display: flex; align-items: center; gap: 4px;
-    }
-    .sync-badge.synced { background: rgba(26,122,80,0.4); border-color: rgba(26,122,80,0.6); }
-    .sync-badge.error  { background: rgba(192,57,43,0.4); border-color: rgba(192,57,43,0.6); }
+    .logo { width: 34px; height: 34px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 800; color: var(--teal); flex-shrink: 0; }
+    .app-header h1 { font-size: 17px; font-weight: 700; line-height: 1.2; }
+    .app-header .sub { font-size: 10px; opacity: 0.75; }
 
     /* ── BOTTOM NAV ── */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      display: flex;
-      padding-bottom: var(--safe-bottom);
-      z-index: 100;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      background: var(--surface); border-top: 1px solid var(--border);
+      display: flex; padding-bottom: var(--safe-bottom);
+      z-index: 100; box-shadow: 0 -2px 12px rgba(0,0,0,0.07);
     }
-    .nav-btn {
-      flex: 1; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 3px;
-      padding: 10px 4px; background: none; border: none; cursor: pointer;
-      color: var(--text-muted); font-size: 10px; font-weight: 500;
-      transition: color 0.15s;
-    }
-    .nav-btn .icon { font-size: 22px; }
+    .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 9px 4px; background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 10px; font-weight: 500; transition: color 0.15s; }
+    .nav-btn .icon { font-size: 21px; }
     .nav-btn.active { color: var(--teal); }
-    .nav-btn.active .icon { transform: scale(1.1); }
 
-    /* ── MAIN CONTENT ── */
-    .main {
-      padding: 16px;
-      padding-bottom: calc(80px + var(--safe-bottom));
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* ── VIEWS ── */
+    /* ── MAIN ── */
+    .main { padding: 14px; padding-bottom: calc(78px + var(--safe-bottom)); max-width: 600px; margin: 0 auto; }
     .view { display: none; }
     .view.active { display: block; }
 
     /* ── CARDS ── */
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-      margin-bottom: 12px;
-    }
-    .card-title {
-      font-size: 13px; font-weight: 700; color: var(--teal);
-      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
-    }
+    .card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 15px; margin-bottom: 11px; }
+    .card-title { font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 11px; }
 
-    /* ── BIG CAPTURE BUTTON ── */
+    /* ── HERO ── */
     .capture-hero {
       background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
-      border-radius: 20px;
-      padding: 28px 20px;
-      text-align: center;
-      color: white;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow-lg);
+      border-radius: 18px; padding: 24px 18px; text-align: center;
+      color: white; margin-bottom: 14px; box-shadow: var(--shadow-lg);
     }
-    .capture-hero .hero-icon { font-size: 48px; margin-bottom: 8px; }
-    .capture-hero h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-    .capture-hero p  { font-size: 13px; opacity: 0.85; margin-bottom: 20px; }
-    .capture-hero-btn {
-      display: inline-flex; align-items: center; gap: 8px;
+    .capture-hero .hero-icon { font-size: 44px; margin-bottom: 6px; }
+    .capture-hero h2 { font-size: 20px; font-weight: 800; margin-bottom: 3px; }
+    .capture-hero p  { font-size: 12px; opacity: 0.85; margin-bottom: 18px; }
+    .hero-btn {
+      display: inline-flex; align-items: center; gap: 7px;
       background: var(--gold); color: var(--teal);
-      font-size: 16px; font-weight: 800;
-      padding: 14px 32px; border-radius: 50px;
-      border: none; cursor: pointer;
-      box-shadow: 0 4px 16px rgba(212,164,55,0.4);
-      transition: transform 0.1s, box-shadow 0.1s;
+      font-size: 15px; font-weight: 800; padding: 13px 28px;
+      border-radius: 50px; border: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(212,164,55,0.4); transition: transform 0.1s;
     }
-    .capture-hero-btn:active { transform: scale(0.97); }
+    .hero-btn:active { transform: scale(0.97); }
 
-    /* ── QUICK STATS ── */
+    /* ── STATS ── */
     .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-    .stat-card {
-      background: var(--surface); border-radius: 12px; padding: 12px 8px;
-      text-align: center; box-shadow: var(--shadow);
-    }
-    .stat-num { font-size: 24px; font-weight: 800; color: var(--teal); }
-    .stat-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+    .stat-card { background: var(--surface); border-radius: 12px; padding: 11px 6px; text-align: center; box-shadow: var(--shadow); }
+    .stat-num { font-size: 22px; font-weight: 800; color: var(--teal); }
+    .stat-label { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
 
     /* ── FORM ── */
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .form-group { margin-bottom: 13px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
     label .req { color: var(--burgundy); }
     select, input[type="text"], input[type="date"], textarea {
-      width: 100%; padding: 12px 14px;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      font-size: 15px; font-family: var(--font);
+      width: 100%; padding: 11px 13px; border: 1.5px solid var(--border);
+      border-radius: 10px; font-size: 15px; font-family: var(--font);
       background: var(--surface); color: var(--text);
-      appearance: none; -webkit-appearance: none;
-      transition: border-color 0.15s;
+      appearance: none; -webkit-appearance: none; transition: border-color 0.15s;
     }
-    select:focus, input:focus, textarea:focus {
-      outline: none; border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(0,91,82,0.1);
-    }
-    textarea { resize: none; min-height: 80px; }
+    select:focus, input:focus, textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,91,82,0.1); }
+    textarea { resize: none; }
 
-    /* ── ADJUSTMENT CHIPS ── */
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chip {
-      padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    /* ── SUBJECT SELECTOR ── */
+    .subject-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+    .subject-tab {
+      padding: 13px 8px; border-radius: 12px; border: 2px solid var(--border);
+      background: var(--surface); cursor: pointer; text-align: center;
+      transition: all 0.15s; font-size: 13px; font-weight: 600; color: var(--text-muted);
+    }
+    .subject-tab .s-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+    .subject-tab.english.active  { border-color: var(--english); background: var(--english-bg); color: var(--english); }
+    .subject-tab.maths.active    { border-color: var(--maths);   background: var(--maths-bg);   color: var(--maths); }
+
+    /* ── STRAND PILLS ── */
+    .strand-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+    .strand-pill {
+      padding: 6px 13px; border-radius: 20px; font-size: 12px; font-weight: 600;
       border: 1.5px solid var(--border); background: var(--surface);
-      cursor: pointer; transition: all 0.15s; color: var(--text);
+      cursor: pointer; color: var(--text-muted); transition: all 0.15s; white-space: nowrap;
     }
-    .chip.selected { background: var(--teal); color: white; border-color: var(--teal); }
+    .strand-pill.active-english { background: var(--english); color: white; border-color: var(--english); }
+    .strand-pill.active-maths   { background: var(--maths);   color: white; border-color: var(--maths); }
 
-    /* ── MEDIA CAPTURE ── */
-    .media-zone {
-      border: 2px dashed var(--border); border-radius: 12px;
-      padding: 20px; text-align: center; cursor: pointer;
-      transition: all 0.15s; background: var(--bg);
-      position: relative;
+    /* ── STANDARD CARDS ── */
+    .standards-list { display: flex; flex-direction: column; gap: 7px; max-height: 300px; overflow-y: auto; margin-top: 8px; }
+    .standard-card {
+      border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 13px;
+      cursor: pointer; transition: all 0.15s; background: var(--surface);
+      display: flex; align-items: flex-start; gap: 10px;
     }
-    .media-zone:hover, .media-zone.drag-over { border-color: var(--teal); background: var(--teal-faint); }
-    .media-zone .mz-icon { font-size: 32px; margin-bottom: 6px; }
-    .media-zone p { font-size: 13px; color: var(--text-muted); }
-    .media-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .standard-card:hover { border-color: var(--teal); background: var(--teal-faint); }
+    .standard-card.selected-english { border-color: var(--english); background: var(--english-bg); }
+    .standard-card.selected-maths   { border-color: var(--maths);   background: var(--maths-bg); }
+    .standard-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+    .selected-english .standard-check { background: var(--english); border-color: var(--english); color: white; }
+    .selected-maths   .standard-check { background: var(--maths);   border-color: var(--maths);   color: white; }
+    .standard-text { font-size: 13px; line-height: 1.5; color: var(--text); }
+    .standard-code { font-size: 10px; color: var(--text-muted); margin-top: 3px; font-family: monospace; }
 
-    .media-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    /* ── SELECTED STANDARDS SUMMARY ── */
+    .selected-summary { margin-top: 10px; }
+    .selected-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+      margin: 3px; cursor: pointer;
+    }
+    .selected-tag.english { background: var(--english-bg); color: var(--english); border: 1px solid #BFDBFE; }
+    .selected-tag.maths   { background: var(--maths-bg);   color: var(--maths);   border: 1px solid #DDD6FE; }
+    .selected-tag .remove { font-size: 13px; opacity: 0.7; }
+
+    /* ── MEDIA ── */
+    .media-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .media-btn {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
       padding: 11px; border-radius: 10px; border: 1.5px solid var(--border);
       background: var(--surface); font-size: 13px; font-weight: 600;
       cursor: pointer; color: var(--text); transition: all 0.15s;
     }
-    .media-btn:active { background: var(--teal-faint); border-color: var(--teal); }
-    .media-btn.camera { border-color: var(--teal); color: var(--teal); background: var(--teal-faint); }
+    .media-btn.primary { border-color: var(--teal); color: var(--teal); background: var(--teal-faint); }
+    .media-btn:active { opacity: 0.7; }
 
     /* ── PREVIEW GRID ── */
-    .preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
-    .preview-item {
-      aspect-ratio: 1; border-radius: 8px; overflow: hidden;
-      background: var(--bg); position: relative;
-    }
-    .preview-item img, .preview-item video {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    .preview-item .remove-btn {
-      position: absolute; top: 4px; right: 4px;
-      background: rgba(0,0,0,0.6); color: white;
-      border: none; border-radius: 50%; width: 22px; height: 22px;
-      font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    }
-    .preview-item .file-icon {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      height: 100%; font-size: 24px; gap: 4px;
-    }
-    .preview-item .file-icon span { font-size: 10px; color: var(--text-muted); }
+    .preview-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; margin-top: 8px; }
+    .preview-item { aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--bg); position: relative; }
+    .preview-item img, .preview-item video { width: 100%; height: 100%; object-fit: cover; }
+    .remove-btn { position: absolute; top: 3px; right: 3px; background: rgba(0,0,0,0.65); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .file-icon-box { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; font-size: 22px; gap: 3px; }
+    .file-icon-box span { font-size: 9px; color: var(--text-muted); }
 
     /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 13px 20px; border-radius: 10px; font-size: 15px; font-weight: 700;
-      border: none; cursor: pointer; transition: all 0.15s; width: 100%;
-    }
-    .btn-primary { background: var(--teal); color: white; }
-    .btn-primary:active { background: var(--teal-light); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 13px 18px; border-radius: 10px; font-size: 15px; font-weight: 700; border: none; cursor: pointer; transition: all 0.15s; width: 100%; }
+    .btn-primary   { background: var(--teal); color: white; }
     .btn-secondary { background: var(--bg); color: var(--teal); border: 1.5px solid var(--teal); }
-    .btn-danger { background: var(--danger); color: white; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-danger    { background: #FEF2F2; color: var(--danger); border: 1.5px solid var(--danger); }
+    .btn:active { opacity: 0.8; }
 
-    /* ── EVIDENCE LIST ── */
-    .search-bar {
-      display: flex; gap: 8px; margin-bottom: 12px;
-    }
-    .search-bar input {
-      flex: 1; padding: 11px 14px; border-radius: 10px;
-      border: 1.5px solid var(--border); font-size: 14px;
-    }
-    .filter-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; }
-    .filter-chip {
-      padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
-      border: 1.5px solid var(--border); background: var(--surface);
-      white-space: nowrap; cursor: pointer; color: var(--text-muted); transition: all 0.15s;
-    }
+    /* ── SEARCH / FILTER ── */
+    .search-bar { margin-bottom: 10px; }
+    .search-bar input { width: 100%; padding: 11px 13px; border-radius: 10px; border: 1.5px solid var(--border); font-size: 14px; }
+    .filter-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 10px; scrollbar-width: none; }
+    .filter-row::-webkit-scrollbar { display: none; }
+    .filter-chip { padding: 6px 13px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1.5px solid var(--border); background: var(--surface); white-space: nowrap; cursor: pointer; color: var(--text-muted); transition: all 0.15s; }
     .filter-chip.active { background: var(--teal); color: white; border-color: var(--teal); }
+    .filter-chip.f-english.active { background: var(--english); border-color: var(--english); }
+    .filter-chip.f-maths.active   { background: var(--maths);   border-color: var(--maths); }
 
-    .evidence-item {
-      background: var(--surface); border-radius: 12px; padding: 14px;
-      margin-bottom: 8px; box-shadow: var(--shadow);
-      border-left: 4px solid var(--teal);
-    }
-    .evidence-item.pending { border-left-color: var(--gold); }
-    .evidence-item-header {
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
-    }
-    .evidence-item-name { font-weight: 700; font-size: 15px; }
-    .evidence-item-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-    .evidence-item-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
-    .tag {
-      font-size: 10px; padding: 2px 8px; border-radius: 10px;
-      background: var(--teal-faint); color: var(--teal); font-weight: 600;
-    }
-    .tag.gold { background: var(--gold-light); color: #7A5800; }
-    .tag.pending { background: #FEF3C7; color: #92400E; }
-    .evidence-thumb { display: flex; gap: 4px; margin-top: 8px; }
-    .evidence-thumb img {
-      width: 48px; height: 48px; border-radius: 6px; object-fit: cover;
-    }
-    .evidence-actions { display: flex; gap: 6px; margin-top: 10px; }
-    .action-btn {
-      flex: 1; padding: 8px; border-radius: 8px; border: 1.5px solid var(--border);
-      background: none; font-size: 12px; font-weight: 600; cursor: pointer;
-      color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px;
-    }
-    .action-btn.primary { color: var(--teal); border-color: var(--teal); }
-    .action-btn.danger  { color: var(--danger); border-color: var(--danger); }
+    /* ── EVIDENCE ITEMS ── */
+    .ev-item { background: var(--surface); border-radius: 12px; padding: 13px; margin-bottom: 8px; box-shadow: var(--shadow); border-left: 4px solid var(--teal); }
+    .ev-item.english { border-left-color: var(--english); }
+    .ev-item.maths   { border-left-color: var(--maths); }
+    .ev-name { font-weight: 700; font-size: 15px; }
+    .ev-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .ev-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
+    .ev-tag  { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+    .ev-tag.english { background: var(--english-bg); color: var(--english); }
+    .ev-tag.maths   { background: var(--maths-bg);   color: var(--maths); }
+    .ev-tag.strand  { background: var(--teal-faint); color: var(--teal); }
+    .ev-tag.year    { background: var(--gold-light);  color: #7A5800; }
+    .ev-standard-preview { font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.4; font-style: italic; }
+    .ev-thumb { display: flex; gap: 4px; margin-top: 7px; }
+    .ev-thumb img { width: 46px; height: 46px; border-radius: 6px; object-fit: cover; }
+    .ev-actions { display: flex; gap: 5px; margin-top: 9px; }
+    .action-btn { flex: 1; padding: 7px; border-radius: 8px; border: 1.5px solid var(--border); background: none; font-size: 11px; font-weight: 600; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 3px; }
+    .action-btn.p { color: var(--teal); border-color: var(--teal); }
+    .action-btn.d { color: var(--danger); border-color: #FECACA; }
 
     /* ── STUDENTS ── */
-    .student-item {
-      background: var(--surface); border-radius: 12px; padding: 14px;
-      margin-bottom: 8px; box-shadow: var(--shadow);
-      display: flex; align-items: center; gap: 12px; cursor: pointer;
-    }
-    .student-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal), var(--teal-light));
-      color: white; font-size: 16px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
+    .student-item { background: var(--surface); border-radius: 12px; padding: 13px; margin-bottom: 7px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 11px; cursor: pointer; }
+    .avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg,var(--teal),var(--teal-light)); color: white; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .student-info { flex: 1; }
-    .student-name { font-weight: 700; font-size: 15px; }
-    .student-meta { font-size: 12px; color: var(--text-muted); }
-    .student-count {
-      font-size: 12px; font-weight: 700; color: var(--teal);
-      background: var(--teal-faint); padding: 4px 10px; border-radius: 20px;
-    }
+    .student-name { font-weight: 700; font-size: 14px; }
+    .student-meta { font-size: 11px; color: var(--text-muted); }
+    .rec-count { font-size: 11px; font-weight: 700; color: var(--teal); background: var(--teal-faint); padding: 3px 9px; border-radius: 20px; }
 
     /* ── SETTINGS ── */
-    .settings-section { margin-bottom: 20px; }
-    .settings-section h3 { font-size: 13px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-    .settings-row {
-      background: var(--surface); border-radius: 12px; padding: 14px 16px;
-      margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;
-      box-shadow: var(--shadow);
-    }
-    .settings-row label { font-size: 14px; font-weight: 600; margin-bottom: 0; }
-    .settings-row .hint { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
-    .settings-input { width: 100%; margin-top: 8px; }
+    .settings-section { margin-bottom: 18px; }
+    .settings-section h3 { font-size: 12px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 9px; }
+
+    /* ── MODAL ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; display: none; align-items: flex-end; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border-radius: 20px 20px 0 0; width: 100%; max-height: 94vh; overflow-y: auto; padding: 18px 18px calc(18px + var(--safe-bottom)); animation: slideUp 0.28s ease; }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-handle { width: 34px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 14px; }
+    .modal-title { font-size: 17px; font-weight: 800; margin-bottom: 14px; }
+
+    /* ── STEP INDICATOR ── */
+    .steps { display: flex; align-items: center; gap: 6px; margin-bottom: 16px; }
+    .step { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--text-muted); flex-shrink: 0; }
+    .step.active { background: var(--teal); border-color: var(--teal); color: white; }
+    .step.done   { background: var(--success); border-color: var(--success); color: white; }
+    .step-line { flex: 1; height: 2px; background: var(--border); }
+    .step-line.done { background: var(--success); }
 
     /* ── TOAST ── */
-    .toast {
-      position: fixed; bottom: calc(80px + var(--safe-bottom) + 10px); left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #1E1E1E; color: white; padding: 12px 20px;
-      border-radius: 50px; font-size: 13px; font-weight: 600;
-      opacity: 0; transition: all 0.3s; z-index: 200; white-space: nowrap;
-      display: flex; align-items: center; gap: 6px;
-    }
+    .toast { position: fixed; bottom: calc(78px + var(--safe-bottom) + 8px); left: 50%; transform: translateX(-50%) translateY(16px); background: #1E1E1E; color: white; padding: 11px 18px; border-radius: 50px; font-size: 13px; font-weight: 600; opacity: 0; transition: all 0.25s; z-index: 400; white-space: nowrap; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     .toast.success { background: var(--success); }
     .toast.error   { background: var(--danger); }
 
-    /* ── MODAL ── */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-      z-index: 300; display: none; align-items: flex-end;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--surface); border-radius: 20px 20px 0 0;
-      width: 100%; max-height: 92vh; overflow-y: auto;
-      padding: 20px 20px calc(20px + var(--safe-bottom));
-      animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-    .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px; }
-    .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+    /* ── INSTALL ── */
+    .install-bar { background: var(--gold-light); border: 1.5px solid var(--gold); border-radius: 12px; padding: 12px 14px; margin-bottom: 12px; display: none; }
+    .install-bar.show { display: flex; align-items: center; gap: 10px; }
+    .install-bar p { font-size: 12px; color: #7A5800; flex: 1; }
+    .install-bar button { background: var(--gold); color: #5C3D00; border: none; border-radius: 8px; padding: 7px 13px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 
-    /* ── SHAREPOINT SETUP BANNER ── */
-    .sp-banner {
-      background: linear-gradient(135deg, var(--burgundy), #A0284F);
-      color: white; border-radius: 14px; padding: 16px;
-      margin-bottom: 16px; display: flex; gap: 12px; align-items: flex-start;
-    }
-    .sp-banner .sp-icon { font-size: 28px; flex-shrink: 0; }
-    .sp-banner h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .sp-banner p  { font-size: 12px; opacity: 0.9; margin-bottom: 10px; line-height: 1.5; }
-    .sp-banner-btn {
-      background: white; color: var(--burgundy);
-      font-size: 13px; font-weight: 700; padding: 8px 16px;
-      border-radius: 8px; border: none; cursor: pointer;
-    }
+    .empty-state { text-align: center; padding: 44px 16px; color: var(--text-muted); }
+    .empty-state .ei { font-size: 44px; margin-bottom: 10px; }
+    .empty-state p { font-size: 13px; line-height: 1.6; }
 
-    /* ── LOADING ── */
-    .spinner {
-      width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite;
-      display: inline-block;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .empty-state {
-      text-align: center; padding: 48px 20px; color: var(--text-muted);
-    }
-    .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
-    .empty-state p { font-size: 14px; }
-
-    /* ── INSTALL PROMPT ── */
-    .install-prompt {
-      background: var(--gold-light); border: 1.5px solid var(--gold);
-      border-radius: 14px; padding: 14px; margin-bottom: 16px;
-      display: none;
-    }
-    .install-prompt.show { display: block; }
-    .install-prompt h3 { font-size: 13px; font-weight: 700; color: #7A5800; margin-bottom: 4px; }
-    .install-prompt p  { font-size: 12px; color: #92400E; margin-bottom: 10px; }
-    .install-row { display: flex; gap: 8px; }
-    .install-btn { flex: 1; padding: 9px; border-radius: 8px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .install-btn.primary { background: var(--gold); color: #5C3D00; }
-    .install-btn.dismiss { background: none; color: var(--text-muted); border: 1px solid var(--border); }
-
-    /* Responsive adjustments */
-    @media (min-width: 500px) {
-      .preview-grid { grid-template-columns: repeat(4, 1fr); }
-    }
+    .divider { height: 1px; background: var(--border); margin: 12px 0; }
+    .info-box { background: var(--teal-faint); border-radius: 10px; padding: 11px 13px; font-size: 12px; color: var(--teal); line-height: 1.6; margin-bottom: 12px; }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════ HEADER ═══════════════ -->
+<!-- HEADER -->
 <header class="app-header">
   <div class="logo">F</div>
   <div>
-    <h1>Flexi Evidence</h1>
-    <div class="subtitle">Learning Adjustment Capture</div>
-  </div>
-  <div class="header-right">
-    <div class="sync-badge" id="syncBadge" onclick="syncNow()">
-      <span id="syncIcon">☁️</span>
-      <span id="syncText">Sync</span>
-    </div>
+    <h1>Flexi Learning Evidence</h1>
+    <div class="sub">Australian Curriculum V9 · Years 7–10</div>
   </div>
 </header>
 
-<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<!-- MAIN -->
 <main class="main">
 
-  <!-- ── HOME VIEW ── -->
+  <!-- ══ HOME ══ -->
   <div class="view active" id="view-home">
 
-    <div class="install-prompt" id="installPrompt">
-      <h3>📲 Add to Home Screen</h3>
-      <p>Install Flexi Evidence as an app for the best experience — works offline too!</p>
-      <div class="install-row">
-        <button class="install-btn primary" onclick="installApp()">Install App</button>
-        <button class="install-btn dismiss" onclick="dismissInstall()">Maybe Later</button>
-      </div>
-    </div>
-
-    <div class="sp-banner" id="spBanner" style="display:none">
-      <div class="sp-icon">🔗</div>
-      <div>
-        <h3>Connect to SharePoint</h3>
-        <p>Link to your SharePoint site so evidence syncs across all staff and devices. Tap Settings to set up.</p>
-        <button class="sp-banner-btn" onclick="showView('settings')">Go to Settings →</button>
-      </div>
+    <div class="install-bar" id="installBar">
+      <p>📲 Add to Home Screen for the best experience</p>
+      <button onclick="installApp()">Install</button>
     </div>
 
     <div class="capture-hero">
-      <div class="hero-icon">📸</div>
-      <h2>Capture Evidence</h2>
-      <p>Record learning adjustments in under 30 seconds</p>
-      <button class="capture-hero-btn" onclick="openCaptureModal()">
-        ＋ New Evidence
-      </button>
+      <div class="hero-icon">📚</div>
+      <h2>Capture Learning Evidence</h2>
+      <p>Link student work to ACARA V9 Achievement Standards</p>
+      <button class="hero-btn" onclick="openCapture()">＋ New Evidence</button>
     </div>
 
     <div class="stats-row">
       <div class="stat-card">
         <div class="stat-num" id="statTotal">0</div>
-        <div class="stat-label">Total Records</div>
+        <div class="stat-label">Records</div>
       </div>
       <div class="stat-card">
         <div class="stat-num" id="statToday">0</div>
         <div class="stat-label">Today</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num" id="statPending">0</div>
-        <div class="stat-label">Pending Sync</div>
+        <div class="stat-num" id="statStudents">0</div>
+        <div class="stat-label">Students</div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-title">Recent Evidence</div>
-      <div id="recentList">
-        <div class="empty-state">
-          <div class="empty-icon">📋</div>
-          <p>No evidence captured yet.<br>Tap the button above to start!</p>
-        </div>
-      </div>
+      <div id="recentList"></div>
     </div>
   </div>
 
-  <!-- ── EVIDENCE LIST VIEW ── -->
+  <!-- ══ EVIDENCE ══ -->
   <div class="view" id="view-evidence">
     <div class="search-bar">
-      <input type="text" id="evidenceSearch" placeholder="Search student, adjustment…" oninput="renderEvidence()" />
+      <input type="text" id="evSearch" placeholder="Search student, standard, subject…" oninput="renderEvidence()" />
     </div>
-    <div class="filter-row" id="filterRow">
-      <div class="filter-chip active" data-filter="all" onclick="setFilter(this,'all')">All</div>
-      <div class="filter-chip" data-filter="Access" onclick="setFilter(this,'Access')">Access</div>
-      <div class="filter-chip" data-filter="Participation" onclick="setFilter(this,'Participation')">Participation</div>
-      <div class="filter-chip" data-filter="Curriculum" onclick="setFilter(this,'Curriculum')">Curriculum</div>
-      <div class="filter-chip" data-filter="Wellbeing" onclick="setFilter(this,'Wellbeing')">Wellbeing</div>
-      <div class="filter-chip" data-filter="Communication" onclick="setFilter(this,'Communication')">Communication</div>
+    <div class="filter-row">
+      <div class="filter-chip active" onclick="setFilter(this,'all')">All</div>
+      <div class="filter-chip f-english" onclick="setFilter(this,'English')">📖 English</div>
+      <div class="filter-chip f-maths"   onclick="setFilter(this,'Mathematics')">🔢 Maths</div>
+      <div class="filter-chip" onclick="setFilter(this,'Year 7')">Yr 7</div>
+      <div class="filter-chip" onclick="setFilter(this,'Year 8')">Yr 8</div>
+      <div class="filter-chip" onclick="setFilter(this,'Year 9')">Yr 9</div>
+      <div class="filter-chip" onclick="setFilter(this,'Year 10')">Yr 10</div>
     </div>
     <div id="evidenceList"></div>
   </div>
 
-  <!-- ── STUDENTS VIEW ── -->
+  <!-- ══ STUDENTS ══ -->
   <div class="view" id="view-students">
     <div class="search-bar">
-      <input type="text" id="studentSearch" placeholder="Search students…" oninput="renderStudents()" />
+      <input type="text" id="stuSearch" placeholder="Search students…" oninput="renderStudents()" />
     </div>
-    <div style="margin-bottom:12px">
-      <button class="btn btn-secondary" onclick="openAddStudentModal()">＋ Add Student</button>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="btn btn-secondary" onclick="openAddStudent()" style="flex:1">＋ Add Student</button>
+      <button class="btn btn-secondary" onclick="importCSV()" style="flex:1">📤 Import CSV</button>
     </div>
     <div id="studentList"></div>
   </div>
 
-  <!-- ── SETTINGS VIEW ── -->
+  <!-- ══ SETTINGS ══ -->
   <div class="view" id="view-settings">
-
-    <div class="settings-section">
-      <h3>☁️ SharePoint Connection</h3>
-      <div class="card">
-        <div class="form-group">
-          <label>SharePoint Site URL</label>
-          <input type="text" id="spSiteUrl" class="settings-input" placeholder="https://yourtenant.sharepoint.com/sites/FlexiEvidence" />
-        </div>
-        <div class="form-group">
-          <label>Evidence List Name</label>
-          <input type="text" id="spListName" class="settings-input" placeholder="EvidenceRecords" />
-        </div>
-        <div class="form-group">
-          <label>Students List Name</label>
-          <input type="text" id="spStudentsListName" class="settings-input" placeholder="Students" />
-        </div>
-        <div style="display:flex;gap:8px;margin-top:4px">
-          <button class="btn btn-primary" onclick="saveSpSettings()" style="flex:1">💾 Save & Connect</button>
-          <button class="btn btn-secondary" onclick="testConnection()" style="flex:1">🔍 Test</button>
-        </div>
-        <div id="spStatus" style="margin-top:10px;font-size:13px;text-align:center"></div>
-      </div>
-    </div>
-
     <div class="settings-section">
       <h3>👤 My Details</h3>
       <div class="card">
         <div class="form-group">
           <label>Your Name</label>
-          <input type="text" id="settingStaffName" class="settings-input" placeholder="e.g. Dan Ryan" />
+          <input type="text" id="sName" placeholder="e.g. Dan Ryan" />
         </div>
         <div class="form-group">
-          <label>Campus / Site</label>
-          <select id="settingCampus" class="settings-input">
-            <option value="">Select campus…</option>
-            <option>FAME</option>
-            <option>Elizabeth</option>
-            <option>Davoren Park</option>
-            <option>Geraldton</option>
-            <option>Other</option>
+          <label>Campus</label>
+          <select id="sCampus">
+            <option value="">Select…</option>
+            <option>FAME</option><option>Elizabeth</option>
+            <option>Davoren Park</option><option>Geraldton</option><option>Other</option>
           </select>
         </div>
-        <button class="btn btn-primary" onclick="saveStaffSettings()">💾 Save Details</button>
+        <button class="btn btn-primary" onclick="saveSettings()">💾 Save</button>
       </div>
     </div>
-
     <div class="settings-section">
-      <h3>📦 Data Management</h3>
+      <h3>📦 Data</h3>
       <div class="card">
         <div style="display:flex;flex-direction:column;gap:8px">
-          <button class="btn btn-secondary" onclick="exportCSV()">📥 Export Evidence CSV</button>
-          <button class="btn btn-secondary" onclick="importStudentsCSV()">📤 Import Students CSV</button>
-          <button class="btn btn-secondary" onclick="syncNow()">🔄 Force Sync Now</button>
-          <button class="btn" style="background:#FEF2F2;color:var(--danger);border:1.5px solid var(--danger)" onclick="clearLocalData()">🗑️ Clear Local Data</button>
+          <button class="btn btn-secondary" onclick="exportCSV()">📥 Export CSV</button>
+          <button class="btn btn-secondary" onclick="backupJSON()">💾 Backup (JSON)</button>
+          <button class="btn btn-secondary" onclick="restoreJSON()">📂 Restore Backup</button>
+          <button class="btn btn-danger" onclick="clearAll()">🗑️ Clear All Data</button>
         </div>
       </div>
     </div>
-
     <div class="settings-section">
       <h3>ℹ️ About</h3>
-      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.6">
-        <p><strong style="color:var(--text)">Flexi Evidence Capture v4.0</strong><br>
-        PWA + SharePoint Edition<br>
-        Edmund Rice Flexible Schools Network<br>
-        SA/WA Region · Learning & Pedagogy</p>
-        <p style="margin-top:8px">Built for offline-first use with SharePoint cloud sync. Data is stored locally until synced.</p>
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.7">
+        <strong style="color:var(--text)">Flexi Learning Evidence v1.0</strong><br>
+        ACARA V9 · English & Mathematics · Years 7–10<br>
+        Edmund Rice Flexible Schools · SA/WA Region<br>
+        <span style="font-size:11px">Data stored locally on this device.</span>
       </div>
     </div>
   </div>
 </main>
 
-<!-- ═══════════════ BOTTOM NAV ═══════════════ -->
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <button class="nav-btn active" id="nav-home" onclick="showView('home')">
-    <span class="icon">🏠</span>Home
-  </button>
-  <button class="nav-btn" id="nav-evidence" onclick="showView('evidence')">
-    <span class="icon">📋</span>Evidence
-  </button>
-  <button class="nav-btn" id="nav-students" onclick="showView('students')">
-    <span class="icon">👥</span>Students
-  </button>
-  <button class="nav-btn" id="nav-settings" onclick="showView('settings')">
-    <span class="icon">⚙️</span>Settings
-  </button>
+  <button class="nav-btn active" id="nav-home"     onclick="showView('home')">    <span class="icon">🏠</span>Home</button>
+  <button class="nav-btn"        id="nav-evidence" onclick="showView('evidence')"><span class="icon">📋</span>Evidence</button>
+  <button class="nav-btn"        id="nav-students" onclick="showView('students')"><span class="icon">👥</span>Students</button>
+  <button class="nav-btn"        id="nav-settings" onclick="showView('settings')"><span class="icon">⚙️</span>Settings</button>
 </nav>
 
-<!-- ═══════════════ CAPTURE MODAL ═══════════════ -->
+<!-- ══════════ CAPTURE MODAL (3-step) ══════════ -->
 <div class="modal-overlay" id="captureModal">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div class="modal-title">📸 New Evidence</div>
 
-    <div class="form-group">
-      <label>Student <span class="req">*</span></label>
-      <select id="capStudent">
-        <option value="">Select student…</option>
-      </select>
+    <!-- Step indicator -->
+    <div class="steps">
+      <div class="step active" id="stp1">1</div>
+      <div class="step-line" id="sl1"></div>
+      <div class="step" id="stp2">2</div>
+      <div class="step-line" id="sl2"></div>
+      <div class="step" id="stp3">3</div>
     </div>
 
-    <div class="form-group">
-      <label>Adjustment Type <span class="req">*</span></label>
-      <div class="chips" id="adjChips">
-        <div class="chip" onclick="toggleChip(this,'Access')">Access</div>
-        <div class="chip" onclick="toggleChip(this,'Participation')">Participation</div>
-        <div class="chip" onclick="toggleChip(this,'Curriculum')">Curriculum</div>
-        <div class="chip" onclick="toggleChip(this,'Wellbeing')">Wellbeing</div>
-        <div class="chip" onclick="toggleChip(this,'Communication')">Communication</div>
-        <div class="chip" onclick="toggleChip(this,'Sensory')">Sensory</div>
+    <!-- STEP 1: Student + Subject + Year -->
+    <div id="step1">
+      <div class="modal-title">📚 Who & What Subject?</div>
+
+      <div class="form-group">
+        <label>Student <span class="req">*</span></label>
+        <select id="capStudent"><option value="">Select student…</option></select>
+      </div>
+
+      <div class="form-group">
+        <label>Year Level <span class="req">*</span></label>
+        <select id="capYear">
+          <option value="">Select year…</option>
+          <option>Year 7</option><option>Year 8</option>
+          <option>Year 9</option><option>Year 10</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Subject <span class="req">*</span></label>
+        <div class="subject-tabs">
+          <div class="subject-tab english" onclick="selectSubject('English',this)">
+            <span class="s-icon">📖</span>English
+          </div>
+          <div class="subject-tab maths" onclick="selectSubject('Mathematics',this)">
+            <span class="s-icon">🔢</span>Mathematics
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary" onclick="closeModal('captureModal')" style="flex:1">Cancel</button>
+        <button class="btn btn-primary" onclick="goStep2()" style="flex:2">Next →</button>
       </div>
     </div>
 
-    <div class="form-group">
-      <label>Observation / What happened <span class="req">*</span></label>
-      <textarea id="capObservation" placeholder="Describe what you observed or the adjustment made…" rows="3"></textarea>
-    </div>
+    <!-- STEP 2: Achievement Standard -->
+    <div id="step2" style="display:none">
+      <div class="modal-title">🎯 Select Achievement Standard</div>
+      <div class="info-box" id="stdInfoBox"></div>
 
-    <div class="form-group">
-      <label>Impact</label>
-      <textarea id="capImpact" placeholder="What was the effect on the student's learning?" rows="2"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label>📎 Attach Evidence</label>
-      <div class="media-btns">
-        <button class="media-btn camera" onclick="triggerCamera()">📷 Take Photo</button>
-        <button class="media-btn" onclick="triggerVideo()">🎥 Record Video</button>
-        <button class="media-btn" onclick="triggerFile()">📁 Choose File</button>
-        <button class="media-btn" onclick="triggerGallery()">🖼️ Gallery</button>
+      <div class="form-group">
+        <label>Strand</label>
+        <div class="strand-row" id="strandRow"></div>
       </div>
-      <input type="file" id="fileInputCamera" accept="image/*" capture="environment" style="display:none" onchange="handleFiles(this)" />
-      <input type="file" id="fileInputVideo"  accept="video/*" capture="environment" style="display:none" onchange="handleFiles(this)" />
-      <input type="file" id="fileInputFile"   accept="image/*,video/*,application/pdf" multiple style="display:none" onchange="handleFiles(this)" />
-      <input type="file" id="fileInputGallery" accept="image/*,video/*" multiple style="display:none" onchange="handleFiles(this)" />
-      <div class="preview-grid" id="previewGrid"></div>
+
+      <div class="standards-list" id="standardsList"></div>
+
+      <div class="selected-summary" id="selectedSummary"></div>
+
+      <div class="divider"></div>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button class="btn btn-secondary" onclick="goStep(1)" style="flex:1">← Back</button>
+        <button class="btn btn-primary" onclick="goStep3()" style="flex:2">Next →</button>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label>Review Date</label>
-      <input type="date" id="capReviewDate" />
-    </div>
+    <!-- STEP 3: Evidence & Notes -->
+    <div id="step3" style="display:none">
+      <div class="modal-title">📝 Evidence & Notes</div>
 
-    <div style="display:flex;gap:8px;margin-top:4px">
-      <button class="btn btn-secondary" onclick="closeModal('captureModal')" style="flex:1">Cancel</button>
-      <button class="btn btn-primary" onclick="saveEvidence()" style="flex:2" id="saveBtn">💾 Save Evidence</button>
+      <div class="form-group">
+        <label>Teacher Observation <span class="req">*</span></label>
+        <textarea id="capObs" placeholder="Describe what the student did, said, wrote or created that demonstrates this standard…" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Student's Level of Achievement</label>
+        <select id="capLevel">
+          <option value="">Select…</option>
+          <option>Working towards the standard</option>
+          <option>Demonstrating the standard</option>
+          <option>Exceeding the standard</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>📎 Attach Evidence</label>
+        <div class="media-btns">
+          <button class="media-btn primary" onclick="trig('cam')">📷 Take Photo</button>
+          <button class="media-btn"         onclick="trig('vid')">🎥 Video</button>
+          <button class="media-btn"         onclick="trig('gal')">🖼️ Gallery</button>
+          <button class="media-btn"         onclick="trig('fil')">📁 File</button>
+        </div>
+        <input type="file" id="inCam" accept="image/*"              capture="environment" style="display:none" onchange="handleFiles(this)" />
+        <input type="file" id="inVid" accept="video/*"              capture="environment" style="display:none" onchange="handleFiles(this)" />
+        <input type="file" id="inGal" accept="image/*,video/*"      multiple            style="display:none" onchange="handleFiles(this)" />
+        <input type="file" id="inFil" accept="image/*,video/*,.pdf" multiple            style="display:none" onchange="handleFiles(this)" />
+        <div class="preview-grid" id="previewGrid"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Next Steps / Follow Up</label>
+        <textarea id="capNext" placeholder="What will you do next to support this student's progress?" rows="2"></textarea>
+      </div>
+
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary" onclick="goStep(2)" style="flex:1">← Back</button>
+        <button class="btn btn-primary"   onclick="saveEvidence()" style="flex:2">💾 Save Evidence</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ ADD STUDENT MODAL ═══════════════ -->
-<div class="modal-overlay" id="addStudentModal">
+<!-- ADD STUDENT MODAL -->
+<div class="modal-overlay" id="studentModal">
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title">👤 Add Student</div>
-    <div class="form-group">
-      <label>First Name <span class="req">*</span></label>
-      <input type="text" id="newStudentFirst" placeholder="First name" />
-    </div>
-    <div class="form-group">
-      <label>Last Name <span class="req">*</span></label>
-      <input type="text" id="newStudentLast" placeholder="Last name" />
-    </div>
+    <div class="form-group"><label>First Name <span class="req">*</span></label><input type="text" id="nFirst" placeholder="First name" /></div>
+    <div class="form-group"><label>Last Name <span class="req">*</span></label><input type="text" id="nLast" placeholder="Last name" /></div>
     <div class="form-group">
       <label>Year Level</label>
-      <select id="newStudentYear">
+      <select id="nYear">
         <option value="">Select…</option>
-        <option>Year 10</option><option>Year 11</option><option>Year 12</option>
+        <option>Year 7</option><option>Year 8</option>
+        <option>Year 9</option><option>Year 10</option>
       </select>
     </div>
     <div class="form-group">
       <label>Campus</label>
-      <select id="newStudentCampus">
+      <select id="nCampus">
         <option value="">Select…</option>
         <option>FAME</option><option>Elizabeth</option>
         <option>Davoren Park</option><option>Geraldton</option><option>Other</option>
       </select>
     </div>
-    <div style="display:flex;gap:8px;margin-top:4px">
-      <button class="btn btn-secondary" onclick="closeModal('addStudentModal')" style="flex:1">Cancel</button>
-      <button class="btn btn-primary" onclick="saveStudent()" style="flex:2">＋ Add Student</button>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary" onclick="closeModal('studentModal')" style="flex:1">Cancel</button>
+      <button class="btn btn-primary"   onclick="saveStudent()" style="flex:2">＋ Add</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ EVIDENCE DETAIL MODAL ═══════════════ -->
+<!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -692,853 +547,708 @@
   </div>
 </div>
 
-<!-- ═══════════════ TOAST ═══════════════ -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ═══════════════ HIDDEN FILE INPUT (import CSV) ═══════════════ -->
-<input type="file" id="csvImportInput" accept=".csv" style="display:none" onchange="handleCSVImport(this)" />
+<!-- HIDDEN INPUTS -->
+<input type="file" id="csvIn"  accept=".csv"  style="display:none" onchange="handleCSV(this)" />
+<input type="file" id="jsonIn" accept=".json" style="display:none" onchange="handleJSON(this)" />
 
-<!-- ═══════════════ APP SCRIPT ═══════════════ -->
 <script>
-// ─────────────────────────────────────────────
-//  STATE
-// ─────────────────────────────────────────────
-let state = {
-  evidence: [],
-  students: [],
-  settings: {
-    spSiteUrl: '',
-    spListName: 'EvidenceRecords',
-    spStudentsListName: 'Students',
-    staffName: '',
-    campus: ''
+// ═══════════════════════════════════════════════
+//  ACARA V9 ACHIEVEMENT STANDARDS DATABASE
+//  English & Mathematics · Years 7–10
+// ═══════════════════════════════════════════════
+const STANDARDS = {
+  English: {
+    'Year 7': {
+      strands: ['Speaking, Listening & Creating', 'Reading & Viewing', 'Writing & Creating'],
+      standards: [
+        { code:'AC9E7S1', strand:'Speaking, Listening & Creating', text:'Interact with others and listen to and create spoken and/or multimodal texts including literary texts, discussing, expressing and expanding ideas with evidence for different purposes and audiences.' },
+        { code:'AC9E7S2', strand:'Speaking, Listening & Creating', text:'Adopt text structures to organise, develop and link ideas in spoken and multimodal texts.' },
+        { code:'AC9E7S3', strand:'Speaking, Listening & Creating', text:'Adopt language features including literary devices, multimodal features and features of voice in spoken and multimodal texts.' },
+        { code:'AC9E7R1', strand:'Reading & Viewing', text:'Read, view and comprehend texts created to inform, influence and/or engage audiences, identifying how ideas are portrayed and how texts are influenced by contexts.' },
+        { code:'AC9E7R2', strand:'Reading & Viewing', text:'Identify the aesthetic qualities of texts and how text structures, language features including literary devices and visual features shape meaning.' },
+        { code:'AC9E7R3', strand:'Reading & Viewing', text:'Identify how techniques such as vectors, angle and/or social distance in visual texts can be used to create a perspective.' },
+        { code:'AC9E7W1', strand:'Writing & Creating', text:'Create written and/or multimodal texts, including literary texts, for different purposes and audiences, expressing and expanding on ideas with evidence.' },
+        { code:'AC9E7W2', strand:'Writing & Creating', text:'Adopt text structures to organise, develop and link ideas in written and multimodal texts.' },
+        { code:'AC9E7W3', strand:'Writing & Creating', text:'Adopt language features including literary devices and/or multimodal features in written and multimodal texts.' },
+      ]
+    },
+    'Year 8': {
+      strands: ['Speaking, Listening & Creating', 'Reading & Viewing', 'Writing & Creating'],
+      standards: [
+        { code:'AC9E8S1', strand:'Speaking, Listening & Creating', text:'Interact with others and listen to and create spoken and/or multimodal texts including literary texts, discussing, expressing and elaborating on ideas with supporting evidence for different purposes and audiences.' },
+        { code:'AC9E8S2', strand:'Speaking, Listening & Creating', text:'Select and vary text structures to organise, develop and link ideas in spoken and multimodal texts.' },
+        { code:'AC9E8S3', strand:'Speaking, Listening & Creating', text:'Select and vary language features including literary devices, multimodal features and features of voice in spoken texts.' },
+        { code:'AC9E8R1', strand:'Reading & Viewing', text:'Read, view and comprehend a range of texts created to inform, influence and/or engage audiences, explaining how ideas are represented and how texts reflect or challenge contexts.' },
+        { code:'AC9E8R2', strand:'Reading & Viewing', text:'Explain the aesthetic qualities of texts and how text structures shape meaning, and analyse the effect of language features including literary devices and visual features.' },
+        { code:'AC9E8R3', strand:'Reading & Viewing', text:'Explain how language features, including rhetorical devices and conventions of genres, are used to represent ideas and perspectives.' },
+        { code:'AC9E8W1', strand:'Writing & Creating', text:'Create written and/or multimodal texts, including literary texts, for different purposes and audiences, expressing and elaborating on ideas with supporting evidence.' },
+        { code:'AC9E8W2', strand:'Writing & Creating', text:'Select and vary text structures to organise, develop and link ideas in written and multimodal texts.' },
+        { code:'AC9E8W3', strand:'Writing & Creating', text:'Select and vary language features including literary devices and/or multimodal features in written and multimodal texts.' },
+      ]
+    },
+    'Year 9': {
+      strands: ['Speaking, Listening & Creating', 'Reading & Viewing', 'Writing & Creating'],
+      standards: [
+        { code:'AC9E9S1', strand:'Speaking, Listening & Creating', text:'Interact with others and listen to and create spoken and multimodal texts including literary texts, discussing and expanding on ideas, shaping meaning and providing substantiation for a range of purposes and audiences.' },
+        { code:'AC9E9S2', strand:'Speaking, Listening & Creating', text:'Select and experiment with text structures to organise and develop ideas in spoken and multimodal texts.' },
+        { code:'AC9E9S3', strand:'Speaking, Listening & Creating', text:'Select and experiment with language features including literary devices, multimodal features and features of voice in spoken texts.' },
+        { code:'AC9E9R1', strand:'Reading & Viewing', text:'Read, view and comprehend texts created to inform, influence and/or engage audiences, analysing how ideas are represented and how texts are positioned within or challenge contexts.' },
+        { code:'AC9E9R2', strand:'Reading & Viewing', text:'Analyse the aesthetic qualities of texts and how text structures, language features including literary devices and visual features create meaning and effect.' },
+        { code:'AC9E9R3', strand:'Reading & Viewing', text:'Analyse how language features, including rhetorical devices and conventions, are used across texts to represent ideas, perspectives and/or stances.' },
+        { code:'AC9E9W1', strand:'Writing & Creating', text:'Create written and multimodal texts, including literary texts, for a range of purposes and audiences, discussing and expanding on ideas, shaping meaning and providing substantiation.' },
+        { code:'AC9E9W2', strand:'Writing & Creating', text:'Select and experiment with text structures to organise and develop ideas in written and multimodal texts.' },
+        { code:'AC9E9W3', strand:'Writing & Creating', text:'Select and experiment with language features including literary devices and/or multimodal features in written texts.' },
+      ]
+    },
+    'Year 10': {
+      strands: ['Speaking, Listening & Creating', 'Reading & Viewing', 'Writing & Creating'],
+      standards: [
+        { code:'AC9E10S1', strand:'Speaking, Listening & Creating', text:'Interact with others and listen to and create spoken and multimodal texts including literary texts, discussing ideas and responses to representations, making connections and providing substantiation for a range of purposes and audiences.' },
+        { code:'AC9E10S2', strand:'Speaking, Listening & Creating', text:'Select and experiment with text structures to organise and develop ideas in spoken and multimodal texts.' },
+        { code:'AC9E10S3', strand:'Speaking, Listening & Creating', text:'Select, vary and experiment with language features including rhetorical and literary devices, and multimodal features and features of voice in spoken texts.' },
+        { code:'AC9E10R1', strand:'Reading & Viewing', text:'Read, view and comprehend texts created to inform, influence and/or engage audiences, evaluating how ideas are represented and how texts are positioned within, reflect or challenge contexts and perspectives.' },
+        { code:'AC9E10R2', strand:'Reading & Viewing', text:'Evaluate the aesthetic qualities of texts and analyse how text structures, language features including rhetorical and literary devices and visual features create meaning and effect.' },
+        { code:'AC9E10R3', strand:'Reading & Viewing', text:'Evaluate how language features, including rhetorical devices and conventions, are used across texts to construct and challenge representations of ideas, perspectives and/or stances.' },
+        { code:'AC9E10W1', strand:'Writing & Creating', text:'Create written and multimodal texts, including literary texts, for a range of purposes and audiences, discussing ideas and responses to representations, making connections and providing substantiation.' },
+        { code:'AC9E10W2', strand:'Writing & Creating', text:'Select and experiment with text structures to organise and develop ideas in written and multimodal texts.' },
+        { code:'AC9E10W3', strand:'Writing & Creating', text:'Select, vary and experiment with language features including rhetorical and literary devices and/or multimodal features in written texts.' },
+      ]
+    }
+  },
+  Mathematics: {
+    'Year 7': {
+      strands: ['Number', 'Algebra', 'Measurement', 'Space', 'Statistics', 'Probability'],
+      standards: [
+        { code:'AC9M7N1', strand:'Number', text:'Represent natural numbers in expanded form and as products of prime factors using exponent notation, solving problems involving squares of numbers and square roots of perfect square numbers.' },
+        { code:'AC9M7N2', strand:'Number', text:'Solve problems involving addition and subtraction of integers, using all 4 operations with positive fractions and decimals and choosing efficient calculation strategies.' },
+        { code:'AC9M7N3', strand:'Number', text:'Choose between equivalent representations of rational numbers and percentages to assist in calculations, and use mathematical modelling to solve practical problems involving rational numbers, percentages and ratios in financial and other applied contexts.' },
+        { code:'AC9M7A1', strand:'Algebra', text:'Use algebraic expressions to represent situations, describe relationships between variables from authentic data and substitute values into formulas to determine unknown values.' },
+        { code:'AC9M7A2', strand:'Algebra', text:'Solve linear equations with natural number solutions and create tables of values related to algebraic expressions and formulas, describing the effect of variation.' },
+        { code:'AC9M7M1', strand:'Measurement', text:'Solve problems involving the perimeter and area of composite shapes using appropriate metric units, and solve problems involving volume of right prisms.' },
+        { code:'AC9M7M2', strand:'Measurement', text:'Demonstrate the relationship between the area of a parallelogram and a rectangle, and solve problems involving duration and time zones.' },
+        { code:'AC9M7SP1', strand:'Space', text:'Classify triangles, quadrilaterals and other polygons and describe their properties, and identify and reason about angle relationships including angles on a straight line and angles at a point.' },
+        { code:'AC9M7SP2', strand:'Space', text:'Represent objects and transformations in the plane using coordinates, and describe the effects of transformations.' },
+        { code:'AC9M7ST1', strand:'Statistics', text:'Acquire data sets for discrete and continuous numerical variables and calculate mean, median, mode and range, interpreting the variation in data using these measures.' },
+        { code:'AC9M7ST2', strand:'Statistics', text:'Create and interpret different representations of data sets including stem-and-leaf plots, and describe and compare distributions of data.' },
+        { code:'AC9M7P1', strand:'Probability', text:'Identify the sample space for single-stage events, assign probabilities to the outcomes and predict frequencies for experiments.' },
+      ]
+    },
+    'Year 8': {
+      strands: ['Number', 'Algebra', 'Measurement', 'Space', 'Statistics', 'Probability'],
+      standards: [
+        { code:'AC9M8N1', strand:'Number', text:'Recognise irrational numbers and terminating or recurring decimals, and apply the exponent laws to calculations with numbers involving positive integer exponents.' },
+        { code:'AC9M8N2', strand:'Number', text:'Solve problems involving the 4 operations with integers and positive rational numbers, using mathematical modelling to solve practical problems involving ratios, percentages and rates in measurement and financial contexts.' },
+        { code:'AC9M8A1', strand:'Algebra', text:'Apply algebraic properties to rearrange, expand and factorise linear expressions.' },
+        { code:'AC9M8A2', strand:'Algebra', text:'Graph linear relations and solve linear equations with rational solutions and one-variable inequalities, graphically and algebraically, and use mathematical modelling to solve problems using linear relations.' },
+        { code:'AC9M8M1', strand:'Measurement', text:'Use appropriate metric units when solving measurement problems involving the perimeter and area of composite shapes, and volume of right prisms.' },
+        { code:'AC9M8M2', strand:'Measurement', text:'Use Pythagoras\' theorem to solve measurement problems involving unknown lengths of right-angle triangles, and use formulas to solve problems involving the area and circumference of circles.' },
+        { code:'AC9M8M3', strand:'Measurement', text:'Solve problems of duration involving 12- and 24-hour cycles across multiple time zones.' },
+        { code:'AC9M8SP1', strand:'Space', text:'Use 3 dimensions to locate and describe position, identify conditions for congruency and similarity in shapes, and create and test algorithms designed to test for congruency and similarity.' },
+        { code:'AC9M8SP2', strand:'Space', text:'Apply the properties of quadrilaterals to solve problems.' },
+        { code:'AC9M8ST1', strand:'Statistics', text:'Conduct statistical investigations and explain the implications of obtaining data through sampling, and analyse and describe the distribution of data.' },
+        { code:'AC9M8ST2', strand:'Statistics', text:'Compare the variation in distributions of random samples of the same and different size from a given population with respect to shape, measures of central tendency and range.' },
+        { code:'AC9M8P1', strand:'Probability', text:'Represent the possible combinations of 2 events with tables and diagrams, and determine related probabilities to solve practical problems.' },
+      ]
+    },
+    'Year 9': {
+      strands: ['Number', 'Algebra', 'Measurement', 'Space', 'Statistics', 'Probability'],
+      standards: [
+        { code:'AC9M9N1', strand:'Number', text:'Recognise and use rational and irrational numbers to solve problems, and extend and apply the exponent laws with positive integers to variables.' },
+        { code:'AC9M9A1', strand:'Algebra', text:'Expand binomial products and factorise monic quadratic expressions.' },
+        { code:'AC9M9A2', strand:'Algebra', text:'Find the distance between 2 points on the Cartesian plane, and the gradient and midpoint of a line segment, and use mathematical modelling to solve problems involving change in financial and other applied contexts using linear and quadratic functions.' },
+        { code:'AC9M9A3', strand:'Algebra', text:'Graph quadratic functions and solve monic quadratic equations with integer roots algebraically.' },
+        { code:'AC9M9M1', strand:'Measurement', text:'Solve problems involving the surface area and volume of prisms and cylinders, using appropriate units.' },
+        { code:'AC9M9M2', strand:'Measurement', text:'Solve problems involving ratio and scale in similar figures, and apply Pythagoras\' theorem and trigonometry to solve right-angle triangle problems.' },
+        { code:'AC9M9SP1', strand:'Space', text:'Apply the enlargement transformation to shapes and describe the relationship between the original and image, and identify line and rotational symmetry.' },
+        { code:'AC9M9SP2', strand:'Space', text:'Describe the effects of transformations of 2D shapes using coordinates, and represent transformations using coordinates.' },
+        { code:'AC9M9ST1', strand:'Statistics', text:'Analyse data from primary and secondary sources, including bivariate numerical data, and calculate and interpret measures of spread and central tendency.' },
+        { code:'AC9M9ST2', strand:'Statistics', text:'Identify everyday questions and issues involving at least one numerical and at least one categorical variable, and collect data directly and from secondary sources.' },
+        { code:'AC9M9P1', strand:'Probability', text:'List all outcomes for two-step chance experiments, both with and without replacement, using tree diagrams or arrays, and assign probabilities to outcomes.' },
+        { code:'AC9M9P2', strand:'Probability', text:'Calculate relative frequencies from given or collected data to estimate probabilities of events involving "and", "or" and "not" and verify using simulation.' },
+      ]
+    },
+    'Year 10': {
+      strands: ['Number', 'Algebra', 'Measurement', 'Space', 'Statistics', 'Probability'],
+      standards: [
+        { code:'AC9M10N1', strand:'Number', text:'Recognise the effect of using approximations of real numbers in repeated calculations, and solve problems involving the use of scientific notation and significant figures.' },
+        { code:'AC9M10A1', strand:'Algebra', text:'Expand and factorise expressions and solve equations algebraically, and use algebraic reasoning to model situations and solve problems.' },
+        { code:'AC9M10A2', strand:'Algebra', text:'Graph and describe linear, quadratic and other non-linear relationships, and solve related equations graphically and algebraically.' },
+        { code:'AC9M10A3', strand:'Algebra', text:'Substitute into and use simple algebraic models of authentic situations, interpreting and reviewing the model in context.' },
+        { code:'AC9M10M1', strand:'Measurement', text:'Solve problems involving surface area and volume of right pyramids, right cones, spheres and related composite solids, using appropriate units.' },
+        { code:'AC9M10M2', strand:'Measurement', text:'Apply trigonometry to solve problems involving angles of elevation and depression, and find unknown lengths and angles in non-right-angle triangles.' },
+        { code:'AC9M10SP1', strand:'Space', text:'Apply deductive reasoning to proofs involving shapes in the plane, and interpret and use congruence and similarity, and properties of triangles and quadrilaterals.' },
+        { code:'AC9M10SP2', strand:'Space', text:'Describe and perform combinations of transformations of shapes, and describe the results.' },
+        { code:'AC9M10ST1', strand:'Statistics', text:'Compare data distributions for continuous numerical variables using appropriate data displays including box plots, and calculate and interpret quartiles and interquartile range.' },
+        { code:'AC9M10ST2', strand:'Statistics', text:'Evaluate statistical reports in the media and other places by linking claims to displays, statistics and representative data.' },
+        { code:'AC9M10P1', strand:'Probability', text:'Describe the results of two- and three-step chance experiments, both with and without replacement, assign probabilities to outcomes and determine probabilities of events.' },
+        { code:'AC9M10P2', strand:'Probability', text:'Investigate reports of surveys in digital media and elsewhere for information on how data were obtained to estimate population means and medians.' },
+      ]
+    }
   }
 };
 
-let currentFilter = 'all';
-let attachedFiles = []; // { file, dataUrl, type }
-let selectedAdj   = [];
-let deferredInstallPrompt = null;
-let isSyncing = false;
+// ═══════════════════════════════════════════════
+//  APP STATE
+// ═══════════════════════════════════════════════
+let state = {
+  evidence: [],
+  students: [],
+  settings: { staffName: '', campus: '' }
+};
 
-// ─────────────────────────────────────────────
+// Capture session state
+let cap = {
+  subject: '',
+  year: '',
+  selectedStandards: [], // [{code, strand, text, subject}]
+  attachments: [],
+  activeStrand: ''
+};
+
+let currentFilter = 'all';
+let deferredInstall = null;
+
+// ═══════════════════════════════════════════════
 //  INIT
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 function init() {
-  loadFromLocal();
-  loadSettings();
+  loadState();
   applySettings();
   updateStats();
   renderRecent();
   renderEvidence();
   renderStudents();
-  populateStudentDropdown();
-  checkSPBanner();
-  setDefaultDate();
+  populateStudentDrop();
 
-  // PWA install prompt
   window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-    if (!localStorage.getItem('installDismissed')) {
-      document.getElementById('installPrompt').classList.add('show');
-    }
+    e.preventDefault(); deferredInstall = e;
+    if (!localStorage.getItem('installDismissed')) document.getElementById('installBar').classList.add('show');
   });
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
 
-// ─────────────────────────────────────────────
-//  LOCAL STORAGE
-// ─────────────────────────────────────────────
-function loadFromLocal() {
-  try {
-    state.evidence = JSON.parse(localStorage.getItem('fe_evidence') || '[]');
-    state.students = JSON.parse(localStorage.getItem('fe_students') || '[]');
-  } catch(e) { state.evidence = []; state.students = []; }
+// ═══════════════════════════════════════════════
+//  STORAGE
+// ═══════════════════════════════════════════════
+function loadState() {
+  try { state.evidence = JSON.parse(localStorage.getItem('fle_ev') || '[]'); } catch(e){ state.evidence=[]; }
+  try { state.students = JSON.parse(localStorage.getItem('fle_st') || '[]'); } catch(e){ state.students=[]; }
+  try { const s = JSON.parse(localStorage.getItem('fle_cfg') || '{}'); state.settings = {...state.settings,...s}; } catch(e){}
+}
+function persist() {
+  localStorage.setItem('fle_ev',  JSON.stringify(state.evidence));
+  localStorage.setItem('fle_st',  JSON.stringify(state.students));
 }
 
-function saveToLocal() {
-  localStorage.setItem('fe_evidence', JSON.stringify(state.evidence));
-  localStorage.setItem('fe_students', JSON.stringify(state.students));
-}
-
-function loadSettings() {
-  try {
-    const s = JSON.parse(localStorage.getItem('fe_settings') || '{}');
-    state.settings = { ...state.settings, ...s };
-  } catch(e) {}
-}
-
-function saveSettings() {
-  localStorage.setItem('fe_settings', JSON.stringify(state.settings));
-}
-
-function applySettings() {
-  document.getElementById('spSiteUrl').value          = state.settings.spSiteUrl || '';
-  document.getElementById('spListName').value         = state.settings.spListName || 'EvidenceRecords';
-  document.getElementById('spStudentsListName').value = state.settings.spStudentsListName || 'Students';
-  document.getElementById('settingStaffName').value   = state.settings.staffName || '';
-  document.getElementById('settingCampus').value      = state.settings.campus || '';
-}
-
-// ─────────────────────────────────────────────
-//  SHAREPOINT API HELPERS
-// ─────────────────────────────────────────────
-function spHeaders() {
-  return { 'Accept': 'application/json;odata=verbose', 'Content-Type': 'application/json;odata=verbose' };
-}
-
-function spUrl(path) {
-  const base = state.settings.spSiteUrl.replace(/\/$/, '');
-  return `${base}/_api/${path}`;
-}
-
-async function spGetListItems(listName) {
-  const url = spUrl(`web/lists/getbytitle('${listName}')/items?$top=5000&$orderby=Created desc`);
-  const r = await fetch(url, { headers: spHeaders(), credentials: 'include' });
-  if (!r.ok) throw new Error(`SharePoint error: ${r.status}`);
-  const data = await r.json();
-  return data.d.results;
-}
-
-async function spGetFormDigest() {
-  const url = spUrl('contextinfo');
-  const r = await fetch(url, { method: 'POST', headers: spHeaders(), credentials: 'include' });
-  const data = await r.json();
-  return data.d.GetContextWebInformation.FormDigestValue;
-}
-
-async function spAddItem(listName, item) {
-  const digest = await spGetFormDigest();
-  const listTypeUrl = spUrl(`web/lists/getbytitle('${listName}')`);
-  const listR = await fetch(listTypeUrl, { headers: spHeaders(), credentials: 'include' });
-  const listData = await listR.json();
-  const entityType = listData.d.ListItemEntityTypeFullName;
-
-  const payload = { __metadata: { type: entityType }, ...item };
-  const url = spUrl(`web/lists/getbytitle('${listName}')/items`);
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: { ...spHeaders(), 'X-RequestDigest': digest },
-    credentials: 'include',
-    body: JSON.stringify(payload)
-  });
-  if (!r.ok) throw new Error(`Failed to add item: ${r.status}`);
-  return await r.json();
-}
-
-async function spUpdateItem(listName, itemId, item) {
-  const digest = await spGetFormDigest();
-  const listTypeUrl = spUrl(`web/lists/getbytitle('${listName}')`);
-  const listR = await fetch(listTypeUrl, { headers: spHeaders(), credentials: 'include' });
-  const listData = await listR.json();
-  const entityType = listData.d.ListItemEntityTypeFullName;
-
-  const payload = { __metadata: { type: entityType }, ...item };
-  const url = spUrl(`web/lists/getbytitle('${listName}')/items(${itemId})`);
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: { ...spHeaders(), 'X-RequestDigest': digest, 'X-HTTP-Method': 'MERGE', 'If-Match': '*' },
-    credentials: 'include',
-    body: JSON.stringify(payload)
-  });
-  if (!r.ok) throw new Error(`Failed to update item: ${r.status}`);
-}
-
-async function spUploadFile(listName, itemId, file, dataUrl) {
-  const digest = await spGetFormDigest();
-  const blob = dataUrlToBlob(dataUrl);
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const uploadUrl = spUrl(`web/lists/getbytitle('${listName}')/items(${itemId})/AttachmentFiles/add(FileName='${safeName}')`);
-  const r = await fetch(uploadUrl, {
-    method: 'POST',
-    headers: { 'X-RequestDigest': digest, 'Content-Type': 'application/octet-stream' },
-    credentials: 'include',
-    body: blob
-  });
-  if (!r.ok) throw new Error(`Failed to upload file: ${r.status}`);
-}
-
-function dataUrlToBlob(dataUrl) {
-  const arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1];
-  const bstr = atob(arr[1]); let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while(n--) u8arr[n] = bstr.charCodeAt(n);
-  return new Blob([u8arr], { type: mime });
-}
-
-// ─────────────────────────────────────────────
-//  SYNC ENGINE
-// ─────────────────────────────────────────────
-async function syncNow() {
-  if (!state.settings.spSiteUrl) { showToast('⚠️ No SharePoint URL configured', 'error'); return; }
-  if (isSyncing) return;
-  isSyncing = true;
-  setSyncBadge('syncing');
-
-  try {
-    // Push pending evidence records
-    const pending = state.evidence.filter(e => e.syncStatus === 'pending');
-    for (const ev of pending) {
-      const spItem = evidenceToSPItem(ev);
-      if (ev.spId) {
-        await spUpdateItem(state.settings.spListName, ev.spId, spItem);
-      } else {
-        const result = await spAddItem(state.settings.spListName, spItem);
-        ev.spId = result.d.Id;
-        // Upload attachments
-        for (const att of (ev.attachments || [])) {
-          if (att.dataUrl && !att.uploaded) {
-            try {
-              await spUploadFile(state.settings.spListName, ev.spId, { name: att.name }, att.dataUrl);
-              att.uploaded = true;
-            } catch(e) { console.warn('Attachment upload failed:', e); }
-          }
-        }
-      }
-      ev.syncStatus = 'synced';
-    }
-
-    // Pull latest from SharePoint
-    await pullFromSharePoint();
-
-    saveToLocal();
-    updateStats();
-    renderRecent();
-    renderEvidence();
-    setSyncBadge('synced');
-    showToast('✅ Synced with SharePoint!', 'success');
-  } catch(err) {
-    console.error('Sync error:', err);
-    setSyncBadge('error');
-    showToast('❌ Sync failed — saved locally', 'error');
-  } finally {
-    isSyncing = false;
-  }
-}
-
-async function pullFromSharePoint() {
-  try {
-    const spItems = await spGetListItems(state.settings.spListName);
-    for (const spItem of spItems) {
-      const existing = state.evidence.find(e => e.spId === spItem.Id);
-      if (!existing) {
-        state.evidence.push(spItemToEvidence(spItem));
-      }
-    }
-  } catch(e) { console.warn('Pull failed:', e); }
-
-  try {
-    const spStudents = await spGetListItems(state.settings.spStudentsListName);
-    for (const s of spStudents) {
-      const exists = state.students.find(st => st.spId === s.Id);
-      if (!exists) {
-        state.students.push({
-          id: 'sp_' + s.Id, spId: s.Id,
-          firstName: s.FirstName || '', lastName: s.LastName || '',
-          year: s.YearLevel || '', campus: s.Campus || '',
-          syncStatus: 'synced'
-        });
-      }
-    }
-  } catch(e) { console.warn('Student pull failed:', e); }
-}
-
-function evidenceToSPItem(ev) {
-  return {
-    Title: ev.studentName || 'Evidence',
-    StudentName: ev.studentName || '',
-    StudentID: ev.studentId || '',
-    AdjustmentTypes: (ev.adjustments || []).join(', '),
-    Observation: ev.observation || '',
-    Impact: ev.impact || '',
-    StaffName: ev.staffName || '',
-    Campus: ev.campus || '',
-    ReviewDate: ev.reviewDate || null,
-    CapturedDate: ev.date || new Date().toISOString()
-  };
-}
-
-function spItemToEvidence(spItem) {
-  return {
-    id: 'sp_' + spItem.Id,
-    spId: spItem.Id,
-    studentName: spItem.StudentName || spItem.Title || '',
-    studentId: spItem.StudentID || '',
-    adjustments: (spItem.AdjustmentTypes || '').split(',').map(s => s.trim()).filter(Boolean),
-    observation: spItem.Observation || '',
-    impact: spItem.Impact || '',
-    staffName: spItem.StaffName || '',
-    campus: spItem.Campus || '',
-    reviewDate: spItem.ReviewDate || '',
-    date: spItem.CapturedDate || spItem.Created,
-    attachments: [],
-    syncStatus: 'synced'
-  };
-}
-
-function setSyncBadge(status) {
-  const badge = document.getElementById('syncBadge');
-  const icon  = document.getElementById('syncIcon');
-  const text  = document.getElementById('syncText');
-  badge.className = 'sync-badge';
-  if (status === 'syncing') { icon.textContent = '🔄'; text.textContent = 'Syncing…'; }
-  else if (status === 'synced') { icon.textContent = '✅'; text.textContent = 'Synced'; badge.classList.add('synced'); }
-  else if (status === 'error')  { icon.textContent = '❌'; text.textContent = 'Error'; badge.classList.add('error'); }
-  else { icon.textContent = '☁️'; text.textContent = 'Sync'; }
-}
-
-async function testConnection() {
-  const url = document.getElementById('spSiteUrl').value.trim();
-  if (!url) { showToast('Enter a SharePoint URL first', 'error'); return; }
-  const statusEl = document.getElementById('spStatus');
-  statusEl.textContent = '🔄 Testing connection…';
-  try {
-    const testUrl = url.replace(/\/$/, '') + '/_api/web?$select=Title';
-    const r = await fetch(testUrl, { headers: spHeaders(), credentials: 'include' });
-    if (r.ok) {
-      const data = await r.json();
-      statusEl.innerHTML = `<span style="color:var(--success)">✅ Connected to: <strong>${data.d.Title}</strong></span>`;
-    } else {
-      statusEl.innerHTML = `<span style="color:var(--danger)">❌ Error ${r.status} — Check URL and ensure you're signed in to Microsoft 365</span>`;
-    }
-  } catch(e) {
-    statusEl.innerHTML = `<span style="color:var(--danger)">❌ Could not reach SharePoint — ensure you're signed in to Microsoft 365 in this browser</span>`;
-  }
-}
-
-// ─────────────────────────────────────────────
-//  SETTINGS
-// ─────────────────────────────────────────────
-function saveSpSettings() {
-  state.settings.spSiteUrl          = document.getElementById('spSiteUrl').value.trim();
-  state.settings.spListName         = document.getElementById('spListName').value.trim() || 'EvidenceRecords';
-  state.settings.spStudentsListName = document.getElementById('spStudentsListName').value.trim() || 'Students';
-  saveSettings();
-  checkSPBanner();
-  showToast('✅ SharePoint settings saved!', 'success');
-}
-
-function saveStaffSettings() {
-  state.settings.staffName = document.getElementById('settingStaffName').value.trim();
-  state.settings.campus    = document.getElementById('settingCampus').value;
-  saveSettings();
-  showToast('✅ Details saved!', 'success');
-}
-
-function checkSPBanner() {
-  document.getElementById('spBanner').style.display = state.settings.spSiteUrl ? 'none' : 'flex';
-}
-
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 //  NAVIGATION
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 function showView(name) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
-  if (name === 'evidence') renderEvidence();
-  if (name === 'students') renderStudents();
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  if(name==='evidence') renderEvidence();
+  if(name==='students') renderStudents();
 }
 
-// ─────────────────────────────────────────────
-//  CAPTURE MODAL
-// ─────────────────────────────────────────────
-function openCaptureModal() {
-  attachedFiles = [];
-  selectedAdj   = [];
-  document.getElementById('capStudent').value      = '';
-  document.getElementById('capObservation').value  = '';
-  document.getElementById('capImpact').value       = '';
-  document.getElementById('previewGrid').innerHTML = '';
-  document.querySelectorAll('#adjChips .chip').forEach(c => c.classList.remove('selected'));
-  setDefaultDate();
-  populateStudentDropdown();
+// ═══════════════════════════════════════════════
+//  CAPTURE FLOW
+// ═══════════════════════════════════════════════
+function openCapture() {
+  cap = { subject:'', year:'', selectedStandards:[], attachments:[], activeStrand:'' };
+  document.getElementById('capStudent').value = '';
+  document.getElementById('capYear').value    = '';
+  document.querySelectorAll('.subject-tab').forEach(t=>t.classList.remove('active'));
+  goStep(1);
+  populateStudentDrop();
   document.getElementById('captureModal').classList.add('open');
 }
 
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+function goStep(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById('step'+i).style.display = i===n ? 'block' : 'none';
+    const el = document.getElementById('stp'+i);
+    el.className = 'step' + (i<n?' done': i===n?' active':'');
+    if(i<3) document.getElementById('sl'+i).className = 'step-line'+(i<n?' done':'');
+  });
 }
 
-function setDefaultDate() {
-  const d = new Date(); d.setDate(d.getDate() + 14);
-  const iso = d.toISOString().split('T')[0];
-  const el = document.getElementById('capReviewDate');
-  if (el) el.value = iso;
+function selectSubject(subj, el) {
+  cap.subject = subj;
+  document.querySelectorAll('.subject-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
 }
 
-function toggleChip(el, val) {
-  el.classList.toggle('selected');
-  if (selectedAdj.includes(val)) selectedAdj = selectedAdj.filter(v => v !== val);
-  else selectedAdj.push(val);
+function goStep2() {
+  if (!document.getElementById('capStudent').value) { toast('Please select a student','error'); return; }
+  if (!document.getElementById('capYear').value)    { toast('Please select a year level','error'); return; }
+  if (!cap.subject)                                 { toast('Please select a subject','error'); return; }
+  cap.year = document.getElementById('capYear').value;
+  cap.selectedStandards = [];
+  cap.activeStrand = '';
+  buildStandardsUI();
+  goStep(2);
 }
 
-function triggerCamera()  { document.getElementById('fileInputCamera').click(); }
-function triggerVideo()   { document.getElementById('fileInputVideo').click(); }
-function triggerFile()    { document.getElementById('fileInputFile').click(); }
-function triggerGallery() { document.getElementById('fileInputGallery').click(); }
+function buildStandardsUI() {
+  const data = STANDARDS[cap.subject][cap.year];
+  const color = cap.subject === 'English' ? 'english' : 'maths';
 
+  // Info box
+  document.getElementById('stdInfoBox').innerHTML =
+    `<strong>${cap.subject} · ${cap.year}</strong> — Select one or more aspects of the achievement standard that this evidence demonstrates.`;
+
+  // Strands
+  const strandRow = document.getElementById('strandRow');
+  strandRow.innerHTML = '';
+  data.strands.forEach((s,i) => {
+    const pill = document.createElement('div');
+    pill.className = 'strand-pill' + (i===0?' active-'+color:'');
+    pill.textContent = s;
+    pill.onclick = () => {
+      document.querySelectorAll('.strand-pill').forEach(p=>p.className='strand-pill');
+      pill.className = 'strand-pill active-'+color;
+      cap.activeStrand = s;
+      renderStandardCards();
+    };
+    strandRow.appendChild(pill);
+    if(i===0) cap.activeStrand = s;
+  });
+
+  renderStandardCards();
+  renderSelectedSummary();
+}
+
+function renderStandardCards() {
+  const data  = STANDARDS[cap.subject][cap.year];
+  const color = cap.subject === 'English' ? 'english' : 'maths';
+  const filtered = data.standards.filter(s => s.strand === cap.activeStrand);
+  const list  = document.getElementById('standardsList');
+
+  list.innerHTML = filtered.map(s => {
+    const sel = cap.selectedStandards.find(x=>x.code===s.code);
+    return `
+      <div class="standard-card ${sel?'selected-'+color:''}" onclick="toggleStandard('${s.code}')">
+        <div class="standard-check">${sel?'✓':''}</div>
+        <div>
+          <div class="standard-text">${s.text}</div>
+          <div class="standard-code">${s.code} · ${s.strand}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleStandard(code) {
+  const data = STANDARDS[cap.subject][cap.year];
+  const std  = data.standards.find(s=>s.code===code);
+  if (!std) return;
+  const idx = cap.selectedStandards.findIndex(s=>s.code===code);
+  if (idx >= 0) cap.selectedStandards.splice(idx,1);
+  else cap.selectedStandards.push({...std, subject: cap.subject});
+  renderStandardCards();
+  renderSelectedSummary();
+}
+
+function renderSelectedSummary() {
+  const el    = document.getElementById('selectedSummary');
+  const color = cap.subject === 'English' ? 'english' : 'maths';
+  if (!cap.selectedStandards.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `<div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:5px">Selected (${cap.selectedStandards.length}):</div>` +
+    cap.selectedStandards.map(s =>
+      `<span class="selected-tag ${color}" onclick="toggleStandard('${s.code}')">
+        ${s.code} <span class="remove">✕</span>
+      </span>`
+    ).join('');
+}
+
+function goStep3() {
+  if (!cap.selectedStandards.length) { toast('Please select at least one achievement standard','error'); return; }
+  cap.attachments = [];
+  document.getElementById('capObs').value  = '';
+  document.getElementById('capNext').value = '';
+  document.getElementById('capLevel').value= '';
+  document.getElementById('previewGrid').innerHTML = '';
+  goStep(3);
+}
+
+// ═══════════════════════════════════════════════
+//  FILE HANDLING
+// ═══════════════════════════════════════════════
+function trig(t) { document.getElementById('in'+t.charAt(0).toUpperCase()+t.slice(1)).click(); }
 function handleFiles(input) {
   Array.from(input.files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      attachedFiles.push({ file, dataUrl: e.target.result, name: file.name, type: file.type, uploaded: false });
-      renderPreviews();
-    };
-    reader.readAsDataURL(file);
+    const r = new FileReader();
+    r.onload = e => { cap.attachments.push({name:file.name,dataUrl:e.target.result,type:file.type}); renderPreviews(); };
+    r.readAsDataURL(file);
   });
-  input.value = '';
+  input.value='';
 }
-
 function renderPreviews() {
-  const grid = document.getElementById('previewGrid');
-  grid.innerHTML = '';
-  attachedFiles.forEach((att, i) => {
-    const div = document.createElement('div');
-    div.className = 'preview-item';
-    if (att.type.startsWith('image/')) {
-      div.innerHTML = `<img src="${att.dataUrl}" /><button class="remove-btn" onclick="removeFile(${i})">✕</button>`;
-    } else if (att.type.startsWith('video/')) {
-      div.innerHTML = `<video src="${att.dataUrl}" muted></video><button class="remove-btn" onclick="removeFile(${i})">✕</button>`;
-    } else {
-      div.innerHTML = `<div class="file-icon">📄<span>${att.name.split('.').pop().toUpperCase()}</span></div><button class="remove-btn" onclick="removeFile(${i})">✕</button>`;
-    }
-    grid.appendChild(div);
-  });
+  document.getElementById('previewGrid').innerHTML = cap.attachments.map((a,i) => {
+    if (a.type.startsWith('image/')) return `<div class="preview-item"><img src="${a.dataUrl}"/><button class="remove-btn" onclick="removeFile(${i})">✕</button></div>`;
+    if (a.type.startsWith('video/')) return `<div class="preview-item"><video src="${a.dataUrl}" muted></video><button class="remove-btn" onclick="removeFile(${i})">✕</button></div>`;
+    return `<div class="preview-item"><div class="file-icon-box">📄<span>${a.name.split('.').pop().toUpperCase()}</span></div><button class="remove-btn" onclick="removeFile(${i})">✕</button></div>`;
+  }).join('');
 }
+function removeFile(i) { cap.attachments.splice(i,1); renderPreviews(); }
 
-function removeFile(i) {
-  attachedFiles.splice(i, 1);
-  renderPreviews();
-}
-
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 //  SAVE EVIDENCE
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 function saveEvidence() {
-  const studentSel = document.getElementById('capStudent');
-  const observation = document.getElementById('capObservation').value.trim();
+  const obs = document.getElementById('capObs').value.trim();
+  if (!obs) { toast('Please add an observation','error'); return; }
 
-  if (!studentSel.value)   { showToast('Please select a student', 'error'); return; }
-  if (!observation)        { showToast('Please add an observation', 'error'); return; }
-  if (!selectedAdj.length) { showToast('Please select an adjustment type', 'error'); return; }
+  const stuSel  = document.getElementById('capStudent');
+  const student = state.students.find(s=>s.id===stuSel.value);
 
-  const student = state.students.find(s => s.id === studentSel.value);
   const ev = {
-    id: 'ev_' + Date.now(),
-    spId: null,
-    studentId: studentSel.value,
-    studentName: student ? `${student.firstName} ${student.lastName}` : studentSel.options[studentSel.selectedIndex].text,
-    adjustments: [...selectedAdj],
-    observation,
-    impact: document.getElementById('capImpact').value.trim(),
-    reviewDate: document.getElementById('capReviewDate').value,
-    staffName: state.settings.staffName,
-    campus: state.settings.campus || (student ? student.campus : ''),
-    date: new Date().toISOString(),
-    attachments: attachedFiles.map(a => ({ name: a.name, dataUrl: a.dataUrl, type: a.type, uploaded: false })),
-    syncStatus: 'pending'
+    id:          'ev_'+Date.now(),
+    studentId:   stuSel.value,
+    studentName: student ? `${student.firstName} ${student.lastName}` : stuSel.options[stuSel.selectedIndex].text,
+    year:        cap.year,
+    subject:     cap.subject,
+    standards:   [...cap.selectedStandards],
+    observation: obs,
+    level:       document.getElementById('capLevel').value,
+    nextSteps:   document.getElementById('capNext').value.trim(),
+    staffName:   state.settings.staffName,
+    campus:      state.settings.campus || (student ? student.campus : ''),
+    date:        new Date().toISOString(),
+    attachments: [...cap.attachments]
   };
 
   state.evidence.unshift(ev);
-  saveToLocal();
+  persist();
   updateStats();
   renderRecent();
-  renderEvidence();
   closeModal('captureModal');
-  showToast('✅ Evidence saved!', 'success');
-
-  // Auto-sync if configured
-  if (state.settings.spSiteUrl) {
-    setTimeout(() => syncNow(), 1500);
-  }
+  toast('✅ Evidence saved!','success');
 }
 
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 //  STUDENTS
-// ─────────────────────────────────────────────
-function openAddStudentModal() {
-  document.getElementById('newStudentFirst').value  = '';
-  document.getElementById('newStudentLast').value   = '';
-  document.getElementById('newStudentYear').value   = '';
-  document.getElementById('newStudentCampus').value = state.settings.campus || '';
-  document.getElementById('addStudentModal').classList.add('open');
+// ═══════════════════════════════════════════════
+function openAddStudent() {
+  ['nFirst','nLast'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('nYear').value   = '';
+  document.getElementById('nCampus').value = state.settings.campus||'';
+  document.getElementById('studentModal').classList.add('open');
 }
-
 function saveStudent() {
-  const first  = document.getElementById('newStudentFirst').value.trim();
-  const last   = document.getElementById('newStudentLast').value.trim();
-  if (!first || !last) { showToast('Enter first and last name', 'error'); return; }
-
-  const student = {
-    id: 'st_' + Date.now(),
-    spId: null,
-    firstName: first,
-    lastName: last,
-    year: document.getElementById('newStudentYear').value,
-    campus: document.getElementById('newStudentCampus').value,
-    syncStatus: 'pending'
-  };
-  state.students.push(student);
-  saveToLocal();
-  renderStudents();
-  populateStudentDropdown();
-  closeModal('addStudentModal');
-  showToast('✅ Student added!', 'success');
-
-  // Sync student to SharePoint
-  if (state.settings.spSiteUrl) {
-    setTimeout(async () => {
-      try {
-        const result = await spAddItem(state.settings.spStudentsListName, {
-          Title: `${first} ${last}`,
-          FirstName: first, LastName: last,
-          YearLevel: student.year, Campus: student.campus
-        });
-        student.spId = result.d.Id;
-        student.syncStatus = 'synced';
-        saveToLocal();
-      } catch(e) { console.warn('Student sync failed:', e); }
-    }, 500);
-  }
-}
-
-function populateStudentDropdown() {
-  const sel = document.getElementById('capStudent');
-  const val = sel.value;
-  sel.innerHTML = '<option value="">Select student…</option>';
-  const sorted = [...state.students].sort((a,b) => a.lastName.localeCompare(b.lastName));
-  sorted.forEach(s => {
-    const opt = document.createElement('option');
-    opt.value = s.id;
-    opt.textContent = `${s.lastName}, ${s.firstName}${s.campus ? ' · ' + s.campus : ''}`;
-    sel.appendChild(opt);
+  const first = document.getElementById('nFirst').value.trim();
+  const last  = document.getElementById('nLast').value.trim();
+  if (!first||!last) { toast('Enter first and last name','error'); return; }
+  state.students.push({
+    id:'st_'+Date.now(), firstName:first, lastName:last,
+    year:document.getElementById('nYear').value,
+    campus:document.getElementById('nCampus').value
   });
-  if (val) sel.value = val;
+  persist(); renderStudents(); populateStudentDrop();
+  closeModal('studentModal'); toast('✅ Student added!','success');
 }
-
+function populateStudentDrop() {
+  const sel = document.getElementById('capStudent');
+  const v   = sel.value;
+  sel.innerHTML = '<option value="">Select student…</option>';
+  [...state.students].sort((a,b)=>a.lastName.localeCompare(b.lastName)).forEach(s=>{
+    const o = document.createElement('option');
+    o.value = s.id;
+    o.textContent = `${s.lastName}, ${s.firstName}${s.year?' · '+s.year:''}`;
+    sel.appendChild(o);
+  });
+  if(v) sel.value=v;
+}
 function renderStudents() {
-  const q = (document.getElementById('studentSearch')?.value || '').toLowerCase();
+  const q    = (document.getElementById('stuSearch')?.value||'').toLowerCase();
   const list = document.getElementById('studentList');
-  let students = state.students.filter(s =>
-    `${s.firstName} ${s.lastName} ${s.campus}`.toLowerCase().includes(q)
-  ).sort((a,b) => a.lastName.localeCompare(b.lastName));
-
-  if (!students.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">👥</div><p>No students yet.<br>Add a student to get started.</p></div>`;
-    return;
-  }
-  list.innerHTML = students.map(s => {
-    const count = state.evidence.filter(e => e.studentId === s.id).length;
-    const initials = (s.firstName[0] || '') + (s.lastName[0] || '');
-    return `
-      <div class="student-item" onclick="filterByStudent('${s.id}')">
-        <div class="student-avatar">${initials}</div>
-        <div class="student-info">
-          <div class="student-name">${s.lastName}, ${s.firstName}</div>
-          <div class="student-meta">${[s.year, s.campus].filter(Boolean).join(' · ')}</div>
-        </div>
-        <div class="student-count">${count} records</div>
-      </div>`;
+  const stus = state.students.filter(s=>`${s.firstName} ${s.lastName} ${s.campus} ${s.year}`.toLowerCase().includes(q))
+                              .sort((a,b)=>a.lastName.localeCompare(b.lastName));
+  if(!stus.length){ list.innerHTML=`<div class="empty-state"><div class="ei">👥</div><p>No students yet.<br>Add a student or import a CSV to get started.</p></div>`; return; }
+  list.innerHTML = stus.map(s=>{
+    const cnt = state.evidence.filter(e=>e.studentId===s.id).length;
+    const ini = (s.firstName[0]||'')+(s.lastName[0]||'');
+    return `<div class="student-item" onclick="filterByStudent('${s.id}')">
+      <div class="avatar">${ini}</div>
+      <div class="student-info">
+        <div class="student-name">${s.lastName}, ${s.firstName}</div>
+        <div class="student-meta">${[s.year,s.campus].filter(Boolean).join(' · ')}</div>
+      </div>
+      <div class="rec-count">${cnt} records</div>
+    </div>`;
   }).join('');
 }
-
 function filterByStudent(id) {
-  const s = state.students.find(st => st.id === id);
-  if (!s) return;
-  document.getElementById('evidenceSearch').value = `${s.firstName} ${s.lastName}`;
-  showView('evidence');
-  renderEvidence();
+  const s = state.students.find(st=>st.id===id);
+  if(!s) return;
+  document.getElementById('evSearch').value=`${s.firstName} ${s.lastName}`;
+  showView('evidence'); renderEvidence();
 }
 
-// ─────────────────────────────────────────────
-//  EVIDENCE LIST
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  EVIDENCE LIST & DETAIL
+// ═══════════════════════════════════════════════
 function setFilter(el, val) {
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  currentFilter = val;
-  renderEvidence();
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active'); currentFilter=val; renderEvidence();
 }
-
 function renderEvidence() {
-  const q = (document.getElementById('evidenceSearch')?.value || '').toLowerCase();
+  const q    = (document.getElementById('evSearch')?.value||'').toLowerCase();
   const list = document.getElementById('evidenceList');
-
-  let items = state.evidence.filter(e => {
-    const matchQ = !q || `${e.studentName} ${e.observation} ${(e.adjustments||[]).join(' ')}`.toLowerCase().includes(q);
-    const matchF = currentFilter === 'all' || (e.adjustments||[]).includes(currentFilter);
+  const items = state.evidence.filter(e=>{
+    const matchQ = !q || `${e.studentName} ${e.subject} ${e.year} ${(e.standards||[]).map(s=>s.text+s.code).join(' ')} ${e.observation}`.toLowerCase().includes(q);
+    const matchF = currentFilter==='all' || e.subject===currentFilter || e.year===currentFilter;
     return matchQ && matchF;
   });
-
-  if (!items.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><p>No evidence found.<br>${q ? 'Try a different search.' : 'Capture some evidence first!'}</p></div>`;
-    return;
-  }
-
-  list.innerHTML = items.map(e => {
-    const dateStr = formatDate(e.date);
-    const thumbs  = (e.attachments || []).filter(a => a.type && a.type.startsWith('image/')).slice(0,3);
-    const isPending = e.syncStatus === 'pending';
-    return `
-      <div class="evidence-item ${isPending ? 'pending' : ''}">
-        <div class="evidence-item-header">
-          <div>
-            <div class="evidence-item-name">${e.studentName}</div>
-            <div class="evidence-item-meta">📅 ${dateStr}${e.staffName ? ' · ' + e.staffName : ''}${e.campus ? ' · ' + e.campus : ''}</div>
-          </div>
-        </div>
-        <div class="evidence-item-tags">
-          ${(e.adjustments||[]).map(a => `<span class="tag">${a}</span>`).join('')}
-          ${isPending ? '<span class="tag pending">⏳ Pending sync</span>' : '<span class="tag gold">✅ Synced</span>'}
-        </div>
-        ${e.observation ? `<div style="font-size:13px;color:var(--text-muted);margin-top:6px;line-height:1.4">${e.observation.slice(0,120)}${e.observation.length > 120 ? '…' : ''}</div>` : ''}
-        ${thumbs.length ? `<div class="evidence-thumb">${thumbs.map(a => `<img src="${a.dataUrl}" />`).join('')}</div>` : ''}
-        <div class="evidence-actions">
-          <button class="action-btn primary" onclick="viewEvidence('${e.id}')">👁 View</button>
-          <button class="action-btn" onclick="deleteEvidence('${e.id}')">🗑 Delete</button>
-        </div>
-      </div>`;
+  if(!items.length){ list.innerHTML=`<div class="empty-state"><div class="ei">📋</div><p>No evidence found.<br>${q?'Try a different search.':'Tap + New Evidence to get started!'}</p></div>`; return; }
+  list.innerHTML = items.map(e=>{
+    const col   = e.subject==='English'?'english':'maths';
+    const thumbs= (e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).slice(0,3);
+    const stdPrev = (e.standards||[]).slice(0,1).map(s=>s.text.slice(0,90)+'…').join('');
+    return `<div class="ev-item ${col}">
+      <div class="ev-name">${e.studentName}</div>
+      <div class="ev-meta">📅 ${fmtDate(e.date)}${e.staffName?' · '+e.staffName:''}${e.campus?' · '+e.campus:''}</div>
+      <div class="ev-tags">
+        <span class="ev-tag ${col}">${e.subject==='English'?'📖':'🔢'} ${e.subject}</span>
+        <span class="ev-tag year">${e.year}</span>
+        ${(e.standards||[]).map(s=>`<span class="ev-tag strand">${s.code}</span>`).join('')}
+        ${e.level?`<span class="ev-tag" style="background:#F0FDF4;color:#166534">${e.level}</span>`:''}
+      </div>
+      ${stdPrev?`<div class="ev-standard-preview">"${stdPrev}"</div>`:''}
+      ${thumbs.length?`<div class="ev-thumb">${thumbs.map(a=>`<img src="${a.dataUrl}"/>`).join('')}</div>`:''}
+      <div class="ev-actions">
+        <button class="action-btn p" onclick="viewDetail('${e.id}')">👁 View</button>
+        <button class="action-btn p" onclick="printRecord('${e.id}')">📄 PDF</button>
+        <button class="action-btn d" onclick="deleteEv('${e.id}')">🗑 Delete</button>
+      </div>
+    </div>`;
   }).join('');
 }
-
 function renderRecent() {
   const list = document.getElementById('recentList');
-  const recent = state.evidence.slice(0, 5);
-  if (!recent.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><p>No evidence captured yet.<br>Tap the button above to start!</p></div>`;
-    return;
-  }
-  list.innerHTML = recent.map(e => `
-    <div class="evidence-item ${e.syncStatus === 'pending' ? 'pending' : ''}" onclick="viewEvidence('${e.id}')" style="cursor:pointer">
-      <div class="evidence-item-name">${e.studentName}</div>
-      <div class="evidence-item-meta">${formatDate(e.date)}</div>
-      <div class="evidence-item-tags">
-        ${(e.adjustments||[]).map(a => `<span class="tag">${a}</span>`).join('')}
-        ${e.syncStatus === 'pending' ? '<span class="tag pending">⏳ Pending</span>' : '<span class="tag gold">✅ Synced</span>'}
+  const items= state.evidence.slice(0,4);
+  if(!items.length){ list.innerHTML=`<div class="empty-state"><div class="ei">📋</div><p>No evidence yet.<br>Tap <strong>＋ New Evidence</strong> to start capturing.</p></div>`; return; }
+  list.innerHTML = items.map(e=>{
+    const col = e.subject==='English'?'english':'maths';
+    return `<div class="ev-item ${col}" onclick="viewDetail('${e.id}')" style="cursor:pointer">
+      <div class="ev-name">${e.studentName}</div>
+      <div class="ev-meta">${fmtDate(e.date)}</div>
+      <div class="ev-tags">
+        <span class="ev-tag ${col}">${e.subject==='English'?'📖':'🔢'} ${e.subject}</span>
+        <span class="ev-tag year">${e.year}</span>
+        ${(e.standards||[]).map(s=>`<span class="ev-tag strand">${s.code}</span>`).join('')}
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
-
-function viewEvidence(id) {
-  const e = state.evidence.find(ev => ev.id === id);
-  if (!e) return;
-  const content = document.getElementById('detailContent');
-  content.innerHTML = `
+function viewDetail(id) {
+  const e = state.evidence.find(ev=>ev.id===id);
+  if(!e) return;
+  const col = e.subject==='English'?'english':'maths';
+  const colVar = e.subject==='English'?'var(--english)':'var(--maths)';
+  document.getElementById('detailContent').innerHTML = `
     <div class="modal-title">📋 Evidence Record</div>
     <div style="margin-bottom:12px">
-      <div style="font-size:18px;font-weight:800">${e.studentName}</div>
-      <div style="font-size:12px;color:var(--text-muted)">${formatDate(e.date)}${e.staffName ? ' · ' + e.staffName : ''}</div>
+      <div style="font-size:19px;font-weight:800">${e.studentName}</div>
+      <div style="font-size:12px;color:var(--text-muted)">${fmtDate(e.date)}${e.year?' · '+e.year:''}${e.staffName?' · '+e.staffName:''}${e.campus?' · '+e.campus:''}</div>
+    </div>
+    <div class="card" style="border-left:4px solid ${colVar}">
+      <div class="card-title" style="color:${colVar}">${e.subject==='English'?'📖':'🔢'} ${e.subject} · ${e.year}</div>
+      ${e.level?`<div style="margin-bottom:8px"><span class="ev-tag" style="background:#F0FDF4;color:#166534;font-size:12px">${e.level}</span></div>`:''}
     </div>
     <div class="card">
-      <div class="card-title">Adjustment Types</div>
-      <div class="chips">${(e.adjustments||[]).map(a => `<div class="chip selected">${a}</div>`).join('')}</div>
+      <div class="card-title">Achievement Standards</div>
+      ${(e.standards||[]).map(s=>`
+        <div style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+          <div style="font-size:11px;font-family:monospace;color:${colVar};margin-bottom:3px">${s.code} · ${s.strand}</div>
+          <div style="font-size:13px;line-height:1.5">${s.text}</div>
+        </div>`).join('')}
     </div>
     <div class="card">
-      <div class="card-title">Observation</div>
-      <p style="font-size:14px;line-height:1.6">${e.observation || '—'}</p>
+      <div class="card-title">Teacher Observation</div>
+      <p style="font-size:14px;line-height:1.6">${e.observation||'—'}</p>
     </div>
-    ${e.impact ? `<div class="card"><div class="card-title">Impact</div><p style="font-size:14px;line-height:1.6">${e.impact}</p></div>` : ''}
-    ${e.reviewDate ? `<div class="card"><div class="card-title">Review Date</div><p style="font-size:14px">${formatDate(e.reviewDate)}</p></div>` : ''}
-    ${(e.attachments||[]).length ? `
+    ${e.nextSteps?`<div class="card"><div class="card-title">Next Steps</div><p style="font-size:14px;line-height:1.6">${e.nextSteps}</p></div>`:''}
+    ${(e.attachments||[]).length?`
       <div class="card">
-        <div class="card-title">Attachments (${e.attachments.length})</div>
+        <div class="card-title">Evidence Attachments (${e.attachments.length})</div>
         <div class="preview-grid">
-          ${e.attachments.map((a,i) => {
-            if (a.type && a.type.startsWith('image/')) return `<div class="preview-item"><img src="${a.dataUrl}" onclick="openFullImg(${i},'${id}')" /></div>`;
-            if (a.type && a.type.startsWith('video/')) return `<div class="preview-item"><video src="${a.dataUrl}" controls></video></div>`;
-            return `<div class="preview-item"><div class="file-icon">📄<span>${a.name}</span></div></div>`;
+          ${e.attachments.map((a,i)=>{
+            if(a.type&&a.type.startsWith('image/')) return `<div class="preview-item"><img src="${a.dataUrl}" onclick="bigImg('${id}',${i})" style="cursor:zoom-in"/></div>`;
+            if(a.type&&a.type.startsWith('video/')) return `<div class="preview-item"><video src="${a.dataUrl}" controls></video></div>`;
+            return `<div class="preview-item"><div class="file-icon-box">📄<span>${a.name}</span></div></div>`;
           }).join('')}
         </div>
-      </div>` : ''}
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button class="btn btn-secondary" onclick="exportSinglePDF('${e.id}')" style="flex:1">📄 Export PDF</button>
-    </div>`;
+      </div>`:''}
+    <button class="btn btn-secondary" onclick="printRecord('${e.id}')" style="margin-top:4px">📄 Export as PDF</button>`;
   document.getElementById('detailModal').classList.add('open');
 }
-
-function openFullImg(i, evId) {
-  const e = state.evidence.find(ev => ev.id === evId);
-  if (!e) return;
-  const win = window.open('', '_blank');
-  win.document.write(`<img src="${e.attachments[i].dataUrl}" style="max-width:100%;max-height:100vh" />`);
+function bigImg(evId,i){ const e=state.evidence.find(ev=>ev.id===evId); if(!e)return; const w=window.open('','_blank'); w.document.write(`<img src="${e.attachments[i].dataUrl}" style="max-width:100%;max-height:100vh"/>`); }
+function deleteEv(id){
+  if(!confirm('Delete this evidence record?')) return;
+  state.evidence=state.evidence.filter(e=>e.id!==id);
+  persist(); updateStats(); renderEvidence(); renderRecent();
+  toast('🗑 Deleted','');
 }
 
-function deleteEvidence(id) {
-  if (!confirm('Delete this evidence record? This cannot be undone.')) return;
-  state.evidence = state.evidence.filter(e => e.id !== id);
-  saveToLocal();
-  updateStats();
-  renderEvidence();
-  renderRecent();
-  showToast('🗑 Record deleted', '');
+// ═══════════════════════════════════════════════
+//  PDF EXPORT
+// ═══════════════════════════════════════════════
+function printRecord(id) {
+  const e = state.evidence.find(ev=>ev.id===id);
+  if(!e) return;
+  const col = e.subject==='English'?'#1D4ED8':'#7C3AED';
+  const html = `<!DOCTYPE html><html><head><title>Learning Evidence — ${e.studentName}</title>
+  <style>
+    body{font-family:'Segoe UI',sans-serif;padding:32px;max-width:750px;margin:0 auto;color:#1E1E1E}
+    h1{color:#005B52;font-size:22px;margin-bottom:2px}
+    .meta{color:#6B7280;font-size:13px;margin-bottom:20px}
+    h2{color:${col};font-size:13px;text-transform:uppercase;letter-spacing:1px;margin:18px 0 6px}
+    .std-block{border-left:3px solid ${col};padding:8px 12px;margin-bottom:8px;background:#F8F8FF;border-radius:4px}
+    .std-code{font-family:monospace;font-size:11px;color:${col};margin-bottom:3px}
+    .std-text{font-size:13px;line-height:1.5}
+    .obs{font-size:14px;line-height:1.7;background:#F9FAFB;padding:12px;border-radius:6px}
+    .badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#F0FDF4;color:#166534;margin-bottom:10px}
+    img{max-width:160px;border-radius:6px;margin:4px;vertical-align:top}
+    .footer{margin-top:32px;padding-top:12px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF}
+    @media print{body{padding:16px}}
+  </style></head><body>
+  <h1>Learning Evidence Record</h1>
+  <div class="meta">
+    <strong>${e.studentName}</strong>${e.year?' · '+e.year:''}${e.campus?' · '+e.campus:''}<br>
+    Subject: <strong>${e.subject}</strong> · Date captured: ${fmtDate(e.date)}${e.staffName?' · Teacher: '+e.staffName:''}
+  </div>
+  ${e.level?`<div class="badge">${e.level}</div>`:''}
+  <h2>Achievement Standards Demonstrated</h2>
+  ${(e.standards||[]).map(s=>`<div class="std-block"><div class="std-code">${s.code} · ${s.strand}</div><div class="std-text">${s.text}</div></div>`).join('')}
+  <h2>Teacher Observation</h2>
+  <div class="obs">${e.observation||'—'}</div>
+  ${e.nextSteps?`<h2>Next Steps</h2><div class="obs">${e.nextSteps}</div>`:''}
+  ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length?
+    `<h2>Evidence Photos</h2>${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}">`).join('')}`:''}
+  <div class="footer">
+    Flexi Learning Evidence · ACARA V9 · Edmund Rice Flexible Schools Network · SA/WA Region<br>
+    Generated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}
+  </div>
+  </body></html>`;
+  const w = window.open('','_blank');
+  w.document.write(html); w.document.close(); w.print();
 }
 
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 //  STATS
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
 function updateStats() {
   const today = new Date().toDateString();
-  document.getElementById('statTotal').textContent   = state.evidence.length;
-  document.getElementById('statToday').textContent   = state.evidence.filter(e => new Date(e.date).toDateString() === today).length;
-  document.getElementById('statPending').textContent = state.evidence.filter(e => e.syncStatus === 'pending').length;
+  document.getElementById('statTotal').textContent    = state.evidence.length;
+  document.getElementById('statToday').textContent    = state.evidence.filter(e=>new Date(e.date).toDateString()===today).length;
+  document.getElementById('statStudents').textContent = state.students.length;
 }
 
-// ─────────────────────────────────────────────
-//  EXPORT
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  SETTINGS
+// ═══════════════════════════════════════════════
+function applySettings() {
+  document.getElementById('sName').value   = state.settings.staffName||'';
+  document.getElementById('sCampus').value = state.settings.campus||'';
+}
+function saveSettings() {
+  state.settings.staffName = document.getElementById('sName').value.trim();
+  state.settings.campus    = document.getElementById('sCampus').value;
+  localStorage.setItem('fle_cfg', JSON.stringify(state.settings));
+  toast('✅ Saved!','success');
+}
+
+// ═══════════════════════════════════════════════
+//  EXPORT / BACKUP
+// ═══════════════════════════════════════════════
 function exportCSV() {
-  if (!state.evidence.length) { showToast('No evidence to export', 'error'); return; }
-  const headers = ['Date','Student','Campus','Staff','Adjustments','Observation','Impact','ReviewDate','Synced'];
-  const rows = state.evidence.map(e => [
-    formatDate(e.date), e.studentName, e.campus, e.staffName,
-    (e.adjustments||[]).join('; '), e.observation, e.impact, e.reviewDate,
-    e.syncStatus === 'synced' ? 'Yes' : 'No'
-  ].map(v => `"${(v||'').replace(/"/g,'""')}"`));
-  const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
-  downloadFile(csv, `Flexi_Evidence_${today()}.csv`, 'text/csv');
-  showToast('✅ CSV exported!', 'success');
+  if(!state.evidence.length){ toast('No evidence to export','error'); return; }
+  const h = ['Date','Student','Year','Subject','Standards','Strand','Level','Observation','NextSteps','Staff','Campus'];
+  const rows = state.evidence.map(e=>[
+    fmtDate(e.date), e.studentName, e.year, e.subject,
+    (e.standards||[]).map(s=>s.code).join('; '),
+    (e.standards||[]).map(s=>s.strand).join('; '),
+    e.level||'', e.observation, e.nextSteps||'', e.staffName||'', e.campus||''
+  ].map(v=>`"${(v||'').replace(/"/g,'""')}"`));
+  dl([h,...rows].map(r=>r.join(',')).join('\n'), `Flexi_Learning_Evidence_${todayStr()}.csv`, 'text/csv');
+  toast('✅ CSV exported!','success');
 }
-
-function exportSinglePDF(id) {
-  const e = state.evidence.find(ev => ev.id === id);
-  if (!e) return;
-  const html = `
-    <html><head><title>Evidence - ${e.studentName}</title>
-    <style>body{font-family:sans-serif;padding:24px;max-width:700px;margin:0 auto}
-    h1{color:#005B52}h2{color:#005B52;font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-top:20px}
-    p{line-height:1.6}.tags span{display:inline-block;background:#E6F2F1;color:#005B52;padding:3px 10px;border-radius:12px;margin:2px;font-size:12px}
-    img{max-width:200px;border-radius:8px;margin:4px}</style></head>
-    <body>
-    <h1>Flexi Evidence Record</h1>
-    <p><strong>Student:</strong> ${e.studentName}<br>
-    <strong>Date:</strong> ${formatDate(e.date)}<br>
-    <strong>Staff:</strong> ${e.staffName || '—'}<br>
-    <strong>Campus:</strong> ${e.campus || '—'}</p>
-    <h2>Adjustment Types</h2><div class="tags">${(e.adjustments||[]).map(a=>`<span>${a}</span>`).join('')}</div>
-    <h2>Observation</h2><p>${e.observation || '—'}</p>
-    ${e.impact ? `<h2>Impact</h2><p>${e.impact}</p>` : ''}
-    ${e.reviewDate ? `<h2>Review Date</h2><p>${formatDate(e.reviewDate)}</p>` : ''}
-    ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length ? `<h2>Evidence Photos</h2>${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}">`).join('')}` : ''}
-    </body></html>`;
-  const win = window.open('', '_blank');
-  win.document.write(html);
-  win.document.close();
-  win.print();
+function backupJSON() {
+  dl(JSON.stringify({version:'1.0',exported:new Date().toISOString(),evidence:state.evidence,students:state.students},null,2),
+    `Flexi_Learning_Backup_${todayStr()}.json`,'application/json');
+  toast('✅ Backup downloaded!','success');
 }
-
-function importStudentsCSV() {
-  document.getElementById('csvImportInput').click();
+function restoreJSON() { document.getElementById('jsonIn').click(); }
+function handleJSON(input) {
+  const f=input.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try {
+      const d=JSON.parse(e.target.result);
+      if(!d.evidence||!d.students) throw new Error();
+      if(!confirm(`Restore ${d.evidence.length} records and ${d.students.length} students?`)) return;
+      state.evidence=d.evidence; state.students=d.students;
+      persist(); updateStats(); renderRecent(); renderEvidence(); renderStudents(); populateStudentDrop();
+      toast('✅ Restored!','success');
+    } catch(err){ toast('❌ Invalid backup file','error'); }
+  };
+  r.readAsText(f); input.value='';
 }
-
-function handleCSVImport(input) {
-  const file = input.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const lines = e.target.result.split('\n').filter(l => l.trim());
-    if (lines.length < 2) { showToast('CSV appears empty', 'error'); return; }
-    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g,'').toLowerCase());
-    let added = 0;
-    lines.slice(1).forEach(line => {
-      const vals = line.split(',').map(v => v.trim().replace(/"/g,''));
-      const obj  = {};
-      headers.forEach((h,i) => obj[h] = vals[i] || '');
-      const first = obj['firstname'] || obj['first name'] || obj['first'] || '';
-      const last  = obj['lastname']  || obj['last name']  || obj['last']  || '';
-      if (!first && !last) return;
-      state.students.push({
-        id: 'st_' + Date.now() + '_' + added,
-        spId: null,
-        firstName: first, lastName: last,
-        year: obj['year'] || obj['year level'] || '',
-        campus: obj['campus'] || obj['site'] || '',
-        syncStatus: 'pending'
-      });
+function importCSV() { document.getElementById('csvIn').click(); }
+function handleCSV(input) {
+  const f=input.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const lines=e.target.result.split('\n').filter(l=>l.trim());
+    if(lines.length<2){ toast('CSV appears empty','error'); return; }
+    const hdrs=lines[0].split(',').map(h=>h.trim().replace(/"/g,'').toLowerCase());
+    let added=0;
+    lines.slice(1).forEach(line=>{
+      const vals=line.split(',').map(v=>v.trim().replace(/"/g,''));
+      const o={}; hdrs.forEach((h,i)=>o[h]=vals[i]||'');
+      const first=o['firstname']||o['first name']||o['first']||'';
+      const last=o['lastname']||o['last name']||o['last']||'';
+      if(!first&&!last)return;
+      state.students.push({id:'st_'+Date.now()+'_'+added,firstName:first,lastName:last,year:o['year']||o['year level']||'',campus:o['campus']||o['site']||''});
       added++;
     });
-    saveToLocal();
-    renderStudents();
-    populateStudentDropdown();
-    showToast(`✅ Imported ${added} students`, 'success');
+    persist(); renderStudents(); populateStudentDrop();
+    toast(`✅ Imported ${added} students`,'success');
   };
-  reader.readAsText(file);
-  input.value = '';
+  r.readAsText(f); input.value='';
+}
+function clearAll() {
+  if(!confirm('Clear ALL data? Use Backup first!\n\nThis cannot be undone.')) return;
+  state.evidence=[]; state.students=[]; persist();
+  updateStats(); renderRecent(); renderEvidence(); renderStudents();
+  toast('🗑 Cleared','');
 }
 
-function clearLocalData() {
-  if (!confirm('Clear all local data? This removes all locally stored evidence and students. Synced SharePoint data is not affected.')) return;
-  state.evidence = [];
-  state.students = [];
-  saveToLocal();
-  updateStats();
-  renderRecent();
-  renderEvidence();
-  renderStudents();
-  showToast('🗑 Local data cleared', '');
-}
-
-// ─────────────────────────────────────────────
-//  INSTALL PWA
-// ─────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  MODAL / INSTALL / HELPERS
+// ═══════════════════════════════════════════════
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 async function installApp() {
-  if (!deferredInstallPrompt) {
-    showToast('Use Share → Add to Home Screen in Safari', '');
-    return;
-  }
-  deferredInstallPrompt.prompt();
-  const { outcome } = await deferredInstallPrompt.userChoice;
-  if (outcome === 'accepted') {
-    document.getElementById('installPrompt').classList.remove('show');
-    showToast('🎉 App installed!', 'success');
-  }
-  deferredInstallPrompt = null;
+  if(!deferredInstall){ toast('In Safari: Share → Add to Home Screen',''); return; }
+  deferredInstall.prompt();
+  const {outcome}=await deferredInstall.userChoice;
+  if(outcome==='accepted'){ document.getElementById('installBar').classList.remove('show'); toast('🎉 App installed!','success'); }
+  deferredInstall=null;
 }
-
-function dismissInstall() {
-  document.getElementById('installPrompt').classList.remove('show');
-  localStorage.setItem('installDismissed', '1');
+function toast(msg,type) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className=`toast ${type} show`;
+  setTimeout(()=>t.classList.remove('show'),3000);
 }
+function fmtDate(d){ if(!d)return'—'; return new Date(d).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'}); }
+function todayStr(){ return new Date().toISOString().split('T')[0]; }
+function dl(content,filename,mime){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([content],{type:mime})); a.download=filename; a.click(); }
 
-// ─────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────
-function showToast(msg, type) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className   = `toast ${type} show`;
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-function formatDate(d) {
-  if (!d) return '—';
-  return new Date(d).toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric' });
-}
-
-function today() {
-  return new Date().toISOString().split('T')[0];
-}
-
-function downloadFile(content, filename, mimeType) {
-  const a = document.createElement('a');
-  a.href     = URL.createObjectURL(new Blob([content], { type: mimeType }));
-  a.download = filename;
-  a.click();
-}
-
-// ─────────────────────────────────────────────
-//  SERVICE WORKER REGISTRATION (PWA offline)
-// ─────────────────────────────────────────────
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    // Inline SW registration — the SW is defined in sw.js
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  });
-}
-
-// ─────────────────────────────────────────────
-//  START
-// ─────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
