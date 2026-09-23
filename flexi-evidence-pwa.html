@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Flexi Evidence" />
+  <meta name="theme-color" content="#005B52" />
+  <title>Flexi Evidence Capture</title>
+  <link rel="manifest" href="manifest.json" />
+
+  <style>
+    /* ── FLEXI SCHOOLS BRAND TOKENS ── */
+    :root {
+      --teal:       #005B52;
+      --teal-light: #007A6E;
+      --teal-faint: #E6F2F1;
+      --burgundy:   #7A1F3D;
+      --gold:       #D4A437;
+      --gold-light: #F5E6B8;
+      --bg:         #F4F5F3;
+      --surface:    #FFFFFF;
+      --text:       #1E1E1E;
+      --text-muted: #6B7280;
+      --border:     #D1D5DB;
+      --danger:     #C0392B;
+      --success:    #1A7A50;
+      --radius:     14px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.10);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.15);
+      --font:       'Segoe UI', system-ui, -apple-system, sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    .app-header {
+      background: var(--teal);
+      color: white;
+      padding: 16px 20px 12px;
+      padding-top: calc(16px + env(safe-area-inset-top, 0px));
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .app-header .logo {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800; color: var(--teal); flex-shrink: 0;
+    }
+    .app-header h1 { font-size: 18px; font-weight: 700; line-height: 1.2; }
+    .app-header .subtitle { font-size: 11px; opacity: 0.75; }
+    .header-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+    .sync-badge {
+      font-size: 11px; padding: 4px 10px; border-radius: 20px;
+      background: rgba(255,255,255,0.15); color: white; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .sync-badge.synced { background: rgba(26,122,80,0.4); border-color: rgba(26,122,80,0.6); }
+    .sync-badge.error  { background: rgba(192,57,43,0.4); border-color: rgba(192,57,43,0.6); }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      padding-bottom: var(--safe-bottom);
+      z-index: 100;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+    }
+    .nav-btn {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 3px;
+      padding: 10px 4px; background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 10px; font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-btn .icon { font-size: 22px; }
+    .nav-btn.active { color: var(--teal); }
+    .nav-btn.active .icon { transform: scale(1.1); }
+
+    /* ── MAIN CONTENT ── */
+    .main {
+      padding: 16px;
+      padding-bottom: calc(80px + var(--safe-bottom));
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── VIEWS ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-size: 13px; font-weight: 700; color: var(--teal);
+      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
+    }
+
+    /* ── BIG CAPTURE BUTTON ── */
+    .capture-hero {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+      border-radius: 20px;
+      padding: 28px 20px;
+      text-align: center;
+      color: white;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-lg);
+    }
+    .capture-hero .hero-icon { font-size: 48px; margin-bottom: 8px; }
+    .capture-hero h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+    .capture-hero p  { font-size: 13px; opacity: 0.85; margin-bottom: 20px; }
+    .capture-hero-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--teal);
+      font-size: 16px; font-weight: 800;
+      padding: 14px 32px; border-radius: 50px;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(212,164,55,0.4);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+    .capture-hero-btn:active { transform: scale(0.97); }
+
+    /* ── QUICK STATS ── */
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .stat-card {
+      background: var(--surface); border-radius: 12px; padding: 12px 8px;
+      text-align: center; box-shadow: var(--shadow);
+    }
+    .stat-num { font-size: 24px; font-weight: 800; color: var(--teal); }
+    .stat-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    label .req { color: var(--burgundy); }
+    select, input[type="text"], input[type="date"], textarea {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 15px; font-family: var(--font);
+      background: var(--surface); color: var(--text);
+      appearance: none; -webkit-appearance: none;
+      transition: border-color 0.15s;
+    }
+    select:focus, input:focus, textarea:focus {
+      outline: none; border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0,91,82,0.1);
+    }
+    textarea { resize: none; min-height: 80px; }
+
+    /* ── ADJUSTMENT CHIPS ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+      border: 1.5px solid var(--border); background: var(--surface);
+      cursor: pointer; transition: all 0.15s; color: var(--text);
+    }
+    .chip.selected { background: var(--teal); color: white; border-color: var(--teal); }
+
+    /* ── MEDIA CAPTURE ── */
+    .media-zone {
+      border: 2px dashed var(--border); border-radius: 12px;
+      padding: 20px; text-align: center; cursor: pointer;
+      transition: all 0.15s; background: var(--bg);
+      position: relative;
+    }
+    .media-zone:hover, .media-zone.drag-over { border-color: var(--teal); background: var(--teal-faint); }
+    .media-zone .mz-icon { font-size: 32px; margin-bottom: 6px; }
+    .media-zone p { font-size: 13px; color: var(--text-muted); }
+    .media-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+
+    .media-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .media-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 11px; border-radius: 10px; border: 1.5px solid var(--border);
+      background: var(--surface); font-size: 13px; font-weight: 600;
+      cursor: pointer; color: var(--text); transition: all 0.15s;
+    }
+    .media-btn:active { background: var(--teal-faint); border-color: var(--teal); }
+    .media-btn.camera { border-color: var(--teal); color: var(--teal); background: var(--teal-faint); }
+
+    /* ── PREVIEW GRID ── */
+    .preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+    .preview-item {
+      aspect-ratio: 1; border-radius: 8px; overflow: hidden;
+      background: var(--bg); position: relative;
+    }
+    .preview-item img, .preview-item video {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .preview-item .remove-btn {
+      position: absolute; top: 4px; right: 4px;
+      background: rgba(0,0,0,0.6); color: white;
+      border: none; border-radius: 50%; width: 22px; height: 22px;
+      font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .preview-item .file-icon {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; font-size: 24px; gap: 4px;
+    }
+    .preview-item .file-icon span { font-size: 10px; color: var(--text-muted); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 13px 20px; border-radius: 10px; font-size: 15px; font-weight: 700;
+      border: none; cursor: pointer; transition: all 0.15s; width: 100%;
+    }
+    .btn-primary { background: var(--teal); color: white; }
+    .btn-primary:active { background: var(--teal-light); }
+    .btn-secondary { background: var(--bg); color: var(--teal); border: 1.5px solid var(--teal); }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── EVIDENCE LIST ── */
+    .search-bar {
+      display: flex; gap: 8px; margin-bottom: 12px;
+    }
+    .search-bar input {
+      flex: 1; padding: 11px 14px; border-radius: 10px;
+      border: 1.5px solid var(--border); font-size: 14px;
+    }
+    .filter-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; }
+    .filter-chip {
+      padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      border: 1.5px solid var(--border); background: var(--surface);
+      white-space: nowrap; cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+    }
+    .filter-chip.active { background: var(--teal); color: white; border-color: var(--teal); }
+
+    .evidence-item {
+      background: var(--surface); border-radius: 12px; padding: 14px;
+      margin-bottom: 8px; box-shadow: var(--shadow);
+      border-left: 4px solid var(--teal);
+    }
+    .evidence-item.pending { border-left-color: var(--gold); }
+    .evidence-item-header {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+    }
+    .evidence-item-name { font-weight: 700; font-size: 15px; }
+    .evidence-item-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .evidence-item-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .tag {
+      font-size: 10px; padding: 2px 8px; border-radius: 10px;
+      background: var(--teal-faint); color: var(--teal); font-weight: 600;
+    }
+    .tag.gold { background: var(--gold-light); color: #7A5800; }
+    .tag.pending { background: #FEF3C7; color: #92400E; }
+    .evidence-thumb { display: flex; gap: 4px; margin-top: 8px; }
+    .evidence-thumb img {
+      width: 48px; height: 48px; border-radius: 6px; object-fit: cover;
+    }
+    .evidence-actions { display: flex; gap: 6px; margin-top: 10px; }
+    .action-btn {
+      flex: 1; padding: 8px; border-radius: 8px; border: 1.5px solid var(--border);
+      background: none; font-size: 12px; font-weight: 600; cursor: pointer;
+      color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+    .action-btn.primary { color: var(--teal); border-color: var(--teal); }
+    .action-btn.danger  { color: var(--danger); border-color: var(--danger); }
+
+    /* ── STUDENTS ── */
+    .student-item {
+      background: var(--surface); border-radius: 12px; padding: 14px;
+      margin-bottom: 8px; box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 12px; cursor: pointer;
+    }
+    .student-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      color: white; font-size: 16px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .student-info { flex: 1; }
+    .student-name { font-weight: 700; font-size: 15px; }
+    .student-meta { font-size: 12px; color: var(--text-muted); }
+    .student-count {
+      font-size: 12px; font-weight: 700; color: var(--teal);
+      background: var(--teal-faint); padding: 4px 10px; border-radius: 20px;
+    }
+
+    /* ── SETTINGS ── */
+    .settings-section { margin-bottom: 20px; }
+    .settings-section h3 { font-size: 13px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .settings-row {
+      background: var(--surface); border-radius: 12px; padding: 14px 16px;
+      margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+    .settings-row label { font-size: 14px; font-weight: 600; margin-bottom: 0; }
+    .settings-row .hint { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+    .settings-input { width: 100%; margin-top: 8px; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: calc(80px + var(--safe-bottom) + 10px); left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1E1E1E; color: white; padding: 12px 20px;
+      border-radius: 50px; font-size: 13px; font-weight: 600;
+      opacity: 0; transition: all 0.3s; z-index: 200; white-space: nowrap;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success { background: var(--success); }
+    .toast.error   { background: var(--danger); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 300; display: none; align-items: flex-end;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface); border-radius: 20px 20px 0 0;
+      width: 100%; max-height: 92vh; overflow-y: auto;
+      padding: 20px 20px calc(20px + var(--safe-bottom));
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px; }
+    .modal-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+
+    /* ── SHAREPOINT SETUP BANNER ── */
+    .sp-banner {
+      background: linear-gradient(135deg, var(--burgundy), #A0284F);
+      color: white; border-radius: 14px; padding: 16px;
+      margin-bottom: 16px; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .sp-banner .sp-icon { font-size: 28px; flex-shrink: 0; }
+    .sp-banner h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .sp-banner p  { font-size: 12px; opacity: 0.9; margin-bottom: 10px; line-height: 1.5; }
+    .sp-banner-btn {
+      background: white; color: var(--burgundy);
+      font-size: 13px; font-weight: 700; padding: 8px 16px;
+      border-radius: 8px; border: none; cursor: pointer;
+    }
+
+    /* ── LOADING ── */
+    .spinner {
+      width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state {
+      text-align: center; padding: 48px 20px; color: var(--text-muted);
+    }
+    .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state p { font-size: 14px; }
+
+    /* ── INSTALL PROMPT ── */
+    .install-prompt {
+      background: var(--gold-light); border: 1.5px solid var(--gold);
+      border-radius: 14px; padding: 14px; margin-bottom: 16px;
+      display: none;
+    }
+    .install-prompt.show { display: block; }
+    .install-prompt h3 { font-size: 13px; font-weight: 700; color: #7A5800; margin-bottom: 4px; }
+    .install-prompt p  { font-size: 12px; color: #92400E; margin-bottom: 10px; }
+    .install-row { display: flex; gap: 8px; }
+    .install-btn { flex: 1; padding: 9px; border-radius: 8px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .install-btn.primary { background: var(--gold); color: #5C3D00; }
+    .install-btn.dismiss { background: none; color: var(--text-muted); border: 1px solid var(--border); }
+
+    /* Responsive adjustments */
+    @media (min-width: 500px) {
+      .preview-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="app-header">
+  <div class="logo">F</div>
+  <div>
+    <h1>Flexi Evidence</h1>
+    <div class="subtitle">Learning Adjustment Capture</div>
+  </div>
+  <div class="header-right">
+    <div class="sync-badge" id="syncBadge" onclick="syncNow()">
+      <span id="syncIcon">☁️</span>
+      <span id="syncText">Sync</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+<main class="main">
+
+  <!-- ── HOME VIEW ── -->
+  <div class="view active" id="view-home">
+
+    <div class="install-prompt" id="installPrompt">
+      <h3>📲 Add to Home Screen</h3>
+      <p>Install Flexi Evidence as an app for the best experience — works offline too!</p>
+      <div class="install-row">
+        <button class="install-btn primary" onclick="installApp()">Install App</button>
+        <button class="install-btn dismiss" onclick="dismissInstall()">Maybe Later</button>
+      </div>
+    </div>
+
+    <div class="sp-banner" id="spBanner" style="display:none">
+      <div class="sp-icon">🔗</div>
+      <div>
+        <h3>Connect to SharePoint</h3>
+        <p>Link to your SharePoint site so evidence syncs across all staff and devices. Tap Settings to set up.</p>
+        <button class="sp-banner-btn" onclick="showView('settings')">Go to Settings →</button>
+      </div>
+    </div>
+
+    <div class="capture-hero">
+      <div class="hero-icon">📸</div>
+      <h2>Capture Evidence</h2>
+      <p>Record learning adjustments in under 30 seconds</p>
+      <button class="capture-hero-btn" onclick="openCaptureModal()">
+        ＋ New Evidence
+      </button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-label">Total Records</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statToday">0</div>
+        <div class="stat-label">Today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statPending">0</div>
+        <div class="stat-label">Pending Sync</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Recent Evidence</div>
+      <div id="recentList">
+        <div class="empty-state">
+          <div class="empty-icon">📋</div>
+          <p>No evidence captured yet.<br>Tap the button above to start!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EVIDENCE LIST VIEW ── -->
+  <div class="view" id="view-evidence">
+    <div class="search-bar">
+      <input type="text" id="evidenceSearch" placeholder="Search student, adjustment…" oninput="renderEvidence()" />
+    </div>
+    <div class="filter-row" id="filterRow">
+      <div class="filter-chip active" data-filter="all" onclick="setFilter(this,'all')">All</div>
+      <div class="filter-chip" data-filter="Access" onclick="setFilter(this,'Access')">Access</div>
+      <div class="filter-chip" data-filter="Participation" onclick="setFilter(this,'Participation')">Participation</div>
+      <div class="filter-chip" data-filter="Curriculum" onclick="setFilter(this,'Curriculum')">Curriculum</div>
+      <div class="filter-chip" data-filter="Wellbeing" onclick="setFilter(this,'Wellbeing')">Wellbeing</div>
+      <div class="filter-chip" data-filter="Communication" onclick="setFilter(this,'Communication')">Communication</div>
+    </div>
+    <div id="evidenceList"></div>
+  </div>
+
+  <!-- ── STUDENTS VIEW ── -->
+  <div class="view" id="view-students">
+    <div class="search-bar">
+      <input type="text" id="studentSearch" placeholder="Search students…" oninput="renderStudents()" />
+    </div>
+    <div style="margin-bottom:12px">
+      <button class="btn btn-secondary" onclick="openAddStudentModal()">＋ Add Student</button>
+    </div>
+    <div id="studentList"></div>
+  </div>
+
+  <!-- ── SETTINGS VIEW ── -->
+  <div class="view" id="view-settings">
+
+    <div class="settings-section">
+      <h3>☁️ SharePoint Connection</h3>
+      <div class="card">
+        <div class="form-group">
+          <label>SharePoint Site URL</label>
+          <input type="text" id="spSiteUrl" class="settings-input" placeholder="https://yourtenant.sharepoint.com/sites/FlexiEvidence" />
+        </div>
+        <div class="form-group">
+          <label>Evidence List Name</label>
+          <input type="text" id="spListName" class="settings-input" placeholder="EvidenceRecords" />
+        </div>
+        <div class="form-group">
+          <label>Students List Name</label>
+          <input type="text" id="spStudentsListName" class="settings-input" placeholder="Students" />
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn btn-primary" onclick="saveSpSettings()" style="flex:1">💾 Save & Connect</button>
+          <button class="btn btn-secondary" onclick="testConnection()" style="flex:1">🔍 Test</button>
+        </div>
+        <div id="spStatus" style="margin-top:10px;font-size:13px;text-align:center"></div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>👤 My Details</h3>
+      <div class="card">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="settingStaffName" class="settings-input" placeholder="e.g. Dan Ryan" />
+        </div>
+        <div class="form-group">
+          <label>Campus / Site</label>
+          <select id="settingCampus" class="settings-input">
+            <option value="">Select campus…</option>
+            <option>FAME</option>
+            <option>Elizabeth</option>
+            <option>Davoren Park</option>
+            <option>Geraldton</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="saveStaffSettings()">💾 Save Details</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>📦 Data Management</h3>
+      <div class="card">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn btn-secondary" onclick="exportCSV()">📥 Export Evidence CSV</button>
+          <button class="btn btn-secondary" onclick="importStudentsCSV()">📤 Import Students CSV</button>
+          <button class="btn btn-secondary" onclick="syncNow()">🔄 Force Sync Now</button>
+          <button class="btn" style="background:#FEF2F2;color:var(--danger);border:1.5px solid var(--danger)" onclick="clearLocalData()">🗑️ Clear Local Data</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>ℹ️ About</h3>
+      <div class="card" style="font-size:13px;color:var(--text-muted);line-height:1.6">
+        <p><strong style="color:var(--text)">Flexi Evidence Capture v4.0</strong><br>
+        PWA + SharePoint Edition<br>
+        Edmund Rice Flexible Schools Network<br>
+        SA/WA Region · Learning & Pedagogy</p>
+        <p style="margin-top:8px">Built for offline-first use with SharePoint cloud sync. Data is stored locally until synced.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ═══════════════ BOTTOM NAV ═══════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" id="nav-home" onclick="showView('home')">
+    <span class="icon">🏠</span>Home
+  </button>
+  <button class="nav-btn" id="nav-evidence" onclick="showView('evidence')">
+    <span class="icon">📋</span>Evidence
+  </button>
+  <button class="nav-btn" id="nav-students" onclick="showView('students')">
+    <span class="icon">👥</span>Students
+  </button>
+  <button class="nav-btn" id="nav-settings" onclick="showView('settings')">
+    <span class="icon">⚙️</span>Settings
+  </button>
+</nav>
+
+<!-- ═══════════════ CAPTURE MODAL ═══════════════ -->
+<div class="modal-overlay" id="captureModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">📸 New Evidence</div>
+
+    <div class="form-group">
+      <label>Student <span class="req">*</span></label>
+      <select id="capStudent">
+        <option value="">Select student…</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Adjustment Type <span class="req">*</span></label>
+      <div class="chips" id="adjChips">
+        <div class="chip" onclick="toggleChip(this,'Access')">Access</div>
+        <div class="chip" onclick="toggleChip(this,'Participation')">Participation</div>
+        <div class="chip" onclick="toggleChip(this,'Curriculum')">Curriculum</div>
+        <div class="chip" onclick="toggleChip(this,'Wellbeing')">Wellbeing</div>
+        <div class="chip" onclick="toggleChip(this,'Communication')">Communication</div>
+        <div class="chip" onclick="toggleChip(this,'Sensory')">Sensory</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Observation / What happened <span class="req">*</span></label>
+      <textarea id="capObservation" placeholder="Describe what you observed or the adjustment made…" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Impact</label>
+      <textarea id="capImpact" placeholder="What was the effect on the student's learning?" rows="2"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>📎 Attach Evidence</label>
+      <div class="media-btns">
+        <button class="media-btn camera" onclick="triggerCamera()">📷 Take Photo</button>
+        <button class="media-btn" onclick="triggerVideo()">🎥 Record Video</button>
+        <button class="media-btn" onclick="triggerFile()">📁 Choose File</button>
+        <button class="media-btn" onclick="triggerGallery()">🖼️ Gallery</button>
+      </div>
+      <input type="file" id="fileInputCamera" accept="image/*" capture="environment" style="display:none" onchange="handleFiles(this)" />
+      <input type="file" id="fileInputVideo"  accept="video/*" capture="environment" style="display:none" onchange="handleFiles(this)" />
+      <input type="file" id="fileInputFile"   accept="image/*,video/*,application/pdf" multiple style="display:none" onchange="handleFiles(this)" />
+      <input type="file" id="fileInputGallery" accept="image/*,video/*" multiple style="display:none" onchange="handleFiles(this)" />
+      <div class="preview-grid" id="previewGrid"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Review Date</label>
+      <input type="date" id="capReviewDate" />
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-secondary" onclick="closeModal('captureModal')" style="flex:1">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEvidence()" style="flex:2" id="saveBtn">💾 Save Evidence</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ ADD STUDENT MODAL ═══════════════ -->
+<div class="modal-overlay" id="addStudentModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">👤 Add Student</div>
+    <div class="form-group">
+      <label>First Name <span class="req">*</span></label>
+      <input type="text" id="newStudentFirst" placeholder="First name" />
+    </div>
+    <div class="form-group">
+      <label>Last Name <span class="req">*</span></label>
+      <input type="text" id="newStudentLast" placeholder="Last name" />
+    </div>
+    <div class="form-group">
+      <label>Year Level</label>
+      <select id="newStudentYear">
+        <option value="">Select…</option>
+        <option>Year 10</option><option>Year 11</option><option>Year 12</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Campus</label>
+      <select id="newStudentCampus">
+        <option value="">Select…</option>
+        <option>FAME</option><option>Elizabeth</option>
+        <option>Davoren Park</option><option>Geraldton</option><option>Other</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-secondary" onclick="closeModal('addStudentModal')" style="flex:1">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStudent()" style="flex:2">＋ Add Student</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ EVIDENCE DETAIL MODAL ═══════════════ -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div id="detailContent"></div>
+    <button class="btn btn-secondary" onclick="closeModal('detailModal')" style="margin-top:12px">Close</button>
+  </div>
+</div>
+
+<!-- ═══════════════ TOAST ═══════════════ -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════ HIDDEN FILE INPUT (import CSV) ═══════════════ -->
+<input type="file" id="csvImportInput" accept=".csv" style="display:none" onchange="handleCSVImport(this)" />
+
+<!-- ═══════════════ APP SCRIPT ═══════════════ -->
+<script>
+// ─────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────
+let state = {
+  evidence: [],
+  students: [],
+  settings: {
+    spSiteUrl: '',
+    spListName: 'EvidenceRecords',
+    spStudentsListName: 'Students',
+    staffName: '',
+    campus: ''
+  }
+};
+
+let currentFilter = 'all';
+let attachedFiles = []; // { file, dataUrl, type }
+let selectedAdj   = [];
+let deferredInstallPrompt = null;
+let isSyncing = false;
+
+// ─────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────
+function init() {
+  loadFromLocal();
+  loadSettings();
+  applySettings();
+  updateStats();
+  renderRecent();
+  renderEvidence();
+  renderStudents();
+  populateStudentDropdown();
+  checkSPBanner();
+  setDefaultDate();
+
+  // PWA install prompt
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if (!localStorage.getItem('installDismissed')) {
+      document.getElementById('installPrompt').classList.add('show');
+    }
+  });
+}
+
+// ─────────────────────────────────────────────
+//  LOCAL STORAGE
+// ─────────────────────────────────────────────
+function loadFromLocal() {
+  try {
+    state.evidence = JSON.parse(localStorage.getItem('fe_evidence') || '[]');
+    state.students = JSON.parse(localStorage.getItem('fe_students') || '[]');
+  } catch(e) { state.evidence = []; state.students = []; }
+}
+
+function saveToLocal() {
+  localStorage.setItem('fe_evidence', JSON.stringify(state.evidence));
+  localStorage.setItem('fe_students', JSON.stringify(state.students));
+}
+
+function loadSettings() {
+  try {
+    const s = JSON.parse(localStorage.getItem('fe_settings') || '{}');
+    state.settings = { ...state.settings, ...s };
+  } catch(e) {}
+}
+
+function saveSettings() {
+  localStorage.setItem('fe_settings', JSON.stringify(state.settings));
+}
+
+function applySettings() {
+  document.getElementById('spSiteUrl').value          = state.settings.spSiteUrl || '';
+  document.getElementById('spListName').value         = state.settings.spListName || 'EvidenceRecords';
+  document.getElementById('spStudentsListName').value = state.settings.spStudentsListName || 'Students';
+  document.getElementById('settingStaffName').value   = state.settings.staffName || '';
+  document.getElementById('settingCampus').value      = state.settings.campus || '';
+}
+
+// ─────────────────────────────────────────────
+//  SHAREPOINT API HELPERS
+// ─────────────────────────────────────────────
+function spHeaders() {
+  return { 'Accept': 'application/json;odata=verbose', 'Content-Type': 'application/json;odata=verbose' };
+}
+
+function spUrl(path) {
+  const base = state.settings.spSiteUrl.replace(/\/$/, '');
+  return `${base}/_api/${path}`;
+}
+
+async function spGetListItems(listName) {
+  const url = spUrl(`web/lists/getbytitle('${listName}')/items?$top=5000&$orderby=Created desc`);
+  const r = await fetch(url, { headers: spHeaders(), credentials: 'include' });
+  if (!r.ok) throw new Error(`SharePoint error: ${r.status}`);
+  const data = await r.json();
+  return data.d.results;
+}
+
+async function spGetFormDigest() {
+  const url = spUrl('contextinfo');
+  const r = await fetch(url, { method: 'POST', headers: spHeaders(), credentials: 'include' });
+  const data = await r.json();
+  return data.d.GetContextWebInformation.FormDigestValue;
+}
+
+async function spAddItem(listName, item) {
+  const digest = await spGetFormDigest();
+  const listTypeUrl = spUrl(`web/lists/getbytitle('${listName}')`);
+  const listR = await fetch(listTypeUrl, { headers: spHeaders(), credentials: 'include' });
+  const listData = await listR.json();
+  const entityType = listData.d.ListItemEntityTypeFullName;
+
+  const payload = { __metadata: { type: entityType }, ...item };
+  const url = spUrl(`web/lists/getbytitle('${listName}')/items`);
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { ...spHeaders(), 'X-RequestDigest': digest },
+    credentials: 'include',
+    body: JSON.stringify(payload)
+  });
+  if (!r.ok) throw new Error(`Failed to add item: ${r.status}`);
+  return await r.json();
+}
+
+async function spUpdateItem(listName, itemId, item) {
+  const digest = await spGetFormDigest();
+  const listTypeUrl = spUrl(`web/lists/getbytitle('${listName}')`);
+  const listR = await fetch(listTypeUrl, { headers: spHeaders(), credentials: 'include' });
+  const listData = await listR.json();
+  const entityType = listData.d.ListItemEntityTypeFullName;
+
+  const payload = { __metadata: { type: entityType }, ...item };
+  const url = spUrl(`web/lists/getbytitle('${listName}')/items(${itemId})`);
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { ...spHeaders(), 'X-RequestDigest': digest, 'X-HTTP-Method': 'MERGE', 'If-Match': '*' },
+    credentials: 'include',
+    body: JSON.stringify(payload)
+  });
+  if (!r.ok) throw new Error(`Failed to update item: ${r.status}`);
+}
+
+async function spUploadFile(listName, itemId, file, dataUrl) {
+  const digest = await spGetFormDigest();
+  const blob = dataUrlToBlob(dataUrl);
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const uploadUrl = spUrl(`web/lists/getbytitle('${listName}')/items(${itemId})/AttachmentFiles/add(FileName='${safeName}')`);
+  const r = await fetch(uploadUrl, {
+    method: 'POST',
+    headers: { 'X-RequestDigest': digest, 'Content-Type': 'application/octet-stream' },
+    credentials: 'include',
+    body: blob
+  });
+  if (!r.ok) throw new Error(`Failed to upload file: ${r.status}`);
+}
+
+function dataUrlToBlob(dataUrl) {
+  const arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]); let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while(n--) u8arr[n] = bstr.charCodeAt(n);
+  return new Blob([u8arr], { type: mime });
+}
+
+// ─────────────────────────────────────────────
+//  SYNC ENGINE
+// ─────────────────────────────────────────────
+async function syncNow() {
+  if (!state.settings.spSiteUrl) { showToast('⚠️ No SharePoint URL configured', 'error'); return; }
+  if (isSyncing) return;
+  isSyncing = true;
+  setSyncBadge('syncing');
+
+  try {
+    // Push pending evidence records
+    const pending = state.evidence.filter(e => e.syncStatus === 'pending');
+    for (const ev of pending) {
+      const spItem = evidenceToSPItem(ev);
+      if (ev.spId) {
+        await spUpdateItem(state.settings.spListName, ev.spId, spItem);
+      } else {
+        const result = await spAddItem(state.settings.spListName, spItem);
+        ev.spId = result.d.Id;
+        // Upload attachments
+        for (const att of (ev.attachments || [])) {
+          if (att.dataUrl && !att.uploaded) {
+            try {
+              await spUploadFile(state.settings.spListName, ev.spId, { name: att.name }, att.dataUrl);
+              att.uploaded = true;
+            } catch(e) { console.warn('Attachment upload failed:', e); }
+          }
+        }
+      }
+      ev.syncStatus = 'synced';
+    }
+
+    // Pull latest from SharePoint
+    await pullFromSharePoint();
+
+    saveToLocal();
+    updateStats();
+    renderRecent();
+    renderEvidence();
+    setSyncBadge('synced');
+    showToast('✅ Synced with SharePoint!', 'success');
+  } catch(err) {
+    console.error('Sync error:', err);
+    setSyncBadge('error');
+    showToast('❌ Sync failed — saved locally', 'error');
+  } finally {
+    isSyncing = false;
+  }
+}
+
+async function pullFromSharePoint() {
+  try {
+    const spItems = await spGetListItems(state.settings.spListName);
+    for (const spItem of spItems) {
+      const existing = state.evidence.find(e => e.spId === spItem.Id);
+      if (!existing) {
+        state.evidence.push(spItemToEvidence(spItem));
+      }
+    }
+  } catch(e) { console.warn('Pull failed:', e); }
+
+  try {
+    const spStudents = await spGetListItems(state.settings.spStudentsListName);
+    for (const s of spStudents) {
+      const exists = state.students.find(st => st.spId === s.Id);
+      if (!exists) {
+        state.students.push({
+          id: 'sp_' + s.Id, spId: s.Id,
+          firstName: s.FirstName || '', lastName: s.LastName || '',
+          year: s.YearLevel || '', campus: s.Campus || '',
+          syncStatus: 'synced'
+        });
+      }
+    }
+  } catch(e) { console.warn('Student pull failed:', e); }
+}
+
+function evidenceToSPItem(ev) {
+  return {
+    Title: ev.studentName || 'Evidence',
+    StudentName: ev.studentName || '',
+    StudentID: ev.studentId || '',
+    AdjustmentTypes: (ev.adjustments || []).join(', '),
+    Observation: ev.observation || '',
+    Impact: ev.impact || '',
+    StaffName: ev.staffName || '',
+    Campus: ev.campus || '',
+    ReviewDate: ev.reviewDate || null,
+    CapturedDate: ev.date || new Date().toISOString()
+  };
+}
+
+function spItemToEvidence(spItem) {
+  return {
+    id: 'sp_' + spItem.Id,
+    spId: spItem.Id,
+    studentName: spItem.StudentName || spItem.Title || '',
+    studentId: spItem.StudentID || '',
+    adjustments: (spItem.AdjustmentTypes || '').split(',').map(s => s.trim()).filter(Boolean),
+    observation: spItem.Observation || '',
+    impact: spItem.Impact || '',
+    staffName: spItem.StaffName || '',
+    campus: spItem.Campus || '',
+    reviewDate: spItem.ReviewDate || '',
+    date: spItem.CapturedDate || spItem.Created,
+    attachments: [],
+    syncStatus: 'synced'
+  };
+}
+
+function setSyncBadge(status) {
+  const badge = document.getElementById('syncBadge');
+  const icon  = document.getElementById('syncIcon');
+  const text  = document.getElementById('syncText');
+  badge.className = 'sync-badge';
+  if (status === 'syncing') { icon.textContent = '🔄'; text.textContent = 'Syncing…'; }
+  else if (status === 'synced') { icon.textContent = '✅'; text.textContent = 'Synced'; badge.classList.add('synced'); }
+  else if (status === 'error')  { icon.textContent = '❌'; text.textContent = 'Error'; badge.classList.add('error'); }
+  else { icon.textContent = '☁️'; text.textContent = 'Sync'; }
+}
+
+async function testConnection() {
+  const url = document.getElementById('spSiteUrl').value.trim();
+  if (!url) { showToast('Enter a SharePoint URL first', 'error'); return; }
+  const statusEl = document.getElementById('spStatus');
+  statusEl.textContent = '🔄 Testing connection…';
+  try {
+    const testUrl = url.replace(/\/$/, '') + '/_api/web?$select=Title';
+    const r = await fetch(testUrl, { headers: spHeaders(), credentials: 'include' });
+    if (r.ok) {
+      const data = await r.json();
+      statusEl.innerHTML = `<span style="color:var(--success)">✅ Connected to: <strong>${data.d.Title}</strong></span>`;
+    } else {
+      statusEl.innerHTML = `<span style="color:var(--danger)">❌ Error ${r.status} — Check URL and ensure you're signed in to Microsoft 365</span>`;
+    }
+  } catch(e) {
+    statusEl.innerHTML = `<span style="color:var(--danger)">❌ Could not reach SharePoint — ensure you're signed in to Microsoft 365 in this browser</span>`;
+  }
+}
+
+// ─────────────────────────────────────────────
+//  SETTINGS
+// ─────────────────────────────────────────────
+function saveSpSettings() {
+  state.settings.spSiteUrl          = document.getElementById('spSiteUrl').value.trim();
+  state.settings.spListName         = document.getElementById('spListName').value.trim() || 'EvidenceRecords';
+  state.settings.spStudentsListName = document.getElementById('spStudentsListName').value.trim() || 'Students';
+  saveSettings();
+  checkSPBanner();
+  showToast('✅ SharePoint settings saved!', 'success');
+}
+
+function saveStaffSettings() {
+  state.settings.staffName = document.getElementById('settingStaffName').value.trim();
+  state.settings.campus    = document.getElementById('settingCampus').value;
+  saveSettings();
+  showToast('✅ Details saved!', 'success');
+}
+
+function checkSPBanner() {
+  document.getElementById('spBanner').style.display = state.settings.spSiteUrl ? 'none' : 'flex';
+}
+
+// ─────────────────────────────────────────────
+//  NAVIGATION
+// ─────────────────────────────────────────────
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'evidence') renderEvidence();
+  if (name === 'students') renderStudents();
+}
+
+// ─────────────────────────────────────────────
+//  CAPTURE MODAL
+// ─────────────────────────────────────────────
+function openCaptureModal() {
+  attachedFiles = [];
+  selectedAdj   = [];
+  document.getElementById('capStudent').value      = '';
+  document.getElementById('capObservation').value  = '';
+  document.getElementById('capImpact').value       = '';
+  document.getElementById('previewGrid').innerHTML = '';
+  document.querySelectorAll('#adjChips .chip').forEach(c => c.classList.remove('selected'));
+  setDefaultDate();
+  populateStudentDropdown();
+  document.getElementById('captureModal').classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function setDefaultDate() {
+  const d = new Date(); d.setDate(d.getDate() + 14);
+  const iso = d.toISOString().split('T')[0];
+  const el = document.getElementById('capReviewDate');
+  if (el) el.value = iso;
+}
+
+function toggleChip(el, val) {
+  el.classList.toggle('selected');
+  if (selectedAdj.includes(val)) selectedAdj = selectedAdj.filter(v => v !== val);
+  else selectedAdj.push(val);
+}
+
+function triggerCamera()  { document.getElementById('fileInputCamera').click(); }
+function triggerVideo()   { document.getElementById('fileInputVideo').click(); }
+function triggerFile()    { document.getElementById('fileInputFile').click(); }
+function triggerGallery() { document.getElementById('fileInputGallery').click(); }
+
+function handleFiles(input) {
+  Array.from(input.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      attachedFiles.push({ file, dataUrl: e.target.result, name: file.name, type: file.type, uploaded: false });
+      renderPreviews();
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = '';
+}
+
+function renderPreviews() {
+  const grid = document.getElementById('previewGrid');
+  grid.innerHTML = '';
+  attachedFiles.forEach((att, i) => {
+    const div = document.createElement('div');
+    div.className = 'preview-item';
+    if (att.type.startsWith('image/')) {
+      div.innerHTML = `<img src="${att.dataUrl}" /><button class="remove-btn" onclick="removeFile(${i})">✕</button>`;
+    } else if (att.type.startsWith('video/')) {
+      div.innerHTML = `<video src="${att.dataUrl}" muted></video><button class="remove-btn" onclick="removeFile(${i})">✕</button>`;
+    } else {
+      div.innerHTML = `<div class="file-icon">📄<span>${att.name.split('.').pop().toUpperCase()}</span></div><button class="remove-btn" onclick="removeFile(${i})">✕</button>`;
+    }
+    grid.appendChild(div);
+  });
+}
+
+function removeFile(i) {
+  attachedFiles.splice(i, 1);
+  renderPreviews();
+}
+
+// ─────────────────────────────────────────────
+//  SAVE EVIDENCE
+// ─────────────────────────────────────────────
+function saveEvidence() {
+  const studentSel = document.getElementById('capStudent');
+  const observation = document.getElementById('capObservation').value.trim();
+
+  if (!studentSel.value)   { showToast('Please select a student', 'error'); return; }
+  if (!observation)        { showToast('Please add an observation', 'error'); return; }
+  if (!selectedAdj.length) { showToast('Please select an adjustment type', 'error'); return; }
+
+  const student = state.students.find(s => s.id === studentSel.value);
+  const ev = {
+    id: 'ev_' + Date.now(),
+    spId: null,
+    studentId: studentSel.value,
+    studentName: student ? `${student.firstName} ${student.lastName}` : studentSel.options[studentSel.selectedIndex].text,
+    adjustments: [...selectedAdj],
+    observation,
+    impact: document.getElementById('capImpact').value.trim(),
+    reviewDate: document.getElementById('capReviewDate').value,
+    staffName: state.settings.staffName,
+    campus: state.settings.campus || (student ? student.campus : ''),
+    date: new Date().toISOString(),
+    attachments: attachedFiles.map(a => ({ name: a.name, dataUrl: a.dataUrl, type: a.type, uploaded: false })),
+    syncStatus: 'pending'
+  };
+
+  state.evidence.unshift(ev);
+  saveToLocal();
+  updateStats();
+  renderRecent();
+  renderEvidence();
+  closeModal('captureModal');
+  showToast('✅ Evidence saved!', 'success');
+
+  // Auto-sync if configured
+  if (state.settings.spSiteUrl) {
+    setTimeout(() => syncNow(), 1500);
+  }
+}
+
+// ─────────────────────────────────────────────
+//  STUDENTS
+// ─────────────────────────────────────────────
+function openAddStudentModal() {
+  document.getElementById('newStudentFirst').value  = '';
+  document.getElementById('newStudentLast').value   = '';
+  document.getElementById('newStudentYear').value   = '';
+  document.getElementById('newStudentCampus').value = state.settings.campus || '';
+  document.getElementById('addStudentModal').classList.add('open');
+}
+
+function saveStudent() {
+  const first  = document.getElementById('newStudentFirst').value.trim();
+  const last   = document.getElementById('newStudentLast').value.trim();
+  if (!first || !last) { showToast('Enter first and last name', 'error'); return; }
+
+  const student = {
+    id: 'st_' + Date.now(),
+    spId: null,
+    firstName: first,
+    lastName: last,
+    year: document.getElementById('newStudentYear').value,
+    campus: document.getElementById('newStudentCampus').value,
+    syncStatus: 'pending'
+  };
+  state.students.push(student);
+  saveToLocal();
+  renderStudents();
+  populateStudentDropdown();
+  closeModal('addStudentModal');
+  showToast('✅ Student added!', 'success');
+
+  // Sync student to SharePoint
+  if (state.settings.spSiteUrl) {
+    setTimeout(async () => {
+      try {
+        const result = await spAddItem(state.settings.spStudentsListName, {
+          Title: `${first} ${last}`,
+          FirstName: first, LastName: last,
+          YearLevel: student.year, Campus: student.campus
+        });
+        student.spId = result.d.Id;
+        student.syncStatus = 'synced';
+        saveToLocal();
+      } catch(e) { console.warn('Student sync failed:', e); }
+    }, 500);
+  }
+}
+
+function populateStudentDropdown() {
+  const sel = document.getElementById('capStudent');
+  const val = sel.value;
+  sel.innerHTML = '<option value="">Select student…</option>';
+  const sorted = [...state.students].sort((a,b) => a.lastName.localeCompare(b.lastName));
+  sorted.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.id;
+    opt.textContent = `${s.lastName}, ${s.firstName}${s.campus ? ' · ' + s.campus : ''}`;
+    sel.appendChild(opt);
+  });
+  if (val) sel.value = val;
+}
+
+function renderStudents() {
+  const q = (document.getElementById('studentSearch')?.value || '').toLowerCase();
+  const list = document.getElementById('studentList');
+  let students = state.students.filter(s =>
+    `${s.firstName} ${s.lastName} ${s.campus}`.toLowerCase().includes(q)
+  ).sort((a,b) => a.lastName.localeCompare(b.lastName));
+
+  if (!students.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">👥</div><p>No students yet.<br>Add a student to get started.</p></div>`;
+    return;
+  }
+  list.innerHTML = students.map(s => {
+    const count = state.evidence.filter(e => e.studentId === s.id).length;
+    const initials = (s.firstName[0] || '') + (s.lastName[0] || '');
+    return `
+      <div class="student-item" onclick="filterByStudent('${s.id}')">
+        <div class="student-avatar">${initials}</div>
+        <div class="student-info">
+          <div class="student-name">${s.lastName}, ${s.firstName}</div>
+          <div class="student-meta">${[s.year, s.campus].filter(Boolean).join(' · ')}</div>
+        </div>
+        <div class="student-count">${count} records</div>
+      </div>`;
+  }).join('');
+}
+
+function filterByStudent(id) {
+  const s = state.students.find(st => st.id === id);
+  if (!s) return;
+  document.getElementById('evidenceSearch').value = `${s.firstName} ${s.lastName}`;
+  showView('evidence');
+  renderEvidence();
+}
+
+// ─────────────────────────────────────────────
+//  EVIDENCE LIST
+// ─────────────────────────────────────────────
+function setFilter(el, val) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = val;
+  renderEvidence();
+}
+
+function renderEvidence() {
+  const q = (document.getElementById('evidenceSearch')?.value || '').toLowerCase();
+  const list = document.getElementById('evidenceList');
+
+  let items = state.evidence.filter(e => {
+    const matchQ = !q || `${e.studentName} ${e.observation} ${(e.adjustments||[]).join(' ')}`.toLowerCase().includes(q);
+    const matchF = currentFilter === 'all' || (e.adjustments||[]).includes(currentFilter);
+    return matchQ && matchF;
+  });
+
+  if (!items.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><p>No evidence found.<br>${q ? 'Try a different search.' : 'Capture some evidence first!'}</p></div>`;
+    return;
+  }
+
+  list.innerHTML = items.map(e => {
+    const dateStr = formatDate(e.date);
+    const thumbs  = (e.attachments || []).filter(a => a.type && a.type.startsWith('image/')).slice(0,3);
+    const isPending = e.syncStatus === 'pending';
+    return `
+      <div class="evidence-item ${isPending ? 'pending' : ''}">
+        <div class="evidence-item-header">
+          <div>
+            <div class="evidence-item-name">${e.studentName}</div>
+            <div class="evidence-item-meta">📅 ${dateStr}${e.staffName ? ' · ' + e.staffName : ''}${e.campus ? ' · ' + e.campus : ''}</div>
+          </div>
+        </div>
+        <div class="evidence-item-tags">
+          ${(e.adjustments||[]).map(a => `<span class="tag">${a}</span>`).join('')}
+          ${isPending ? '<span class="tag pending">⏳ Pending sync</span>' : '<span class="tag gold">✅ Synced</span>'}
+        </div>
+        ${e.observation ? `<div style="font-size:13px;color:var(--text-muted);margin-top:6px;line-height:1.4">${e.observation.slice(0,120)}${e.observation.length > 120 ? '…' : ''}</div>` : ''}
+        ${thumbs.length ? `<div class="evidence-thumb">${thumbs.map(a => `<img src="${a.dataUrl}" />`).join('')}</div>` : ''}
+        <div class="evidence-actions">
+          <button class="action-btn primary" onclick="viewEvidence('${e.id}')">👁 View</button>
+          <button class="action-btn" onclick="deleteEvidence('${e.id}')">🗑 Delete</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderRecent() {
+  const list = document.getElementById('recentList');
+  const recent = state.evidence.slice(0, 5);
+  if (!recent.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><p>No evidence captured yet.<br>Tap the button above to start!</p></div>`;
+    return;
+  }
+  list.innerHTML = recent.map(e => `
+    <div class="evidence-item ${e.syncStatus === 'pending' ? 'pending' : ''}" onclick="viewEvidence('${e.id}')" style="cursor:pointer">
+      <div class="evidence-item-name">${e.studentName}</div>
+      <div class="evidence-item-meta">${formatDate(e.date)}</div>
+      <div class="evidence-item-tags">
+        ${(e.adjustments||[]).map(a => `<span class="tag">${a}</span>`).join('')}
+        ${e.syncStatus === 'pending' ? '<span class="tag pending">⏳ Pending</span>' : '<span class="tag gold">✅ Synced</span>'}
+      </div>
+    </div>`).join('');
+}
+
+function viewEvidence(id) {
+  const e = state.evidence.find(ev => ev.id === id);
+  if (!e) return;
+  const content = document.getElementById('detailContent');
+  content.innerHTML = `
+    <div class="modal-title">📋 Evidence Record</div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:18px;font-weight:800">${e.studentName}</div>
+      <div style="font-size:12px;color:var(--text-muted)">${formatDate(e.date)}${e.staffName ? ' · ' + e.staffName : ''}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Adjustment Types</div>
+      <div class="chips">${(e.adjustments||[]).map(a => `<div class="chip selected">${a}</div>`).join('')}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Observation</div>
+      <p style="font-size:14px;line-height:1.6">${e.observation || '—'}</p>
+    </div>
+    ${e.impact ? `<div class="card"><div class="card-title">Impact</div><p style="font-size:14px;line-height:1.6">${e.impact}</p></div>` : ''}
+    ${e.reviewDate ? `<div class="card"><div class="card-title">Review Date</div><p style="font-size:14px">${formatDate(e.reviewDate)}</p></div>` : ''}
+    ${(e.attachments||[]).length ? `
+      <div class="card">
+        <div class="card-title">Attachments (${e.attachments.length})</div>
+        <div class="preview-grid">
+          ${e.attachments.map((a,i) => {
+            if (a.type && a.type.startsWith('image/')) return `<div class="preview-item"><img src="${a.dataUrl}" onclick="openFullImg(${i},'${id}')" /></div>`;
+            if (a.type && a.type.startsWith('video/')) return `<div class="preview-item"><video src="${a.dataUrl}" controls></video></div>`;
+            return `<div class="preview-item"><div class="file-icon">📄<span>${a.name}</span></div></div>`;
+          }).join('')}
+        </div>
+      </div>` : ''}
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn btn-secondary" onclick="exportSinglePDF('${e.id}')" style="flex:1">📄 Export PDF</button>
+    </div>`;
+  document.getElementById('detailModal').classList.add('open');
+}
+
+function openFullImg(i, evId) {
+  const e = state.evidence.find(ev => ev.id === evId);
+  if (!e) return;
+  const win = window.open('', '_blank');
+  win.document.write(`<img src="${e.attachments[i].dataUrl}" style="max-width:100%;max-height:100vh" />`);
+}
+
+function deleteEvidence(id) {
+  if (!confirm('Delete this evidence record? This cannot be undone.')) return;
+  state.evidence = state.evidence.filter(e => e.id !== id);
+  saveToLocal();
+  updateStats();
+  renderEvidence();
+  renderRecent();
+  showToast('🗑 Record deleted', '');
+}
+
+// ─────────────────────────────────────────────
+//  STATS
+// ─────────────────────────────────────────────
+function updateStats() {
+  const today = new Date().toDateString();
+  document.getElementById('statTotal').textContent   = state.evidence.length;
+  document.getElementById('statToday').textContent   = state.evidence.filter(e => new Date(e.date).toDateString() === today).length;
+  document.getElementById('statPending').textContent = state.evidence.filter(e => e.syncStatus === 'pending').length;
+}
+
+// ─────────────────────────────────────────────
+//  EXPORT
+// ─────────────────────────────────────────────
+function exportCSV() {
+  if (!state.evidence.length) { showToast('No evidence to export', 'error'); return; }
+  const headers = ['Date','Student','Campus','Staff','Adjustments','Observation','Impact','ReviewDate','Synced'];
+  const rows = state.evidence.map(e => [
+    formatDate(e.date), e.studentName, e.campus, e.staffName,
+    (e.adjustments||[]).join('; '), e.observation, e.impact, e.reviewDate,
+    e.syncStatus === 'synced' ? 'Yes' : 'No'
+  ].map(v => `"${(v||'').replace(/"/g,'""')}"`));
+  const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+  downloadFile(csv, `Flexi_Evidence_${today()}.csv`, 'text/csv');
+  showToast('✅ CSV exported!', 'success');
+}
+
+function exportSinglePDF(id) {
+  const e = state.evidence.find(ev => ev.id === id);
+  if (!e) return;
+  const html = `
+    <html><head><title>Evidence - ${e.studentName}</title>
+    <style>body{font-family:sans-serif;padding:24px;max-width:700px;margin:0 auto}
+    h1{color:#005B52}h2{color:#005B52;font-size:14px;text-transform:uppercase;letter-spacing:1px;margin-top:20px}
+    p{line-height:1.6}.tags span{display:inline-block;background:#E6F2F1;color:#005B52;padding:3px 10px;border-radius:12px;margin:2px;font-size:12px}
+    img{max-width:200px;border-radius:8px;margin:4px}</style></head>
+    <body>
+    <h1>Flexi Evidence Record</h1>
+    <p><strong>Student:</strong> ${e.studentName}<br>
+    <strong>Date:</strong> ${formatDate(e.date)}<br>
+    <strong>Staff:</strong> ${e.staffName || '—'}<br>
+    <strong>Campus:</strong> ${e.campus || '—'}</p>
+    <h2>Adjustment Types</h2><div class="tags">${(e.adjustments||[]).map(a=>`<span>${a}</span>`).join('')}</div>
+    <h2>Observation</h2><p>${e.observation || '—'}</p>
+    ${e.impact ? `<h2>Impact</h2><p>${e.impact}</p>` : ''}
+    ${e.reviewDate ? `<h2>Review Date</h2><p>${formatDate(e.reviewDate)}</p>` : ''}
+    ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length ? `<h2>Evidence Photos</h2>${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}">`).join('')}` : ''}
+    </body></html>`;
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  win.print();
+}
+
+function importStudentsCSV() {
+  document.getElementById('csvImportInput').click();
+}
+
+function handleCSVImport(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const lines = e.target.result.split('\n').filter(l => l.trim());
+    if (lines.length < 2) { showToast('CSV appears empty', 'error'); return; }
+    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g,'').toLowerCase());
+    let added = 0;
+    lines.slice(1).forEach(line => {
+      const vals = line.split(',').map(v => v.trim().replace(/"/g,''));
+      const obj  = {};
+      headers.forEach((h,i) => obj[h] = vals[i] || '');
+      const first = obj['firstname'] || obj['first name'] || obj['first'] || '';
+      const last  = obj['lastname']  || obj['last name']  || obj['last']  || '';
+      if (!first && !last) return;
+      state.students.push({
+        id: 'st_' + Date.now() + '_' + added,
+        spId: null,
+        firstName: first, lastName: last,
+        year: obj['year'] || obj['year level'] || '',
+        campus: obj['campus'] || obj['site'] || '',
+        syncStatus: 'pending'
+      });
+      added++;
+    });
+    saveToLocal();
+    renderStudents();
+    populateStudentDropdown();
+    showToast(`✅ Imported ${added} students`, 'success');
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function clearLocalData() {
+  if (!confirm('Clear all local data? This removes all locally stored evidence and students. Synced SharePoint data is not affected.')) return;
+  state.evidence = [];
+  state.students = [];
+  saveToLocal();
+  updateStats();
+  renderRecent();
+  renderEvidence();
+  renderStudents();
+  showToast('🗑 Local data cleared', '');
+}
+
+// ─────────────────────────────────────────────
+//  INSTALL PWA
+// ─────────────────────────────────────────────
+async function installApp() {
+  if (!deferredInstallPrompt) {
+    showToast('Use Share → Add to Home Screen in Safari', '');
+    return;
+  }
+  deferredInstallPrompt.prompt();
+  const { outcome } = await deferredInstallPrompt.userChoice;
+  if (outcome === 'accepted') {
+    document.getElementById('installPrompt').classList.remove('show');
+    showToast('🎉 App installed!', 'success');
+  }
+  deferredInstallPrompt = null;
+}
+
+function dismissInstall() {
+  document.getElementById('installPrompt').classList.remove('show');
+  localStorage.setItem('installDismissed', '1');
+}
+
+// ─────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-AU', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function downloadFile(content, filename, mimeType) {
+  const a = document.createElement('a');
+  a.href     = URL.createObjectURL(new Blob([content], { type: mimeType }));
+  a.download = filename;
+  a.click();
+}
+
+// ─────────────────────────────────────────────
+//  SERVICE WORKER REGISTRATION (PWA offline)
+// ─────────────────────────────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    // Inline SW registration — the SW is defined in sw.js
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+
+// ─────────────────────────────────────────────
+//  START
+// ─────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

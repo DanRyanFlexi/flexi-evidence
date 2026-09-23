@@ -1,0 +1,26 @@
+{
+  "name": "Flexi Evidence Capture",
+  "short_name": "Flexi Evidence",
+  "description": "Learning Adjustment Evidence Capture for Edmund Rice Flexible Schools",
+  "start_url": "./flexi-evidence-pwa.html",
+  "display": "standalone",
+  "background_color": "#005B52",
+  "theme_color": "#005B52",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "lang": "en-AU"
+}
