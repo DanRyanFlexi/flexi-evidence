@@ -1,7 +1,7 @@
 {
   "name": "Flexi Learning Evidence",
   "short_name": "Flexi Learning",
-  "description": "ACARA V9 Learning Evidence Capture — English & Mathematics Years 7–10",
+  "description": "ACARA V9 Learning Evidence — English & Mathematics, General Capabilities, Years 7–10",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#005B52",

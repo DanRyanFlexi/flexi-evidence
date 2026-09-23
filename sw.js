@@ -1,5 +1,5 @@
-// Flexi Learning Evidence v1.0 — Service Worker
-const CACHE = 'flexi-learning-v1';
+// Flexi Learning Evidence v2.0 — Service Worker
+const CACHE = 'flexi-learning-v2';
 const SHELL = ['./index.html', './manifest.json'];
 
 self.addEventListener('install', e => {
