@@ -60,16 +60,14 @@
     .fg{margin-bottom:12px}
     label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
     label .req{color:var(--burg)}
-    select,input[type=text],input[type=date],textarea{width:100%;padding:11px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:var(--font);background:var(--surface);color:var(--text);appearance:none;-webkit-appearance:none;transition:border-color .15s}
+    select,input[type=text],textarea{width:100%;padding:11px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:var(--font);background:var(--surface);color:var(--text);appearance:none;-webkit-appearance:none;transition:border-color .15s}
     select:focus,input:focus,textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,91,82,.1)}
     textarea{resize:none}
 
-    /* YEAR GRID — Reception to Year 10 */
     .year-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
     .yc{padding:9px 4px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);transition:all .15s}
     .yc.on{background:var(--teal);border-color:var(--teal);color:#fff}
 
-    /* SUBJECT CARDS */
     .subj-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
     .subj-card{padding:12px 8px;border-radius:12px;border:2px solid var(--border);background:var(--surface);cursor:pointer;text-align:center;transition:all .15s;font-size:13px;font-weight:600;color:var(--muted)}
     .subj-card .si{font-size:20px;display:block;margin-bottom:3px}
@@ -78,19 +76,15 @@
     .both-note{font-size:11px;color:var(--both);background:var(--both-bg);border:1px solid var(--both-bd);border-radius:8px;padding:7px 10px;margin-top:6px;display:none}
     .both-note.on{display:block}
 
-    /* WORK SAMPLE LINK */
     .ws-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;background:var(--teal-f);border:1px solid var(--teal);border-radius:8px;padding:6px 11px;margin-bottom:10px}
-    .ws-link:hover{background:var(--teal);color:#fff}
 
-    /* STRANDS */
     .strand-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
-    .sp{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;color:var(--muted);transition:all .15s;white-space:nowrap}
+    .sp{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;color:var(--muted);white-space:nowrap}
     .sp.ae{background:var(--eng);color:#fff;border-color:var(--eng)}
     .sp.am{background:var(--mat);color:#fff;border-color:var(--mat)}
 
-    /* STANDARD CARDS */
     .std-list{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;margin-top:7px}
-    .std-card{border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;transition:all .15s;background:var(--surface);display:flex;align-items:flex-start;gap:9px}
+    .std-card{border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;background:var(--surface);display:flex;align-items:flex-start;gap:9px}
     .std-card.se{border-color:var(--eng);background:var(--eng-bg)}
     .std-card.sm{border-color:var(--mat);background:var(--mat-bg)}
     .chk{width:19px;height:19px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px}
@@ -99,21 +93,18 @@
     .std-txt{font-size:13px;line-height:1.5}
     .std-code{font-size:10px;color:var(--muted);margin-top:2px;font-family:monospace}
 
-    /* SELECTED TAGS */
     .sel-sum{margin-top:8px}
     .stag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;margin:2px;cursor:pointer}
     .stag.e{background:var(--eng-bg);color:var(--eng);border:1px solid var(--eng-bd)}
     .stag.m{background:var(--mat-bg);color:var(--mat);border:1px solid var(--mat-bd)}
 
-    /* GC GRID */
     .gc-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-    .gc-card{padding:10px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px}
+    .gc-card{padding:10px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;display:flex;align-items:center;gap:8px}
     .gc-card.on{border-color:var(--teal);background:var(--teal-f)}
     .gc-icon{font-size:20px;flex-shrink:0}
     .gc-label{font-size:12px;font-weight:600;color:var(--muted);line-height:1.3}
     .gc-card.on .gc-label{color:var(--teal)}
 
-    /* MEDIA */
     .media-btns{display:grid;grid-template-columns:1fr 1fr;gap:7px}
     .mb{display:flex;align-items:center;justify-content:center;gap:5px;padding:10px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);font-size:13px;font-weight:600;cursor:pointer;color:var(--text)}
     .mb.p{border-color:var(--teal);color:var(--teal);background:var(--teal-f)}
@@ -129,6 +120,7 @@
     .btn-p{background:var(--teal);color:#fff}
     .btn-s{background:var(--bg);color:var(--teal);border:1.5px solid var(--teal)}
     .btn-d{background:#FEF2F2;color:var(--danger);border:1.5px solid #FECACA}
+    .btn-export{background:var(--gold-l);color:#7A5800;border:1.5px solid var(--gold)}
     .btn:active{opacity:.8}
 
     .sb{margin-bottom:9px}
@@ -162,11 +154,16 @@
     .ab.p{color:var(--teal);border-color:var(--teal)}
     .ab.d{color:var(--danger);border-color:#FECACA}
 
-    .sti{background:var(--surface);border-radius:12px;padding:12px;margin-bottom:7px;box-shadow:var(--sh);display:flex;align-items:center;gap:10px;cursor:pointer}
+    /* STUDENTS */
+    .sti{background:var(--surface);border-radius:12px;padding:12px;margin-bottom:7px;box-shadow:var(--sh);display:flex;align-items:center;gap:10px}
     .av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-l));color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .si2{flex:1}
     .sn2{font-weight:700;font-size:14px}
     .sm2{font-size:11px;color:var(--muted)}
+    .stu-actions{display:flex;gap:5px;flex-shrink:0}
+    .stu-btn{padding:5px 8px;border-radius:8px;border:1.5px solid var(--border);background:none;font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);white-space:nowrap}
+    .stu-btn.v{color:var(--teal);border-color:var(--teal)}
+    .stu-btn.x{color:var(--gold);border-color:var(--gold);background:var(--gold-l)}
     .rc{font-size:11px;font-weight:700;color:var(--teal);background:var(--teal-f);padding:3px 8px;border-radius:20px}
 
     /* GLOSSARY */
@@ -186,6 +183,17 @@
     .gcd-sub{font-size:11px;color:var(--muted)}
     .gcd-desc{font-size:13px;line-height:1.6}
 
+    /* EXPORT MODAL */
+    .export-opt{background:var(--surface);border-radius:12px;padding:14px;margin-bottom:9px;box-shadow:var(--sh);border:1.5px solid var(--border);cursor:pointer;display:flex;align-items:center;gap:12px}
+    .export-opt:active{opacity:.8}
+    .export-opt.selected{border-color:var(--teal);background:var(--teal-f)}
+    .eo-icon{font-size:28px;flex-shrink:0}
+    .eo-title{font-size:14px;font-weight:700}
+    .eo-desc{font-size:12px;color:var(--muted);margin-top:2px}
+    .campus-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+    .camp-chip{padding:8px 6px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);text-align:center;cursor:pointer;font-size:12px;font-weight:600;color:var(--muted)}
+    .camp-chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+
     /* STEPS */
     .steps{display:flex;align-items:center;gap:5px;margin-bottom:14px}
     .stp{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--muted);flex-shrink:0}
@@ -194,7 +202,6 @@
     .sl3{flex:1;height:2px;background:var(--border)}
     .sl3.dn{background:var(--ok)}
 
-    /* MODAL */
     .ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end}
     .ov.on{display:flex}
     .modal{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-height:94vh;overflow-y:auto;padding:17px 17px calc(17px + var(--sb));animation:su .27s ease}
@@ -234,7 +241,7 @@
     <div class="hero">
       <div class="hi">📚</div>
       <h2>Capture Learning Evidence</h2>
-      <p>Link student work to ACARA V9 Achievement Standards · Reception–Year 10</p>
+      <p>ACARA V9 Achievement Standards · Reception–Year 10</p>
       <button class="hbtn" onclick="openCapture()">＋ New Evidence</button>
     </div>
     <div class="srow">
@@ -267,6 +274,17 @@
       <button class="btn btn-s" onclick="openAddStudent()" style="flex:1">＋ Add Student</button>
       <button class="btn btn-s" onclick="importCSV()" style="flex:1">📤 Import CSV</button>
     </div>
+    <!-- CLASS EXPORT BANNER -->
+    <div class="card" style="background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:1.5px solid var(--gold);margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:24px">📊</span>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:#7A5800">Export Whole Class</div>
+          <div style="font-size:11px;color:#92400E">PDF report or CSV for all students</div>
+        </div>
+        <button class="btn btn-export" onclick="openClassExport()" style="width:auto;padding:8px 13px;font-size:12px">Export →</button>
+      </div>
+    </div>
     <div id="studentList"></div>
   </div>
 
@@ -297,17 +315,17 @@
     <div class="ct" style="margin:16px 0 9px">📦 Data</div>
     <div class="card">
       <div style="display:flex;flex-direction:column;gap:7px">
-        <button class="btn btn-s" onclick="exportCSV()">📥 Export CSV</button>
-        <button class="btn btn-s" onclick="backupJSON()">💾 Backup (JSON)</button>
-        <button class="btn btn-s" onclick="restoreJSON()">📂 Restore Backup</button>
-        <button class="btn btn-d" onclick="clearAll()">🗑️ Clear All Data</button>
+        <button class="btn btn-s"      onclick="exportAllCSV()">📥 Export All Evidence (CSV)</button>
+        <button class="btn btn-export" onclick="openClassExport()">📊 Export Class Report (PDF)</button>
+        <button class="btn btn-s"      onclick="backupJSON()">💾 Backup (JSON)</button>
+        <button class="btn btn-s"      onclick="restoreJSON()">📂 Restore Backup</button>
+        <button class="btn btn-d"      onclick="clearAll()">🗑️ Clear All Data</button>
       </div>
     </div>
     <div class="card" style="font-size:13px;color:var(--muted);line-height:1.7;margin-top:6px">
-      <strong style="color:var(--text)">Flexi Learning Evidence v3.0</strong><br>
+      <strong style="color:var(--text)">Flexi Learning Evidence v3.1</strong><br>
       ACARA V9 · English & Mathematics · Reception–Year 10<br>
-      Edmund Rice Flexible Schools · SA/WA Region<br>
-      <span style="font-size:11px">App label: "Reception" = ACARA "Foundation"</span>
+      Edmund Rice Flexible Schools · SA/WA Region
     </div>
   </div>
 </main>
@@ -320,7 +338,7 @@
   <button class="nb"    id="nav-settings" onclick="showView('settings')"><span class="ic">⚙️</span>Settings</button>
 </nav>
 
-<!-- CAPTURE MODAL -->
+<!-- ══ CAPTURE MODAL ══ -->
 <div class="ov" id="capModal">
   <div class="modal">
     <div class="mh"></div>
@@ -330,22 +348,12 @@
       <div class="stp"    id="sp3">3</div><div class="sl3" id="sl3"></div>
       <div class="stp"    id="sp4">4</div>
     </div>
-
-    <!-- STEP 1: Student + Task + Working-at Year -->
     <div id="cs1">
       <div class="mt">👤 Who & What Task?</div>
+      <div class="fg"><label>Student <span class="req">*</span></label><select id="cStu"><option value="">Select student…</option></select></div>
+      <div class="fg"><label>Task / Activity Name <span class="req">*</span></label><input type="text" id="cTask" placeholder="e.g. Persuasive Writing, Number Patterns Assessment…"/></div>
       <div class="fg">
-        <label>Student <span class="req">*</span></label>
-        <select id="cStu"><option value="">Select student…</option></select>
-      </div>
-      <div class="fg">
-        <label>Task / Activity Name <span class="req">*</span></label>
-        <input type="text" id="cTask" placeholder="e.g. Persuasive Writing, Number Patterns Assessment…"/>
-      </div>
-      <div class="fg">
-        <label>Working at Year Level <span class="req">*</span>
-          <span style="font-size:11px;font-weight:400;color:var(--muted)"> — standards will match this level</span>
-        </label>
+        <label>Working at Year Level <span class="req">*</span> <span style="font-size:11px;font-weight:400;color:var(--muted)">— standards load for this level</span></label>
         <div class="year-grid" id="yearGrid"></div>
       </div>
       <div style="display:flex;gap:7px;margin-top:4px">
@@ -353,25 +361,19 @@
         <button class="btn btn-p" onclick="nextStep1()" style="flex:2">Next →</button>
       </div>
     </div>
-
-    <!-- STEP 2: Subject + Standards + Work Samples -->
     <div id="cs2" style="display:none">
       <div class="mt">🎯 Subject & Standards</div>
       <div class="fg">
-        <label>Subject(s) <span class="req">*</span>
-          <span style="font-size:11px;font-weight:400;color:var(--muted)"> — select one or both</span>
-        </label>
+        <label>Subject(s) <span class="req">*</span> <span style="font-size:11px;font-weight:400;color:var(--muted)">— one or both</span></label>
         <div class="subj-grid">
           <div class="subj-card" id="sc-eng" onclick="toggleSubj('English')"><span class="si">📖</span>English</div>
           <div class="subj-card" id="sc-mat" onclick="toggleSubj('Mathematics')"><span class="si">🔢</span>Mathematics</div>
         </div>
         <div class="both-note" id="bothNote">📌 Both selected — choose standards from each below.</div>
       </div>
-
-      <!-- English section -->
       <div id="engSection" style="display:none">
         <div class="info-box" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
-          <span>📖 <strong>English</strong> — <span id="engYearLabel"></span> Achievement Standards</span>
+          <span>📖 <strong>English</strong> — <span id="engYearLabel"></span></span>
           <a id="engWsLink" href="#" target="_blank" class="ws-link">🔗 ACARA Work Samples</a>
         </div>
         <div class="fg"><label>Strand</label><div class="strand-row" id="engStrands"></div></div>
@@ -379,55 +381,41 @@
         <div class="sel-sum" id="engSelSum"></div>
         <div class="divider"></div>
       </div>
-
-      <!-- Maths section -->
       <div id="matSection" style="display:none">
         <div class="info-box" style="background:var(--mat-bg);color:var(--mat);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
-          <span>🔢 <strong>Mathematics</strong> — <span id="matYearLabel"></span> Achievement Standards</span>
+          <span>🔢 <strong>Mathematics</strong> — <span id="matYearLabel"></span></span>
           <a id="matWsLink" href="#" target="_blank" class="ws-link" style="color:var(--mat);border-color:var(--mat);background:var(--mat-bg)">🔗 ACARA Work Samples</a>
         </div>
         <div class="fg"><label>Strand</label><div class="strand-row" id="matStrands"></div></div>
         <div class="std-list" id="matStdList"></div>
         <div class="sel-sum" id="matSelSum"></div>
       </div>
-
       <div style="display:flex;gap:7px;margin-top:12px">
         <button class="btn btn-s" onclick="showStep(1)" style="flex:1">← Back</button>
         <button class="btn btn-p" onclick="nextStep2()" style="flex:2">Next →</button>
       </div>
     </div>
-
-    <!-- STEP 3: General Capabilities -->
     <div id="cs3" style="display:none">
       <div class="mt">⭐ General Capabilities</div>
-      <div class="info-box">Select any General Capabilities this task develops. Optional — skip if not applicable.</div>
+      <div class="info-box">Select any General Capabilities this task develops. Optional.</div>
       <div class="gc-grid" id="capGrid"></div>
       <div style="display:flex;gap:7px;margin-top:12px">
         <button class="btn btn-s" onclick="showStep(2)" style="flex:1">← Back</button>
         <button class="btn btn-p" onclick="showStep(4)" style="flex:2">Next →</button>
       </div>
     </div>
-
-    <!-- STEP 4: Observation + Evidence -->
     <div id="cs4" style="display:none">
       <div class="mt">📝 Observation & Evidence</div>
-      <div class="fg">
-        <label>Teacher Observation <span class="req">*</span></label>
-        <textarea id="cObs" placeholder="Describe what the student did, said, wrote or created that demonstrates this standard…" rows="3"></textarea>
-      </div>
-      <div class="fg">
-        <label>Level of Achievement</label>
-        <select id="cLvl">
-          <option value="">Select…</option>
+      <div class="fg"><label>Teacher Observation <span class="req">*</span></label><textarea id="cObs" placeholder="Describe what the student did, said, wrote or created that demonstrates this standard…" rows="3"></textarea></div>
+      <div class="fg"><label>Level of Achievement</label>
+        <select id="cLvl"><option value="">Select…</option>
           <option>Working towards the standard</option>
           <option>Demonstrating the standard</option>
           <option>Exceeding the standard</option>
         </select>
       </div>
-      <div class="fg">
-        <label>Cognitive Verb(s) Used</label>
-        <input type="text" id="cVerbs" placeholder="e.g. analyse, evaluate, create…"/>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px">See 📖 Glossary for definitions and examples.</div>
+      <div class="fg"><label>Cognitive Verb(s) Used</label><input type="text" id="cVerbs" placeholder="e.g. analyse, evaluate, create…"/>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">See 📖 Glossary for definitions.</div>
       </div>
       <div class="fg">
         <label>📎 Attach Evidence</label>
@@ -443,14 +431,86 @@
         <input type="file" id="inFil" accept="image/*,video/*,.pdf" multiple             style="display:none" onchange="handleFiles(this)"/>
         <div class="pg" id="pg"></div>
       </div>
-      <div class="fg">
-        <label>Next Steps</label>
-        <textarea id="cNext" placeholder="What will you do next to support this student's progress?" rows="2"></textarea>
-      </div>
+      <div class="fg"><label>Next Steps</label><textarea id="cNext" placeholder="What will you do next to support this student?" rows="2"></textarea></div>
       <div style="display:flex;gap:7px">
         <button class="btn btn-s" onclick="showStep(3)" style="flex:1">← Back</button>
         <button class="btn btn-p" onclick="saveEv()" style="flex:2">💾 Save Evidence</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CLASS EXPORT MODAL ══ -->
+<div class="ov" id="exportModal">
+  <div class="modal">
+    <div class="mh"></div>
+    <div class="mt">📊 Export Class Evidence</div>
+
+    <div class="fg">
+      <label>Export Format</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="export-opt selected" id="eo-pdf" onclick="selectExportFmt('pdf')">
+          <div class="eo-icon">📄</div>
+          <div><div class="eo-title">PDF Report</div><div class="eo-desc">One page per student — standards, observations, photos. Print-ready.</div></div>
+        </div>
+        <div class="export-opt" id="eo-csv" onclick="selectExportFmt('csv')">
+          <div class="eo-icon">📊</div>
+          <div><div class="eo-title">CSV Spreadsheet</div><div class="eo-desc">All records in a table — import into Excel or Sheets.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>Filter by Campus <span style="font-size:11px;font-weight:400;color:var(--muted)">(optional — leave all off for everyone)</span></label>
+      <div class="campus-grid">
+        <div class="camp-chip" onclick="toggleCampus(this,'FAME')">FAME</div>
+        <div class="camp-chip" onclick="toggleCampus(this,'Elizabeth')">Elizabeth</div>
+        <div class="camp-chip" onclick="toggleCampus(this,'Davoren Park')">Davoren Park</div>
+        <div class="camp-chip" onclick="toggleCampus(this,'Geraldton')">Geraldton</div>
+        <div class="camp-chip" onclick="toggleCampus(this,'Other')">Other</div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>Filter by Subject <span style="font-size:11px;font-weight:400;color:var(--muted)">(optional)</span></label>
+      <div style="display:flex;gap:6px">
+        <div class="camp-chip" id="ef-all" onclick="setExportSubj('all')" style="flex:1">All Subjects</div>
+        <div class="camp-chip" id="ef-eng" onclick="setExportSubj('English')" style="flex:1">📖 English</div>
+        <div class="camp-chip" id="ef-mat" onclick="setExportSubj('Mathematics')" style="flex:1">🔢 Maths</div>
+      </div>
+    </div>
+
+    <div id="exportPreview" style="font-size:13px;color:var(--muted);margin-bottom:12px;background:var(--bg);border-radius:8px;padding:10px;line-height:1.7"></div>
+
+    <div style="display:flex;gap:7px">
+      <button class="btn btn-s" onclick="closeModal('exportModal')" style="flex:1">Cancel</button>
+      <button class="btn btn-p" onclick="runClassExport()" style="flex:2">⬇️ Export Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STUDENT EXPORT MODAL ══ -->
+<div class="ov" id="stuExportModal">
+  <div class="modal">
+    <div class="mh"></div>
+    <div class="mt" id="stuExportTitle">📋 Export Student Evidence</div>
+    <div class="info-box" id="stuExportInfo"></div>
+    <div class="fg">
+      <label>Export Format</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="export-opt selected" id="seo-pdf" onclick="selectStuExportFmt('pdf')">
+          <div class="eo-icon">📄</div>
+          <div><div class="eo-title">PDF Report</div><div class="eo-desc">All evidence records with standards, observations and photos.</div></div>
+        </div>
+        <div class="export-opt" id="seo-csv" onclick="selectStuExportFmt('csv')">
+          <div class="eo-icon">📊</div>
+          <div><div class="eo-title">CSV Spreadsheet</div><div class="eo-desc">All records in a table — import into Excel or Sheets.</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:7px">
+      <button class="btn btn-s" onclick="closeModal('stuExportModal')" style="flex:1">Cancel</button>
+      <button class="btn btn-p" onclick="runStuExport()" style="flex:2">⬇️ Export Now</button>
     </div>
   </div>
 </div>
@@ -463,8 +523,7 @@
     <div class="fg"><label>First Name <span class="req">*</span></label><input type="text" id="nFirst" placeholder="First name"/></div>
     <div class="fg"><label>Last Name <span class="req">*</span></label><input type="text" id="nLast" placeholder="Last name"/></div>
     <div class="fg"><label>Enrolled Year Level</label>
-      <select id="nYear">
-        <option value="">Select…</option>
+      <select id="nYear"><option value="">Select…</option>
         <option>Reception</option><option>Year 1</option><option>Year 2</option>
         <option>Year 3</option><option>Year 4</option><option>Year 5</option>
         <option>Year 6</option><option>Year 7</option><option>Year 8</option>
@@ -472,10 +531,8 @@
       </select>
     </div>
     <div class="fg"><label>Campus</label>
-      <select id="nCampus">
-        <option value="">Select…</option>
-        <option>FAME</option><option>Elizabeth</option>
-        <option>Davoren Park</option><option>Geraldton</option><option>Other</option>
+      <select id="nCampus"><option value="">Select…</option>
+        <option>FAME</option><option>Elizabeth</option><option>Davoren Park</option><option>Geraldton</option><option>Other</option>
       </select>
     </div>
     <div style="display:flex;gap:7px">
@@ -500,7 +557,7 @@
 
 <script>
 // ═══════════════════════════════════════
-//  GENERAL CAPABILITIES
+//  GENERAL CAPABILITIES & VERBS
 // ═══════════════════════════════════════
 const GC=[
   {id:'cct',icon:'💡',name:'Critical & Creative Thinking',short:'CCT',desc:'Students develop critical and creative thinking by learning to generate and evaluate knowledge, clarify concepts and ideas, seek possibilities, consider alternatives and solve problems.',elements:['Inquiring','Generating','Analysing','Evaluating','Reflecting']},
@@ -511,37 +568,32 @@ const GC=[
   {id:'num',icon:'🔢',name:'Numeracy',                    short:'Num',desc:'Students develop numeracy as they learn to use mathematical knowledge and skills to solve problems and make sense of their world in a wide range of situations.',elements:['Number sense','Measurement & geometry','Statistics & probability','Problem-solving','Reasoning']},
   {id:'psc',icon:'🤝',name:'Personal & Social Capability',short:'PSC',desc:'Students develop personal and social capability as they learn to understand themselves and others, and manage their relationships, lives, work and learning more effectively.',elements:['Self-awareness','Self-management','Social awareness','Social management']},
 ];
-
-// ═══════════════════════════════════════
-//  COGNITIVE VERBS
-// ═══════════════════════════════════════
 const VERBS=[
-  {verb:'Identify',   cat:'Retrieval',            col:'#6B7280',def:'Locate, select or recognise information, facts or details.',               eg:'Identify the key themes in the text.'},
-  {verb:'Recall',     cat:'Retrieval',            col:'#6B7280',def:'Retrieve information from memory without cues.',                           eg:'Recall the steps in the scientific method.'},
-  {verb:'Recognise',  cat:'Retrieval',            col:'#6B7280',def:'Identify something previously encountered or learned.',                     eg:'Recognise patterns in a data set.'},
-  {verb:'Name',       cat:'Retrieval',            col:'#6B7280',def:'Give the name or label of something.',                                     eg:'Name the parts of a plant cell.'},
-  {verb:'Select',     cat:'Retrieval',            col:'#6B7280',def:'Choose from a range of options or information.',                           eg:'Select evidence from the text to support your view.'},
-  {verb:'Use',        cat:'Retrieval',            col:'#6B7280',def:'Apply known information, tools or skills in a given context.',              eg:'Use correct punctuation in your writing.'},
+  {verb:'Identify',   cat:'Retrieval',            col:'#6B7280',def:'Locate, select or recognise information, facts or details.',eg:'Identify the key themes in the text.'},
+  {verb:'Recall',     cat:'Retrieval',            col:'#6B7280',def:'Retrieve information from memory without cues.',eg:'Recall the steps in the scientific method.'},
+  {verb:'Recognise',  cat:'Retrieval',            col:'#6B7280',def:'Identify something previously encountered or learned.',eg:'Recognise patterns in a data set.'},
+  {verb:'Name',       cat:'Retrieval',            col:'#6B7280',def:'Give the name or label of something.',eg:'Name the parts of a plant cell.'},
+  {verb:'Select',     cat:'Retrieval',            col:'#6B7280',def:'Choose from a range of options or information.',eg:'Select evidence from the text to support your view.'},
+  {verb:'Use',        cat:'Retrieval',            col:'#6B7280',def:'Apply known information, tools or skills in a given context.',eg:'Use correct punctuation in your writing.'},
   {verb:'Describe',   cat:'Comprehension',        col:'#1D4ED8',def:'Give an account of the characteristics, qualities or features of something.',eg:'Describe the setting of the story.'},
-  {verb:'Explain',    cat:'Comprehension',        col:'#1D4ED8',def:'Make something clear by giving a detailed account, including reasons.',     eg:'Explain why the character made that decision.'},
-  {verb:'Summarise',  cat:'Comprehension',        col:'#1D4ED8',def:'Give a brief account of the main points, leaving out unnecessary detail.',  eg:'Summarise the key events of the chapter.'},
-  {verb:'Interpret',  cat:'Comprehension',        col:'#1D4ED8',def:'Explain the meaning or significance of something.',                        eg:'Interpret the data shown in the graph.'},
-  {verb:'Discuss',    cat:'Comprehension',        col:'#1D4ED8',def:'Talk or write about a topic, considering different aspects or viewpoints.',  eg:'Discuss the impact of the event on the community.'},
+  {verb:'Explain',    cat:'Comprehension',        col:'#1D4ED8',def:'Make something clear by giving a detailed account, including reasons.',eg:'Explain why the character made that decision.'},
+  {verb:'Summarise',  cat:'Comprehension',        col:'#1D4ED8',def:'Give a brief account of the main points, leaving out unnecessary detail.',eg:'Summarise the key events of the chapter.'},
+  {verb:'Interpret',  cat:'Comprehension',        col:'#1D4ED8',def:'Explain the meaning or significance of something.',eg:'Interpret the data shown in the graph.'},
+  {verb:'Discuss',    cat:'Comprehension',        col:'#1D4ED8',def:'Talk or write about a topic, considering different aspects or viewpoints.',eg:'Discuss the impact of the event on the community.'},
   {verb:'Analyse',    cat:'Analysis',             col:'#7C3AED',def:'Examine something methodically, identifying key elements and their relationships.',eg:'Analyse how the composer uses rhythm to create tension.'},
-  {verb:'Compare',    cat:'Analysis',             col:'#7C3AED',def:'Identify similarities and differences between two or more things.',          eg:'Compare the two characters\' responses to conflict.'},
-  {verb:'Examine',    cat:'Analysis',             col:'#7C3AED',def:'Investigate or scrutinise something carefully and in detail.',               eg:'Examine the evidence for and against the argument.'},
+  {verb:'Compare',    cat:'Analysis',             col:'#7C3AED',def:'Identify similarities and differences between two or more things.',eg:'Compare the two characters\' responses to conflict.'},
+  {verb:'Examine',    cat:'Analysis',             col:'#7C3AED',def:'Investigate or scrutinise something carefully and in detail.',eg:'Examine the evidence for and against the argument.'},
   {verb:'Infer',      cat:'Analysis',             col:'#7C3AED',def:'Draw a conclusion from evidence and reasoning rather than explicit statement.',eg:'Infer the author\'s attitude from their language choices.'},
-  {verb:'Connect',    cat:'Analysis',             col:'#7C3AED',def:'Establish a relationship or link between ideas, texts or concepts.',         eg:'Connect the themes of this text to your own experiences.'},
-  {verb:'Predict',    cat:'Analysis',             col:'#7C3AED',def:'Use evidence or reasoning to forecast what will happen.',                   eg:'Predict what the data suggests about future trends.'},
+  {verb:'Connect',    cat:'Analysis',             col:'#7C3AED',def:'Establish a relationship or link between ideas, texts or concepts.',eg:'Connect the themes of this text to your own experiences.'},
+  {verb:'Predict',    cat:'Analysis',             col:'#7C3AED',def:'Use evidence or reasoning to forecast what will happen.',eg:'Predict what the data suggests about future trends.'},
   {verb:'Create',     cat:'Knowledge Utilisation',col:'#005B52',def:'Produce something new or original by combining ideas or materials innovatively.',eg:'Create a multimodal text that persuades your audience.'},
   {verb:'Evaluate',   cat:'Knowledge Utilisation',col:'#005B52',def:'Make a judgement about the value or quality of something based on criteria and evidence.',eg:'Evaluate the effectiveness of the author\'s argument.'},
-  {verb:'Justify',    cat:'Knowledge Utilisation',col:'#005B52',def:'Support an argument or decision with reasons and evidence.',                 eg:'Justify your interpretation with reference to the text.'},
-  {verb:'Investigate',cat:'Knowledge Utilisation',col:'#005B52',def:'Carry out a systematic inquiry to find out about something.',                eg:'Investigate the relationship between the two variables.'},
-  {verb:'Elaborate',  cat:'Knowledge Utilisation',col:'#005B52',def:'Add more detail, depth or explanation to an idea or response.',              eg:'Elaborate on your initial response with further examples.'},
+  {verb:'Justify',    cat:'Knowledge Utilisation',col:'#005B52',def:'Support an argument or decision with reasons and evidence.',eg:'Justify your interpretation with reference to the text.'},
+  {verb:'Investigate',cat:'Knowledge Utilisation',col:'#005B52',def:'Carry out a systematic inquiry to find out about something.',eg:'Investigate the relationship between the two variables.'},
+  {verb:'Elaborate',  cat:'Knowledge Utilisation',col:'#005B52',def:'Add more detail, depth or explanation to an idea or response.',eg:'Elaborate on your initial response with further examples.'},
   {verb:'Reflect on', cat:'Knowledge Utilisation',col:'#005B52',def:'Think carefully and deeply about something, including its implications for future action.',eg:'Reflect on what you have learned and how it changed your thinking.'},
-  {verb:'Apply',      cat:'Knowledge Utilisation',col:'#005B52',def:'Use knowledge, understanding or skills in a new or practical context.',      eg:'Apply the formula to solve the problem.'},
+  {verb:'Apply',      cat:'Knowledge Utilisation',col:'#005B52',def:'Use knowledge, understanding or skills in a new or practical context.',eg:'Apply the formula to solve the problem.'},
 ];
-
 const ALL_YEARS=['Reception','Year 1','Year 2','Year 3','Year 4','Year 5','Year 6','Year 7','Year 8','Year 9','Year 10'];
 
 // ═══════════════════════════════════════
@@ -550,6 +602,9 @@ const ALL_YEARS=['Reception','Year 1','Year 2','Year 3','Year 4','Year 5','Year 
 let S={evidence:[],students:[],settings:{staffName:'',campus:''}};
 let cap={task:'',workingAt:'',subjects:[],engStrand:'',matStrand:'',engSel:[],matSel:[],caps:[],attachments:[]};
 let curFilter='all', glossTab='verbs';
+// Export state
+let expFmt='pdf', expCampuses=[], expSubj='all';
+let stuExpId=null, stuExpFmt='pdf';
 
 // ═══════════════════════════════════════
 //  INIT
@@ -565,13 +620,13 @@ function init(){
 //  STORAGE
 // ═══════════════════════════════════════
 function load(){
-  try{S.evidence=JSON.parse(localStorage.getItem('fle4_ev')||'[]');}catch(e){S.evidence=[];}
-  try{S.students=JSON.parse(localStorage.getItem('fle4_st')||'[]');}catch(e){S.students=[];}
-  try{const c=JSON.parse(localStorage.getItem('fle4_cfg')||'{}');S.settings={...S.settings,...c};}catch(e){}
+  try{S.evidence=JSON.parse(localStorage.getItem('fle5_ev')||'[]');}catch(e){S.evidence=[];}
+  try{S.students=JSON.parse(localStorage.getItem('fle5_st')||'[]');}catch(e){S.students=[];}
+  try{const c=JSON.parse(localStorage.getItem('fle5_cfg')||'{}');S.settings={...S.settings,...c};}catch(e){}
 }
 function persist(){
-  localStorage.setItem('fle4_ev',JSON.stringify(S.evidence));
-  localStorage.setItem('fle4_st',JSON.stringify(S.students));
+  localStorage.setItem('fle5_ev',JSON.stringify(S.evidence));
+  localStorage.setItem('fle5_st',JSON.stringify(S.students));
 }
 
 // ═══════════════════════════════════════
@@ -598,13 +653,11 @@ function showStep(n){
     if(i<4) document.getElementById('sl'+i).className='sl3'+(i<n?' dn':'');
   });
 }
-
 function nextStep1(){
   if(!document.getElementById('cStu').value){toast('Please select a student','er');return;}
   if(!document.getElementById('cTask').value.trim()){toast('Please enter a task name','er');return;}
   if(!cap.workingAt){toast('Please select a working-at year level','er');return;}
   cap.task=document.getElementById('cTask').value.trim();
-  // Reset subjects when year changes
   cap.subjects=[]; cap.engSel=[]; cap.matSel=[];
   cap.engStrand=''; cap.matStrand='';
   document.getElementById('sc-eng').className='subj-card';
@@ -614,7 +667,6 @@ function nextStep1(){
   document.getElementById('bothNote').classList.remove('on');
   showStep(2);
 }
-
 function nextStep2(){
   if(!cap.subjects.length){toast('Please select at least one subject','er');return;}
   if(cap.engSel.length+cap.matSel.length===0){toast('Please select at least one achievement standard','er');return;}
@@ -622,29 +674,22 @@ function nextStep2(){
 }
 
 // ═══════════════════════════════════════
-//  YEAR GRID
+//  YEAR / GC GRIDS
 // ═══════════════════════════════════════
 function buildYearGrid(){
   document.getElementById('yearGrid').innerHTML=ALL_YEARS.map(y=>
-    `<div class="yc" onclick="pickYear(this,'${y}')">${y}</div>`
-  ).join('');
+    `<div class="yc" onclick="pickYear(this,'${y}')">${y}</div>`).join('');
 }
 function pickYear(el,y){
   document.querySelectorAll('.yc').forEach(c=>c.classList.remove('on'));
-  el.classList.add('on');
-  cap.workingAt=y;
+  el.classList.add('on'); cap.workingAt=y;
 }
-
-// ═══════════════════════════════════════
-//  GC GRID
-// ═══════════════════════════════════════
 function buildCapGrid(){
   document.getElementById('capGrid').innerHTML=GC.map(gc=>
     `<div class="gc-card" id="gcc-${gc.id}" onclick="toggleCap('${gc.id}')">
       <div class="gc-icon">${gc.icon}</div>
       <div class="gc-label">${gc.name}</div>
-    </div>`
-  ).join('');
+    </div>`).join('');
 }
 function toggleCap(id){
   document.getElementById('gcc-'+id).classList.toggle('on');
@@ -657,12 +702,8 @@ function toggleCap(id){
 // ═══════════════════════════════════════
 function openCapture(){
   cap={task:'',workingAt:'',subjects:[],engStrand:'',matStrand:'',engSel:[],matSel:[],caps:[],attachments:[]};
-  document.getElementById('cStu').value='';
-  document.getElementById('cTask').value='';
-  document.getElementById('cObs').value='';
-  document.getElementById('cNext').value='';
-  document.getElementById('cLvl').value='';
-  document.getElementById('cVerbs').value='';
+  ['cStu','cLvl'].forEach(id=>document.getElementById(id).value='');
+  ['cTask','cObs','cNext','cVerbs'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('pg').innerHTML='';
   document.querySelectorAll('.yc').forEach(c=>c.classList.remove('on'));
   document.getElementById('sc-eng').className='subj-card';
@@ -671,76 +712,57 @@ function openCapture(){
   document.getElementById('matSection').style.display='none';
   document.getElementById('bothNote').classList.remove('on');
   document.querySelectorAll('.gc-card').forEach(c=>c.classList.remove('on'));
-  populateStuDrop();
-  showStep(1);
+  populateStuDrop(); showStep(1);
   document.getElementById('capModal').classList.add('on');
 }
 
 // ═══════════════════════════════════════
-//  SUBJECT TOGGLE
+//  SUBJECT / STANDARDS
 // ═══════════════════════════════════════
 function toggleSubj(subj){
   const isEng=subj==='English';
   const card=document.getElementById(isEng?'sc-eng':'sc-mat');
   const sec=document.getElementById(isEng?'engSection':'matSection');
   const year=cap.workingAt||'Reception';
-
   if(cap.subjects.includes(subj)){
     cap.subjects=cap.subjects.filter(s=>s!==subj);
-    card.className='subj-card';
-    sec.style.display='none';
+    card.className='subj-card'; sec.style.display='none';
     if(isEng)cap.engSel=[]; else cap.matSel=[];
   } else {
     cap.subjects.push(subj);
     card.className='subj-card '+(isEng?'se':'sm');
     sec.style.display='block';
     buildStrandUI(subj,year);
-    // Set work sample link
-    const wsUrl=ACARA_WORK_SAMPLES[subj][year];
-    if(isEng){
-      document.getElementById('engYearLabel').textContent=year;
-      document.getElementById('engWsLink').href=wsUrl;
-    } else {
-      document.getElementById('matYearLabel').textContent=year;
-      document.getElementById('matWsLink').href=wsUrl;
-    }
+    const wsUrl=ACARA_WORK_SAMPLES[subj][year]||'https://www.australiancurriculum.edu.au/resources/work-samples';
+    if(isEng){ document.getElementById('engYearLabel').textContent=year; document.getElementById('engWsLink').href=wsUrl; }
+    else      { document.getElementById('matYearLabel').textContent=year; document.getElementById('matWsLink').href=wsUrl; }
   }
   document.getElementById('bothNote').classList.toggle('on',cap.subjects.length===2);
 }
-
 function buildStrandUI(subj,year){
   const isEng=subj==='English';
-  const data=STD[subj][year];
-  if(!data)return;
+  const data=STD[subj][year]; if(!data)return;
   const stEl=document.getElementById(isEng?'engStrands':'matStrands');
-  const acls=isEng?'ae':'am';
-  const first=data.strands[0];
+  const acls=isEng?'ae':'am'; const first=data.strands[0];
   if(isEng)cap.engStrand=first; else cap.matStrand=first;
-
   stEl.innerHTML=data.strands.map((s,i)=>
-    `<div class="sp${i===0?' '+acls:''}" onclick="pickStrand('${subj}','${s}',this)">${s}</div>`
-  ).join('');
+    `<div class="sp${i===0?' '+acls:''}" onclick="pickStrand('${subj}','${s}',this)">${s}</div>`).join('');
   renderStdCards(subj,year,first);
 }
-
 function pickStrand(subj,strand,el){
   const isEng=subj==='English', acls=isEng?'ae':'am';
-  document.getElementById(isEng?'engStrands':'matStrands')
-    .querySelectorAll('.sp').forEach(p=>p.classList.remove('ae','am'));
+  document.getElementById(isEng?'engStrands':'matStrands').querySelectorAll('.sp').forEach(p=>p.classList.remove('ae','am'));
   el.classList.add(acls);
   if(isEng)cap.engStrand=strand; else cap.matStrand=strand;
   renderStdCards(subj,cap.workingAt||'Reception',strand);
 }
-
 function renderStdCards(subj,year,strand){
   const isEng=subj==='English', selKey=isEng?'engSel':'matSel';
-  const data=STD[subj][year];
-  if(!data)return;
+  const data=STD[subj][year]; if(!data)return;
   const items=data.standards.filter(s=>s.strand===strand);
   const listEl=document.getElementById(isEng?'engStdList':'matStdList');
   const selEl=document.getElementById(isEng?'engSelSum':'matSelSum');
   const scls=isEng?'se':'sm', acls=isEng?'e':'m';
-
   listEl.innerHTML=items.map(s=>{
     const sel=cap[selKey].find(x=>x.code===s.code);
     return `<div class="std-card${sel?' '+scls:''}" onclick="toggleStd('${subj}','${s.code}')">
@@ -748,20 +770,15 @@ function renderStdCards(subj,year,strand){
       <div><div class="std-txt">${s.text}</div><div class="std-code">${s.code} · ${s.strand}</div></div>
     </div>`;
   }).join('');
-
   selEl.innerHTML=cap[selKey].length
     ?`<div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px">Selected (${cap[selKey].length}):</div>`
-     +cap[selKey].map(s=>`<span class="stag ${acls}" onclick="toggleStd('${subj}','${s.code}')">${s.code} ✕</span>`).join('')
-    :'';
+     +cap[selKey].map(s=>`<span class="stag ${acls}" onclick="toggleStd('${subj}','${s.code}')">${s.code} ✕</span>`).join(''):'';
 }
-
 function toggleStd(subj,code){
   const isEng=subj==='English', selKey=isEng?'engSel':'matSel';
   const year=cap.workingAt||'Reception';
-  const data=STD[subj][year];
-  if(!data)return;
-  const std=data.standards.find(s=>s.code===code);
-  if(!std)return;
+  const data=STD[subj][year]; if(!data)return;
+  const std=data.standards.find(s=>s.code===code); if(!std)return;
   const idx=cap[selKey].findIndex(s=>s.code===code);
   if(idx>=0)cap[selKey].splice(idx,1); else cap[selKey].push({...std,subject:subj});
   renderStdCards(subj,year,isEng?cap.engStrand:cap.matStrand);
@@ -776,8 +793,7 @@ function handleFiles(input){
     const r=new FileReader();
     r.onload=e=>{cap.attachments.push({name:f.name,dataUrl:e.target.result,type:f.type});renderPg();};
     r.readAsDataURL(f);
-  });
-  input.value='';
+  }); input.value='';
 }
 function renderPg(){
   document.getElementById('pg').innerHTML=cap.attachments.map((a,i)=>{
@@ -796,33 +812,25 @@ function saveEv(){
   if(!obs){toast('Please add an observation','er');return;}
   const stuSel=document.getElementById('cStu');
   const student=S.students.find(s=>s.id===stuSel.value);
-  const allStds=[...cap.engSel,...cap.matSel];
   const wsLinks={};
-  cap.subjects.forEach(subj=>{
-    wsLinks[subj]=ACARA_WORK_SAMPLES[subj][cap.workingAt]||'https://www.australiancurriculum.edu.au/resources/work-samples';
-  });
-
+  cap.subjects.forEach(subj=>{wsLinks[subj]=ACARA_WORK_SAMPLES[subj][cap.workingAt]||'https://www.australiancurriculum.edu.au/resources/work-samples';});
   const ev={
     id:'ev_'+Date.now(),
     studentId:stuSel.value,
     studentName:student?`${student.firstName} ${student.lastName}`:stuSel.options[stuSel.selectedIndex].text,
-    task:cap.task,
-    workingAt:cap.workingAt,
-    subjects:cap.subjects,
-    standards:allStds,
+    task:cap.task, workingAt:cap.workingAt, subjects:cap.subjects,
+    standards:[...cap.engSel,...cap.matSel],
     caps:cap.caps.map(id=>GC.find(g=>g.id===id)).filter(Boolean),
     observation:obs,
     level:document.getElementById('cLvl').value,
     cogVerbs:document.getElementById('cVerbs').value.trim(),
     nextSteps:document.getElementById('cNext').value.trim(),
-    wsLinks,
-    staffName:S.settings.staffName,
+    wsLinks, staffName:S.settings.staffName,
     campus:S.settings.campus||(student?student.campus:''),
     date:new Date().toISOString(),
     attachments:[...cap.attachments]
   };
-  S.evidence.unshift(ev);
-  persist(); updateStats(); renderRecent();
+  S.evidence.unshift(ev); persist(); updateStats(); renderRecent();
   closeModal('capModal'); toast('✅ Evidence saved!','ok');
 }
 
@@ -840,8 +848,7 @@ function saveStu(){
   const last=document.getElementById('nLast').value.trim();
   if(!first||!last){toast('Enter first and last name','er');return;}
   S.students.push({id:'st_'+Date.now(),firstName:first,lastName:last,
-    year:document.getElementById('nYear').value,
-    campus:document.getElementById('nCampus').value});
+    year:document.getElementById('nYear').value,campus:document.getElementById('nCampus').value});
   persist(); renderStudents(); populateStuDrop();
   closeModal('stuModal'); toast('✅ Student added!','ok');
 }
@@ -864,13 +871,17 @@ function renderStudents(){
   list.innerHTML=stus.map(s=>{
     const cnt=S.evidence.filter(e=>e.studentId===s.id).length;
     const ini=(s.firstName[0]||'')+(s.lastName[0]||'');
-    return`<div class="sti" onclick="filterByStu('${s.id}')">
+    return`<div class="sti">
       <div class="av">${ini}</div>
       <div class="si2">
         <div class="sn2">${s.lastName}, ${s.firstName}</div>
         <div class="sm2">${[s.year,s.campus].filter(Boolean).join(' · ')}</div>
       </div>
-      <div class="rc">${cnt} records</div>
+      <div class="stu-actions">
+        <div class="rc">${cnt}</div>
+        <button class="stu-btn v" onclick="filterByStu('${s.id}')">View</button>
+        <button class="stu-btn x" onclick="openStuExport('${s.id}')">Export</button>
+      </div>
     </div>`;
   }).join('');
 }
@@ -881,7 +892,218 @@ function filterByStu(id){
 }
 
 // ═══════════════════════════════════════
-//  EVIDENCE
+//  STUDENT EXPORT
+// ═══════════════════════════════════════
+function openStuExport(id){
+  stuExpId=id; stuExpFmt='pdf';
+  const s=S.students.find(st=>st.id===id);
+  const cnt=S.evidence.filter(e=>e.studentId===id).length;
+  document.getElementById('stuExportTitle').textContent=`📋 Export: ${s?s.firstName+' '+s.lastName:'Student'}`;
+  document.getElementById('stuExportInfo').textContent=`${cnt} evidence record${cnt!==1?'s':''} found for this student.`;
+  document.getElementById('seo-pdf').classList.add('selected');
+  document.getElementById('seo-csv').classList.remove('selected');
+  document.getElementById('stuExportModal').classList.add('on');
+}
+function selectStuExportFmt(fmt){
+  stuExpFmt=fmt;
+  document.getElementById('seo-pdf').classList.toggle('selected',fmt==='pdf');
+  document.getElementById('seo-csv').classList.toggle('selected',fmt==='csv');
+}
+function runStuExport(){
+  const evs=S.evidence.filter(e=>e.studentId===stuExpId);
+  if(!evs.length){toast('No evidence records for this student','er');return;}
+  const s=S.students.find(st=>st.id===stuExpId);
+  const name=s?`${s.firstName} ${s.lastName}`:'Student';
+  closeModal('stuExportModal');
+  if(stuExpFmt==='pdf') buildStudentPDF(name, evs);
+  else buildStudentCSV(name, evs);
+}
+
+// ═══════════════════════════════════════
+//  CLASS EXPORT
+// ═══════════════════════════════════════
+function openClassExport(){
+  expFmt='pdf'; expCampuses=[]; expSubj='all';
+  document.getElementById('eo-pdf').classList.add('selected');
+  document.getElementById('eo-csv').classList.remove('selected');
+  document.querySelectorAll('.camp-chip').forEach(c=>c.classList.remove('on'));
+  document.getElementById('ef-all').classList.add('on');
+  document.getElementById('ef-eng').classList.remove('on');
+  document.getElementById('ef-mat').classList.remove('on');
+  updateExportPreview();
+  document.getElementById('exportModal').classList.add('on');
+}
+function selectExportFmt(fmt){
+  expFmt=fmt;
+  document.getElementById('eo-pdf').classList.toggle('selected',fmt==='pdf');
+  document.getElementById('eo-csv').classList.toggle('selected',fmt==='csv');
+  updateExportPreview();
+}
+function toggleCampus(el,campus){
+  el.classList.toggle('on');
+  if(expCampuses.includes(campus)) expCampuses=expCampuses.filter(c=>c!==campus);
+  else expCampuses.push(campus);
+  updateExportPreview();
+}
+function setExportSubj(subj){
+  expSubj=subj;
+  document.getElementById('ef-all').classList.toggle('on',subj==='all');
+  document.getElementById('ef-eng').classList.toggle('on',subj==='English');
+  document.getElementById('ef-mat').classList.toggle('on',subj==='Mathematics');
+  updateExportPreview();
+}
+function getFilteredEvidence(){
+  return S.evidence.filter(e=>{
+    const campOk=expCampuses.length===0||expCampuses.includes(e.campus);
+    const subjOk=expSubj==='all'||(e.subjects||[]).includes(expSubj);
+    return campOk&&subjOk;
+  });
+}
+function getFilteredStudents(){
+  const evs=getFilteredEvidence();
+  const stuIds=[...new Set(evs.map(e=>e.studentId))];
+  return stuIds.map(id=>{
+    const stu=S.students.find(s=>s.id===id)||{id,firstName:'Unknown',lastName:'',campus:'',year:''};
+    return {stu, evs:evs.filter(e=>e.studentId===id)};
+  }).sort((a,b)=>a.stu.lastName.localeCompare(b.stu.lastName));
+}
+function updateExportPreview(){
+  const filtered=getFilteredStudents();
+  const totalEvs=filtered.reduce((n,x)=>n+x.evs.length,0);
+  const campLabel=expCampuses.length?expCampuses.join(', '):'All campuses';
+  const subjLabel=expSubj==='all'?'All subjects':expSubj;
+  document.getElementById('exportPreview').innerHTML=
+    `<strong>${filtered.length} student${filtered.length!==1?'s':''}</strong> · ${totalEvs} record${totalEvs!==1?'s':''}<br>
+    📍 ${campLabel} · 📚 ${subjLabel}<br>
+    Format: ${expFmt==='pdf'?'📄 PDF Report (one page per student)':'📊 CSV Spreadsheet (all records in one table)'}`;
+}
+function runClassExport(){
+  const filtered=getFilteredStudents();
+  if(!filtered.length){toast('No records match your filters','er');return;}
+  closeModal('exportModal');
+  if(expFmt==='pdf') buildClassPDF(filtered);
+  else buildClassCSV(filtered);
+}
+
+// ═══════════════════════════════════════
+//  PDF BUILDERS
+// ═══════════════════════════════════════
+function evHTML(e, showName){
+  const isBoth=(e.subjects||[]).length===2;
+  const col=isBoth?'#0E7490':(e.subjects||[]).includes('English')?'#1D4ED8':'#7C3AED';
+  return `
+    <div style="border:1px solid #E5E7EB;border-radius:8px;padding:14px;margin-bottom:14px;break-inside:avoid">
+      ${showName?`<div style="font-size:13px;font-weight:700;color:#005B52;margin-bottom:4px">${e.studentName}</div>`:''}
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">
+        ${(e.subjects||[]).map(s=>`<span style="background:${s==='English'?'#EFF6FF':'#F5F3FF'};color:${s==='English'?'#1D4ED8':'#7C3AED'};padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">${s==='English'?'📖':'🔢'} ${s}</span>`).join('')}
+        <span style="background:#F5E6B8;color:#7A5800;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Working at: ${e.workingAt}</span>
+        ${e.level?`<span style="background:#F0FDF4;color:#166534;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">${e.level}</span>`:''}
+      </div>
+      ${e.task?`<div style="font-size:12px;font-weight:700;margin-bottom:6px;color:#374151">Task: ${e.task} &nbsp;·&nbsp; ${fd(e.date)}${e.staffName?' &nbsp;·&nbsp; '+e.staffName:''}</div>`:''}
+      ${(e.standards||[]).map(s=>`
+        <div style="border-left:3px solid ${col};padding:5px 9px;margin-bottom:5px;background:#F8F8FF;border-radius:3px">
+          <div style="font-family:monospace;font-size:10px;color:${col};margin-bottom:2px">${s.code} · ${s.strand} · ${s.subject}</div>
+          <div style="font-size:12px;line-height:1.5">${s.text}</div>
+        </div>`).join('')}
+      ${(e.caps||[]).length?`<div style="margin:6px 0">${e.caps.map(c=>`<span style="background:#FFF7ED;color:#C2410C;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-right:3px">${c.icon} ${c.name}</span>`).join('')}</div>`:''}
+      <div style="font-size:13px;line-height:1.6;background:#F9FAFB;padding:9px;border-radius:5px;margin-top:6px"><strong>Observation:</strong> ${e.observation}</div>
+      ${e.cogVerbs?`<div style="font-size:11px;color:#6B7280;margin-top:5px">Cognitive verbs: <em>${e.cogVerbs}</em></div>`:''}
+      ${e.nextSteps?`<div style="font-size:12px;margin-top:6px;color:#374151"><strong>Next steps:</strong> ${e.nextSteps}</div>`:''}
+      ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length
+        ?`<div style="margin-top:8px">${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}" style="max-width:130px;border-radius:6px;margin:3px;vertical-align:top">`).join('')}</div>`:''}
+    </div>`;
+}
+
+function buildStudentPDF(name, evs){
+  const html=`<!DOCTYPE html><html><head><title>Learning Evidence — ${name}</title>
+  <style>
+    body{font-family:'Segoe UI',sans-serif;padding:28px;max-width:760px;margin:0 auto;color:#1E1E1E}
+    h1{color:#005B52;font-size:20px;margin-bottom:3px}
+    .meta{color:#6B7280;font-size:13px;margin-bottom:18px}
+    .footer{margin-top:28px;padding-top:10px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF}
+    @media print{body{padding:14px}}
+  </style></head><body>
+  <h1>Learning Evidence Report</h1>
+  <div class="meta"><strong>${name}</strong> · ${evs.length} record${evs.length!==1?'s':''}<br>
+  Generated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}${S.settings.staffName?' · '+S.settings.staffName:''}${S.settings.campus?' · '+S.settings.campus:''}</div>
+  ${evs.map(e=>evHTML(e,false)).join('')}
+  <div class="footer">Flexi Learning Evidence v3.1 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region</div>
+  </body></html>`;
+  const w=window.open('','_blank'); w.document.write(html); w.document.close(); w.print();
+  toast('✅ Student PDF ready!','ok');
+}
+
+function buildClassPDF(filtered){
+  const campLabel=expCampuses.length?expCampuses.join(', '):'All campuses';
+  const subjLabel=expSubj==='all'?'All subjects':expSubj;
+  const totalEvs=filtered.reduce((n,x)=>n+x.evs.length,0);
+  let body='';
+  // Summary table
+  body+=`<table style="width:100%;border-collapse:collapse;margin-bottom:24px;font-size:12px">
+    <thead><tr style="background:#005B52;color:#fff">
+      <th style="padding:8px;text-align:left">Student</th>
+      <th style="padding:8px;text-align:left">Year</th>
+      <th style="padding:8px;text-align:left">Campus</th>
+      <th style="padding:8px;text-align:center">Records</th>
+      <th style="padding:8px;text-align:left">Subjects</th>
+    </tr></thead><tbody>
+    ${filtered.map((x,i)=>`<tr style="background:${i%2===0?'#F9FAFB':'#fff'}">
+      <td style="padding:7px 8px;font-weight:600">${x.stu.lastName}, ${x.stu.firstName}</td>
+      <td style="padding:7px 8px">${x.stu.year||'—'}</td>
+      <td style="padding:7px 8px">${x.stu.campus||'—'}</td>
+      <td style="padding:7px 8px;text-align:center;font-weight:700;color:#005B52">${x.evs.length}</td>
+      <td style="padding:7px 8px">${[...new Set(x.evs.flatMap(e=>e.subjects||[]))].join(', ')||'—'}</td>
+    </tr>`).join('')}
+    </tbody></table>`;
+  // Per-student records
+  filtered.forEach(x=>{
+    const name=`${x.stu.firstName} ${x.stu.lastName}`;
+    body+=`<div style="page-break-before:always;padding-top:8px">
+      <h2 style="color:#005B52;font-size:16px;border-bottom:2px solid #005B52;padding-bottom:6px;margin-bottom:14px">
+        ${name} <span style="font-size:12px;font-weight:400;color:#6B7280">${[x.stu.year,x.stu.campus].filter(Boolean).join(' · ')}</span>
+      </h2>
+      ${x.evs.map(e=>evHTML(e,false)).join('')}
+    </div>`;
+  });
+
+  const html=`<!DOCTYPE html><html><head><title>Class Evidence Report</title>
+  <style>
+    body{font-family:'Segoe UI',sans-serif;padding:28px;max-width:800px;margin:0 auto;color:#1E1E1E}
+    h1{color:#005B52;font-size:21px;margin-bottom:3px}
+    h2{color:#005B52;font-size:16px}
+    .meta{color:#6B7280;font-size:13px;margin-bottom:18px}
+    .footer{margin-top:28px;padding-top:10px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF}
+    @media print{body{padding:14px}.page-break{page-break-before:always}}
+  </style></head><body>
+  <h1>Class Learning Evidence Report</h1>
+  <div class="meta">
+    ${filtered.length} student${filtered.length!==1?'s':''} · ${totalEvs} record${totalEvs!==1?'s':''} · ${campLabel} · ${subjLabel}<br>
+    Generated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}${S.settings.staffName?' · '+S.settings.staffName:''}${S.settings.campus?' · '+S.settings.campus:''}
+  </div>
+  <h2 style="margin-bottom:10px">Class Summary</h2>
+  ${body}
+  <div class="footer">Flexi Learning Evidence v3.1 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region</div>
+  </body></html>`;
+  const w=window.open('','_blank'); w.document.write(html); w.document.close(); w.print();
+  toast('✅ Class PDF ready!','ok');
+}
+
+function buildStudentCSV(name, evs){
+  const h=['Date','Student','Task','WorkingAt','Subjects','Standards','GeneralCapabilities','Level','CognitiveVerbs','Observation','NextSteps','Staff','Campus'];
+  const rows=evs.map(e=>[fd(e.date),e.studentName,e.task||'',e.workingAt,(e.subjects||[]).join(' & '),(e.standards||[]).map(s=>s.code).join('; '),(e.caps||[]).map(c=>c.short).join('; '),e.level||'',e.cogVerbs||'',e.observation,e.nextSteps||'',e.staffName||'',e.campus||''].map(v=>`"${(v||'').replace(/"/g,'""')}"`));
+  dl([h,...rows].map(r=>r.join(',')).join('\n'),`${name.replace(/\s+/g,'_')}_Evidence_${ts()}.csv`,'text/csv');
+  toast('✅ CSV exported!','ok');
+}
+
+function buildClassCSV(filtered){
+  const h=['Date','Student','EnrolledYear','Campus','Task','WorkingAt','Subjects','Standards','GeneralCapabilities','Level','CognitiveVerbs','Observation','NextSteps','Staff'];
+  const rows=filtered.flatMap(x=>x.evs.map(e=>[fd(e.date),e.studentName,x.stu.year||'',x.stu.campus||'',e.task||'',e.workingAt,(e.subjects||[]).join(' & '),(e.standards||[]).map(s=>s.code).join('; '),(e.caps||[]).map(c=>c.short).join('; '),e.level||'',e.cogVerbs||'',e.observation,e.nextSteps||'',e.staffName||''].map(v=>`"${(v||'').replace(/"/g,'""')}"`)));
+  dl([h,...rows].map(r=>r.join(',')).join('\n'),`Class_Evidence_${ts()}.csv`,'text/csv');
+  toast('✅ Class CSV exported!','ok');
+}
+
+// ═══════════════════════════════════════
+//  EVIDENCE LIST
 // ═══════════════════════════════════════
 function setF(el,val){
   document.querySelectorAll('.fc').forEach(c=>c.classList.remove('on'));
@@ -893,10 +1115,7 @@ function renderEvidence(){
   const items=S.evidence.filter(e=>{
     const matchQ=!q||`${e.studentName} ${e.task} ${(e.subjects||[]).join(' ')} ${e.workingAt} ${(e.standards||[]).map(s=>s.text+' '+s.code).join(' ')} ${e.observation}`.toLowerCase().includes(q);
     const isBoth=(e.subjects||[]).length===2;
-    const matchF=curFilter==='all'
-      ||(curFilter==='Both'&&isBoth)
-      ||(curFilter==='English'&&!isBoth&&(e.subjects||[]).includes('English'))
-      ||(curFilter==='Mathematics'&&!isBoth&&(e.subjects||[]).includes('Mathematics'));
+    const matchF=curFilter==='all'||(curFilter==='Both'&&isBoth)||(curFilter==='English'&&!isBoth&&(e.subjects||[]).includes('English'))||(curFilter==='Mathematics'&&!isBoth&&(e.subjects||[]).includes('Mathematics'));
     return matchQ&&matchF;
   });
   if(!items.length){list.innerHTML=`<div class="empty"><div class="ei2">📋</div><p>No evidence found.<br>${q?'Try a different search.':'Tap + New Evidence to start!'}</p></div>`;return;}
@@ -919,7 +1138,7 @@ function renderEvidence(){
       ${thumbs.length?`<div class="eth">${thumbs.map(a=>`<img src="${a.dataUrl}"/>`).join('')}</div>`:''}
       <div class="ea">
         <button class="ab p" onclick="viewDet('${e.id}')">👁 View</button>
-        <button class="ab p" onclick="printRec('${e.id}')">📄 PDF</button>
+        <button class="ab p" onclick="buildStudentPDF('${e.studentName}',[S.evidence.find(ev=>ev.id==='${e.id}')])">📄 PDF</button>
         <button class="ab d" onclick="delEv('${e.id}')">🗑 Delete</button>
       </div>
     </div>`;
@@ -941,15 +1160,12 @@ function renderRecent(){
     </div>`;
   }).join('');
 }
-
 function viewDet(id){
   const e=S.evidence.find(ev=>ev.id===id); if(!e)return;
   const isBoth=(e.subjects||[]).length===2;
   const col=isBoth?'var(--both)':(e.subjects||[]).includes('English')?'var(--eng)':'var(--mat)';
   const wsLinksHtml=Object.entries(e.wsLinks||{}).map(([subj,url])=>
-    `<a href="${url}" target="_blank" class="ws-link" style="margin-right:5px">${subj==='English'?'📖':'🔢'} ${subj} Work Samples →</a>`
-  ).join('');
-
+    `<a href="${url}" target="_blank" class="ws-link" style="margin-right:5px">${subj==='English'?'📖':'🔢'} ${subj} Work Samples →</a>`).join('');
   document.getElementById('detContent').innerHTML=`
     <div class="mt">📋 Evidence Record</div>
     <div style="margin-bottom:11px">
@@ -966,8 +1182,7 @@ function viewDet(id){
       ${e.cogVerbs?`<div style="font-size:12px;color:var(--muted);margin-bottom:6px">Cognitive verbs: <em>${e.cogVerbs}</em></div>`:''}
       ${wsLinksHtml?`<div style="margin-top:6px">${wsLinksHtml}</div>`:''}
     </div>
-    <div class="card">
-      <div class="ct">Achievement Standards</div>
+    <div class="card"><div class="ct">Achievement Standards</div>
       ${(e.standards||[]).map(s=>`<div style="margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--border)">
         <div style="font-size:11px;font-family:monospace;color:${s.subject==='English'?'var(--eng)':'var(--mat)'};margin-bottom:2px">${s.code} · ${s.strand} · ${s.subject}</div>
         <div style="font-size:13px;line-height:1.5">${s.text}</div>
@@ -983,7 +1198,10 @@ function viewDet(id){
         return`<div class="pi"><div class="fi">📄<span>${a.name}</span></div></div>`;
       }).join('')}
     </div></div>`:''}
-    <button class="btn btn-s" onclick="printRec('${e.id}')" style="margin-top:4px">📄 Export as PDF</button>`;
+    <div style="display:flex;gap:7px;margin-top:4px">
+      <button class="btn btn-s" onclick="openStuExport('${e.studentId}')" style="flex:1">📋 All Records</button>
+      <button class="btn btn-s" onclick="buildStudentPDF('${e.studentName}',[S.evidence.find(ev=>ev.id==='${e.id}')])" style="flex:1">📄 This Record</button>
+    </div>`;
   document.getElementById('detModal').classList.add('on');
 }
 function bigImg(evId,i){const e=S.evidence.find(ev=>ev.id===evId);if(!e)return;const w=window.open('','_blank');w.document.write(`<img src="${e.attachments[i].dataUrl}" style="max-width:100%;max-height:100vh"/>`);}
@@ -1005,8 +1223,7 @@ function renderGlossary(){
       html+=`<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:${verbs[0].col};margin:14px 0 7px">${cat}</div>`;
       html+=verbs.map(v=>`<div class="verb-card" style="border-left-color:${v.col}">
         <div class="vname" style="color:${v.col}">${v.verb}</div>
-        <div class="vcat">${v.cat}</div>
-        <div class="vdef">${v.def}</div>
+        <div class="vcat">${v.cat}</div><div class="vdef">${v.def}</div>
         <div class="veg">e.g. "${v.eg}"</div>
       </div>`).join('');
     });
@@ -1015,67 +1232,13 @@ function renderGlossary(){
     const caps=GC.filter(gc=>!q||gc.name.toLowerCase().includes(q)||gc.desc.toLowerCase().includes(q));
     if(!caps.length){el.innerHTML=`<div class="empty"><div class="ei2">🔍</div><p>No capabilities match "${q}".</p></div>`;return;}
     el.innerHTML=caps.map(gc=>`<div class="gc-detail">
-      <div class="gcd-hdr">
-        <div class="gcd-icon">${gc.icon}</div>
-        <div><div class="gcd-name">${gc.name}</div><div class="gcd-sub">${gc.short} · ACARA V9 General Capability</div></div>
+      <div class="gcd-hdr"><div class="gcd-icon">${gc.icon}</div>
+        <div><div class="gcd-name">${gc.name}</div><div class="gcd-sub">${gc.short} · ACARA V9</div></div>
       </div>
       <div class="gcd-desc">${gc.desc}</div>
       <div style="margin-top:9px;display:flex;flex-wrap:wrap;gap:5px">${gc.elements.map(e=>`<span class="etg g" style="font-size:11px">${e}</span>`).join('')}</div>
     </div>`).join('');
   }
-}
-
-// ═══════════════════════════════════════
-//  PDF EXPORT
-// ═══════════════════════════════════════
-function printRec(id){
-  const e=S.evidence.find(ev=>ev.id===id); if(!e)return;
-  const isBoth=(e.subjects||[]).length===2;
-  const col=isBoth?'#0E7490':(e.subjects||[]).includes('English')?'#1D4ED8':'#7C3AED';
-  const wsHtml=Object.entries(e.wsLinks||{}).map(([subj,url])=>
-    `<a href="${url}" style="color:${col};margin-right:10px;font-size:12px">${subj} Work Samples →</a>`
-  ).join('');
-  const html=`<!DOCTYPE html><html><head><title>Learning Evidence — ${e.studentName}</title>
-  <style>
-    body{font-family:'Segoe UI',sans-serif;padding:30px;max-width:760px;margin:0 auto;color:#1E1E1E}
-    h1{color:#005B52;font-size:21px;margin-bottom:2px}
-    .meta{color:#6B7280;font-size:13px;margin-bottom:16px}
-    h2{color:${col};font-size:12px;text-transform:uppercase;letter-spacing:1px;margin:16px 0 6px}
-    .std{border-left:3px solid ${col};padding:7px 11px;margin-bottom:7px;background:#F8F8FF;border-radius:4px}
-    .code{font-family:monospace;font-size:10px;color:${col};margin-bottom:2px}
-    .obs{font-size:14px;line-height:1.7;background:#F9FAFB;padding:11px;border-radius:6px}
-    .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:600;margin:2px}
-    .b-lv{background:#F0FDF4;color:#166534}
-    .b-y{background:#F5E6B8;color:#7A5800}
-    .b-gc{background:#FFF7ED;color:#C2410C}
-    img{max-width:155px;border-radius:6px;margin:3px;vertical-align:top}
-    .footer{margin-top:28px;padding-top:11px;border-top:1px solid #E5E7EB;font-size:11px;color:#9CA3AF}
-    a{color:${col}}
-    @media print{body{padding:14px}}
-  </style></head><body>
-  <h1>Learning Evidence Record</h1>
-  <div class="meta">
-    <strong>${e.studentName}</strong>${e.campus?' · '+e.campus:''}<br>
-    Task: <strong>${e.task||'—'}</strong>${e.staffName?' · Teacher: '+e.staffName:''}<br>
-    Date: ${fd(e.date)} · Subject(s): <strong>${(e.subjects||[]).join(' & ')}</strong>
-  </div>
-  <span class="badge b-y">Working at: ${e.workingAt}</span>
-  ${e.level?`<span class="badge b-lv">${e.level}</span>`:''}
-  ${e.cogVerbs?`<span class="badge" style="background:#F3F4F6;color:#374151">Verbs: ${e.cogVerbs}</span>`:''}
-  ${wsHtml?`<div style="margin-top:10px">${wsHtml}</div>`:''}
-  <h2>Achievement Standards</h2>
-  ${(e.standards||[]).map(s=>`<div class="std"><div class="code">${s.code} · ${s.strand} · ${s.subject} · Working at ${e.workingAt}</div><div style="font-size:13px;line-height:1.5">${s.text}</div></div>`).join('')}
-  ${(e.caps||[]).length?`<h2>General Capabilities</h2><div>${e.caps.map(c=>`<span class="badge b-gc">${c.icon} ${c.name}</span>`).join('')}</div>`:''}
-  <h2>Teacher Observation</h2><div class="obs">${e.observation||'—'}</div>
-  ${e.nextSteps?`<h2>Next Steps</h2><div class="obs">${e.nextSteps}</div>`:''}
-  ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length
-    ?`<h2>Evidence Photos</h2>${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}">`).join('')}`:''}
-  <div class="footer">
-    Flexi Learning Evidence v3.0 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region<br>
-    Generated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}
-  </div>
-  </body></html>`;
-  const w=window.open('','_blank'); w.document.write(html); w.document.close(); w.print();
 }
 
 // ═══════════════════════════════════════
@@ -1087,50 +1250,19 @@ function updateStats(){
   document.getElementById('stToday').textContent=S.evidence.filter(e=>new Date(e.date).toDateString()===today).length;
   document.getElementById('stStudents').textContent=S.students.length;
 }
-function applySettings(){
-  document.getElementById('sName').value=S.settings.staffName||'';
-  document.getElementById('sCampus').value=S.settings.campus||'';
-}
-function saveSettings(){
-  S.settings.staffName=document.getElementById('sName').value.trim();
-  S.settings.campus=document.getElementById('sCampus').value;
-  localStorage.setItem('fle4_cfg',JSON.stringify(S.settings));
-  toast('✅ Saved!','ok');
-}
-function exportCSV(){
+function applySettings(){document.getElementById('sName').value=S.settings.staffName||'';document.getElementById('sCampus').value=S.settings.campus||'';}
+function saveSettings(){S.settings.staffName=document.getElementById('sName').value.trim();S.settings.campus=document.getElementById('sCampus').value;localStorage.setItem('fle5_cfg',JSON.stringify(S.settings));toast('✅ Saved!','ok');}
+function exportAllCSV(){
   if(!S.evidence.length){toast('No evidence to export','er');return;}
-  const h=['Date','Student','Task','WorkingAt','Subjects','Standards','GeneralCapabilities','Level','CognitiveVerbs','Observation','NextSteps','Staff','Campus'];
-  const rows=S.evidence.map(e=>[
-    fd(e.date),e.studentName,e.task,e.workingAt,
-    (e.subjects||[]).join(' & '),
-    (e.standards||[]).map(s=>s.code).join('; '),
-    (e.caps||[]).map(c=>c.short).join('; '),
-    e.level||'',e.cogVerbs||'',e.observation,
-    e.nextSteps||'',e.staffName||'',e.campus||''
-  ].map(v=>`"${(v||'').replace(/"/g,'""')}"`));
-  dl([h,...rows].map(r=>r.join(',')).join('\n'),`Flexi_Learning_${ts()}.csv`,'text/csv');
-  toast('✅ CSV exported!','ok');
+  buildClassCSV(getFilteredStudents().length?getFilteredStudents():S.students.map(stu=>({stu,evs:S.evidence.filter(e=>e.studentId===stu.id)})).filter(x=>x.evs.length));
 }
-function backupJSON(){
-  dl(JSON.stringify({version:'3.0',exported:new Date().toISOString(),evidence:S.evidence,students:S.students},null,2),
-    `Flexi_Backup_${ts()}.json`,'application/json');
-  toast('✅ Backup downloaded!','ok');
-}
+function backupJSON(){dl(JSON.stringify({version:'3.1',exported:new Date().toISOString(),evidence:S.evidence,students:S.students},null,2),`Flexi_Backup_${ts()}.json`,'application/json');toast('✅ Backup downloaded!','ok');}
 function restoreJSON(){document.getElementById('jsonIn').click();}
 function handleJSON(input){
   const f=input.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=e=>{
-    try{
-      const d=JSON.parse(e.target.result);
-      if(!d.evidence||!d.students)throw 0;
-      if(!confirm(`Restore ${d.evidence.length} records and ${d.students.length} students?`))return;
-      S.evidence=d.evidence; S.students=d.students;
-      persist(); updateStats(); renderRecent(); renderEvidence(); renderStudents(); populateStuDrop();
-      toast('✅ Restored!','ok');
-    }catch(err){toast('❌ Invalid backup','er');}
-  };
-  r.readAsText(f); input.value='';
+  r.onload=e=>{try{const d=JSON.parse(e.target.result);if(!d.evidence||!d.students)throw 0;if(!confirm(`Restore ${d.evidence.length} records and ${d.students.length} students?`))return;S.evidence=d.evidence;S.students=d.students;persist();updateStats();renderRecent();renderEvidence();renderStudents();populateStuDrop();toast('✅ Restored!','ok');}catch(err){toast('❌ Invalid backup','er');}};
+  r.readAsText(f);input.value='';
 }
 function importCSV(){document.getElementById('csvIn').click();}
 function handleCSV(input){
@@ -1143,35 +1275,23 @@ function handleCSV(input){
     let n=0;
     lines.slice(1).forEach(l=>{
       const v=l.split(',').map(x=>x.trim().replace(/"/g,''));
-      const o={}; h.forEach((hh,i)=>o[hh]=v[i]||'');
+      const o={};h.forEach((hh,i)=>o[hh]=v[i]||'');
       const first=o.firstname||o['first name']||o.first||'';
       const last=o.lastname||o['last name']||o.last||'';
       if(!first&&!last)return;
-      S.students.push({id:'st_'+Date.now()+'_'+n,firstName:first,lastName:last,
-        year:o.year||o['year level']||'',campus:o.campus||o.site||''});
-      n++;
+      S.students.push({id:'st_'+Date.now()+'_'+n,firstName:first,lastName:last,year:o.year||o['year level']||'',campus:o.campus||o.site||''});n++;
     });
-    persist(); renderStudents(); populateStuDrop();
-    toast(`✅ Imported ${n} students`,'ok');
+    persist();renderStudents();populateStuDrop();toast(`✅ Imported ${n} students`,'ok');
   };
-  r.readAsText(f); input.value='';
+  r.readAsText(f);input.value='';
 }
-function clearAll(){
-  if(!confirm('Clear ALL data? Back up first!\nThis cannot be undone.'))return;
-  S.evidence=[]; S.students=[]; persist();
-  updateStats(); renderRecent(); renderEvidence(); renderStudents();
-  toast('🗑 Cleared','');
-}
+function clearAll(){if(!confirm('Clear ALL data? Back up first!\nThis cannot be undone.'))return;S.evidence=[];S.students=[];persist();updateStats();renderRecent();renderEvidence();renderStudents();toast('🗑 Cleared','');}
 
 // ═══════════════════════════════════════
 //  HELPERS
 // ═══════════════════════════════════════
 function closeModal(id){document.getElementById(id).classList.remove('on');}
-function toast(msg,type){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className=`toast ${type} on`;
-  setTimeout(()=>t.classList.remove('on'),3000);
-}
+function toast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className=`toast ${type} on`;setTimeout(()=>t.classList.remove('on'),3000);}
 function fd(d){if(!d)return'—';return new Date(d).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});}
 function ts(){return new Date().toISOString().split('T')[0];}
 function dl(c,n,m){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:m}));a.download=n;a.click();}
