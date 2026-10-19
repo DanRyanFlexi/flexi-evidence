@@ -1,0 +1,28 @@
+Flexi Learning Evidence v4.0 remediation build
+
+Implemented:
+- Migrated state storage from localStorage to IndexedDB with legacy migration.
+- Added UUID-based record identifiers.
+- Added HTML escaping for major user/imported fields and URL protocol validation.
+- Added Content Security Policy baseline.
+- Added attachment type, count and size limits plus FileReader error handling.
+- Replaced naive CSV splitting with quoted-field/newline parser and duplicate detection.
+- Fixed Export All so it does not reuse class-export filters.
+- Fixed subject-filtered exports so standards from the other subject are excluded.
+- Separated student campus from staff campus when saving evidence.
+- Added settings to JSON backup and restore.
+- Added backup schema validation.
+- Added popup-block handling, delayed printing and Blob URL cleanup.
+- Removed mobile zoom restriction.
+- Reworked service worker routing, same-origin caching, navigation fallback and cache version.
+- Added PWA id/scope and precached icons.
+- Removed the claim that app-generated indicator codes are official ACARA codes.
+
+Important limitation:
+The supplied curriculum wording was not replaced with a newly licensed or independently verified ACARA dataset. It is now explicitly labelled as app-defined curriculum-aligned evidence indicators. Formal judgements must be checked against the current official Australian Curriculum source before deployment.
+
+Static checks completed:
+- index.html embedded JavaScript: node --check passed
+- standards.js: node --check passed
+- sw.js: node --check passed
+- manifest.json: JSON parse passed
