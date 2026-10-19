@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="Flexi Learning"/>
   <meta name="theme-color" content="#005B52"/>
-  <title>Flexi Learning Evidence</title>
+  <title>Flexi Learning Evidence v4.0</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <link rel="manifest" href="manifest.json"/>
   <script src="standards.js"></script>
   <style>
@@ -215,7 +216,7 @@
     .toast.er{background:var(--danger)}
 
     .divider{height:1px;background:var(--border);margin:11px 0}
-    .info-box{background:var(--teal-f);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--teal);line-height:1.6;margin-bottom:11px}
+    .warning-box{background:#FFF7ED;border:1px solid #F59E0B;border-radius:9px;padding:10px 12px;font-size:12px;color:#92400E;line-height:1.5;margin-bottom:11px}.info-box{background:var(--teal-f);border-radius:9px;padding:10px 12px;font-size:12px;color:var(--teal);line-height:1.6;margin-bottom:11px}
     .empty{text-align:center;padding:40px 14px;color:var(--muted)}
     .empty .ei2{font-size:40px;margin-bottom:9px}
     .empty p{font-size:13px;line-height:1.6}
@@ -227,7 +228,7 @@
   <div class="logo">FL</div>
   <div>
     <h1>Flexi Learning Evidence</h1>
-    <div class="sub">ACARA V9 · English & Maths · Reception–Year 10</div>
+    <div class="sub">Curriculum-aligned · English & Maths · Reception–Year 10</div>
   </div>
   <div class="hdr-r">
     <button class="icon-btn" onclick="showView('glossary')">📖 Glossary</button>
@@ -241,7 +242,7 @@
     <div class="hero">
       <div class="hi">📚</div>
       <h2>Capture Learning Evidence</h2>
-      <p>ACARA V9 Achievement Standards · Reception–Year 10</p>
+      <p>Curriculum-aligned evidence indicators · Reception–Year 10</p>
       <button class="hbtn" onclick="openCapture()">＋ New Evidence</button>
     </div>
     <div class="srow">
@@ -300,7 +301,7 @@
 
   <!-- SETTINGS -->
   <div class="view" id="view-settings">
-    <div class="ct" style="margin-bottom:9px">👤 My Details</div>
+    <div class="warning-box"><strong>Prototype safeguard:</strong> Data is stored on this device in IndexedDB. Use an approved managed device, keep backups, and do not treat this app as the authoritative student record.</div><div class="ct" style="margin-bottom:9px">👤 My Details</div>
     <div class="card">
       <div class="fg"><label>Your Name</label><input type="text" id="sName" placeholder="e.g. Dan Ryan"/></div>
       <div class="fg"><label>Campus</label>
@@ -323,8 +324,8 @@
       </div>
     </div>
     <div class="card" style="font-size:13px;color:var(--muted);line-height:1.7;margin-top:6px">
-      <strong style="color:var(--text)">Flexi Learning Evidence v3.1</strong><br>
-      ACARA V9 · English & Mathematics · Reception–Year 10<br>
+      <strong style="color:var(--text)">Flexi Learning Evidence v4.0</strong><br>
+      Curriculum-aligned · English & Mathematics · Reception–Year 10<br>
       Edmund Rice Flexible Schools · SA/WA Region
     </div>
   </div>
@@ -362,7 +363,7 @@
       </div>
     </div>
     <div id="cs2" style="display:none">
-      <div class="mt">🎯 Subject & Standards</div>
+      <div class="mt">🎯 Subject & Evidence Indicators</div><div class="warning-box">App-defined curriculum-aligned indicators, not official ACARA codes. Confirm formal judgements against the current Australian Curriculum.</div>
       <div class="fg">
         <label>Subject(s) <span class="req">*</span> <span style="font-size:11px;font-weight:400;color:var(--muted)">— one or both</span></label>
         <div class="subj-grid">
@@ -609,25 +610,21 @@ let stuExpId=null, stuExpFmt='pdf';
 // ═══════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════
-function init(){
-  load(); applySettings(); updateStats(); renderRecent();
-  renderEvidence(); renderStudents(); renderGlossary();
-  populateStuDrop(); buildYearGrid(); buildCapGrid();
-  if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
-}
+async function init(){await load();applySettings();updateStats();renderRecent();renderEvidence();renderStudents();renderGlossary();populateStuDrop();buildYearGrid();buildCapGrid();if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>toast('Offline mode unavailable','er'));}
+function h(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function safeUrl(v){try{const u=new URL(v,location.href);return ['http:','https:'].includes(u.protocol)?u.href:'#';}catch{return '#';}}
+function uid(prefix){return prefix+'_'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'_'+Math.random().toString(16).slice(2));}
+const DB_NAME='flexi-learning-v4',DB_STORE='state';
+function openDB(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB_NAME,1);r.onupgradeneeded=()=>r.result.createObjectStore(DB_STORE);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+async function dbGet(k){const db=await openDB();return new Promise((resolve,reject)=>{const r=db.transaction(DB_STORE).objectStore(DB_STORE).get(k);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+async function dbSet(k,v){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(DB_STORE,'readwrite');tx.objectStore(DB_STORE).put(v,k);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});}
+function validState(x){return x&&Array.isArray(x.evidence)&&Array.isArray(x.students)&&x.settings&&typeof x.settings==='object';}
 
 // ═══════════════════════════════════════
 //  STORAGE
 // ═══════════════════════════════════════
-function load(){
-  try{S.evidence=JSON.parse(localStorage.getItem('fle5_ev')||'[]');}catch(e){S.evidence=[];}
-  try{S.students=JSON.parse(localStorage.getItem('fle5_st')||'[]');}catch(e){S.students=[];}
-  try{const c=JSON.parse(localStorage.getItem('fle5_cfg')||'{}');S.settings={...S.settings,...c};}catch(e){}
-}
-function persist(){
-  localStorage.setItem('fle5_ev',JSON.stringify(S.evidence));
-  localStorage.setItem('fle5_st',JSON.stringify(S.students));
-}
+async function load(){try{const saved=await dbGet('app');if(validState(saved)){S=saved;return;}const legacy={evidence:JSON.parse(localStorage.getItem('fle5_ev')||'[]'),students:JSON.parse(localStorage.getItem('fle5_st')||'[]'),settings:{staffName:'',campus:'',...JSON.parse(localStorage.getItem('fle5_cfg')||'{}')}};if(validState(legacy)){S=legacy;await persist();}}catch(e){console.error(e);toast('Stored data could not be loaded','er');}}
+async function persist(){try{await dbSet('app',S);}catch(e){console.error(e);toast('Save failed. Export a backup and check storage.','er');}}
 
 // ═══════════════════════════════════════
 //  NAVIGATION
@@ -669,7 +666,7 @@ function nextStep1(){
 }
 function nextStep2(){
   if(!cap.subjects.length){toast('Please select at least one subject','er');return;}
-  if(cap.engSel.length+cap.matSel.length===0){toast('Please select at least one achievement standard','er');return;}
+  if(cap.engSel.length+cap.matSel.length===0){toast('Please select at least one evidence indicator','er');return;}
   showStep(3);
 }
 
@@ -734,8 +731,8 @@ function toggleSubj(subj){
     sec.style.display='block';
     buildStrandUI(subj,year);
     const wsUrl=ACARA_WORK_SAMPLES[subj][year]||'https://www.australiancurriculum.edu.au/resources/work-samples';
-    if(isEng){ document.getElementById('engYearLabel').textContent=year; document.getElementById('engWsLink').href=wsUrl; }
-    else      { document.getElementById('matYearLabel').textContent=year; document.getElementById('matWsLink').href=wsUrl; }
+    if(isEng){ document.getElementById('engYearLabel').textContent=year; document.getElementById('engWsLink').href=safeUrl(wsUrl); }
+    else      { document.getElementById('matYearLabel').textContent=year; document.getElementById('matWsLink').href=safeUrl(wsUrl); }
   }
   document.getElementById('bothNote').classList.toggle('on',cap.subjects.length===2);
 }
@@ -765,14 +762,14 @@ function renderStdCards(subj,year,strand){
   const scls=isEng?'se':'sm', acls=isEng?'e':'m';
   listEl.innerHTML=items.map(s=>{
     const sel=cap[selKey].find(x=>x.code===s.code);
-    return `<div class="std-card${sel?' '+scls:''}" onclick="toggleStd('${subj}','${s.code}')">
+    return `<div class="std-card${sel?' '+scls:''}" onclick="toggleStd('${subj}','${h(s.code)}')">
       <div class="chk">${sel?'✓':''}</div>
-      <div><div class="std-txt">${s.text}</div><div class="std-code">${s.code} · ${s.strand}</div></div>
+      <div><div class="std-txt">${h(s.text)}</div><div class="std-code">${h(s.code)} · ${h(s.strand)}</div></div>
     </div>`;
   }).join('');
   selEl.innerHTML=cap[selKey].length
     ?`<div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px">Selected (${cap[selKey].length}):</div>`
-     +cap[selKey].map(s=>`<span class="stag ${acls}" onclick="toggleStd('${subj}','${s.code}')">${s.code} ✕</span>`).join(''):'';
+     +cap[selKey].map(s=>`<span class="stag ${acls}" onclick="toggleStd('${subj}','${h(s.code)}')">${h(s.code)} ✕</span>`).join(''):'';
 }
 function toggleStd(subj,code){
   const isEng=subj==='English', selKey=isEng?'engSel':'matSel';
@@ -788,13 +785,7 @@ function toggleStd(subj,code){
 //  FILE HANDLING
 // ═══════════════════════════════════════
 function trig(t){document.getElementById('in'+t).click();}
-function handleFiles(input){
-  Array.from(input.files).forEach(f=>{
-    const r=new FileReader();
-    r.onload=e=>{cap.attachments.push({name:f.name,dataUrl:e.target.result,type:f.type});renderPg();};
-    r.readAsDataURL(f);
-  }); input.value='';
-}
+function handleFiles(input){const MAX_FILE=10*1024*1024,MAX_TOTAL=25*1024*1024,MAX_COUNT=8;for(const f of Array.from(input.files)){const total=cap.attachments.reduce((n,a)=>n+(a.size||0),0);if(cap.attachments.length>=MAX_COUNT){toast('Maximum 8 attachments','er');break;}if(f.size>MAX_FILE||total+f.size>MAX_TOTAL){toast('Attachment limit: 10 MB each, 25 MB total','er');continue;}if(!(/^(image|video)\//.test(f.type)||f.type==='application/pdf')){toast('Unsupported attachment type','er');continue;}const r=new FileReader();r.onload=e=>{cap.attachments.push({name:f.name,dataUrl:e.target.result,type:f.type,size:f.size});renderPg();};r.onerror=()=>toast('Could not read '+f.name,'er');r.readAsDataURL(f);}input.value='';}
 function renderPg(){
   document.getElementById('pg').innerHTML=cap.attachments.map((a,i)=>{
     if(a.type.startsWith('image/'))return`<div class="pi"><img src="${a.dataUrl}"/><button class="rb" onclick="rmFile(${i})">✕</button></div>`;
@@ -815,7 +806,7 @@ function saveEv(){
   const wsLinks={};
   cap.subjects.forEach(subj=>{wsLinks[subj]=ACARA_WORK_SAMPLES[subj][cap.workingAt]||'https://www.australiancurriculum.edu.au/resources/work-samples';});
   const ev={
-    id:'ev_'+Date.now(),
+    id:uid('ev'),
     studentId:stuSel.value,
     studentName:student?`${student.firstName} ${student.lastName}`:stuSel.options[stuSel.selectedIndex].text,
     task:cap.task, workingAt:cap.workingAt, subjects:cap.subjects,
@@ -826,7 +817,7 @@ function saveEv(){
     cogVerbs:document.getElementById('cVerbs').value.trim(),
     nextSteps:document.getElementById('cNext').value.trim(),
     wsLinks, staffName:S.settings.staffName,
-    campus:S.settings.campus||(student?student.campus:''),
+    campus:student?student.campus:'',staffCampus:S.settings.campus,
     date:new Date().toISOString(),
     attachments:[...cap.attachments]
   };
@@ -847,7 +838,7 @@ function saveStu(){
   const first=document.getElementById('nFirst').value.trim();
   const last=document.getElementById('nLast').value.trim();
   if(!first||!last){toast('Enter first and last name','er');return;}
-  S.students.push({id:'st_'+Date.now(),firstName:first,lastName:last,
+  S.students.push({id:uid('st'),firstName:first,lastName:last,
     year:document.getElementById('nYear').value,campus:document.getElementById('nCampus').value});
   persist(); renderStudents(); populateStuDrop();
   closeModal('stuModal'); toast('✅ Student added!','ok');
@@ -857,7 +848,7 @@ function populateStuDrop(){
   sel.innerHTML='<option value="">Select student…</option>';
   [...S.students].sort((a,b)=>a.lastName.localeCompare(b.lastName)).forEach(s=>{
     const o=document.createElement('option');
-    o.value=s.id; o.textContent=`${s.lastName}, ${s.firstName}${s.year?' · '+s.year:''}`;
+    o.value=s.id; o.textContent=`${h(s.lastName)}, ${h(s.firstName)}${s.year?' · '+s.year:''}`;
     sel.appendChild(o);
   });
   if(v)sel.value=v;
@@ -874,7 +865,7 @@ function renderStudents(){
     return`<div class="sti">
       <div class="av">${ini}</div>
       <div class="si2">
-        <div class="sn2">${s.lastName}, ${s.firstName}</div>
+        <div class="sn2">${h(s.lastName)}, ${h(s.firstName)}</div>
         <div class="sm2">${[s.year,s.campus].filter(Boolean).join(' · ')}</div>
       </div>
       <div class="stu-actions">
@@ -957,7 +948,7 @@ function getFilteredEvidence(){
     const campOk=expCampuses.length===0||expCampuses.includes(e.campus);
     const subjOk=expSubj==='all'||(e.subjects||[]).includes(expSubj);
     return campOk&&subjOk;
-  });
+  }).map(e=>expSubj==='all'?e:{...e,subjects:[expSubj],standards:(e.standards||[]).filter(s=>s.subject===expSubj)});
 }
 function getFilteredStudents(){
   const evs=getFilteredEvidence();
@@ -993,22 +984,22 @@ function evHTML(e, showName){
   const col=isBoth?'#0E7490':(e.subjects||[]).includes('English')?'#1D4ED8':'#7C3AED';
   return `
     <div style="border:1px solid #E5E7EB;border-radius:8px;padding:14px;margin-bottom:14px;break-inside:avoid">
-      ${showName?`<div style="font-size:13px;font-weight:700;color:#005B52;margin-bottom:4px">${e.studentName}</div>`:''}
+      ${showName?`<div style="font-size:13px;font-weight:700;color:#005B52;margin-bottom:4px">${h(e.studentName)}</div>`:''}
       <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">
         ${(e.subjects||[]).map(s=>`<span style="background:${s==='English'?'#EFF6FF':'#F5F3FF'};color:${s==='English'?'#1D4ED8':'#7C3AED'};padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">${s==='English'?'📖':'🔢'} ${s}</span>`).join('')}
-        <span style="background:#F5E6B8;color:#7A5800;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Working at: ${e.workingAt}</span>
-        ${e.level?`<span style="background:#F0FDF4;color:#166534;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">${e.level}</span>`:''}
+        <span style="background:#F5E6B8;color:#7A5800;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">Working at: ${h(e.workingAt)}</span>
+        ${e.level?`<span style="background:#F0FDF4;color:#166534;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">${h(e.level)}</span>`:''}
       </div>
-      ${e.task?`<div style="font-size:12px;font-weight:700;margin-bottom:6px;color:#374151">Task: ${e.task} &nbsp;·&nbsp; ${fd(e.date)}${e.staffName?' &nbsp;·&nbsp; '+e.staffName:''}</div>`:''}
+      ${e.task?`<div style="font-size:12px;font-weight:700;margin-bottom:6px;color:#374151">Task: ${h(e.task)} &nbsp;·&nbsp; ${fd(e.date)}${e.staffName?' &nbsp;·&nbsp; '+e.staffName:''}</div>`:''}
       ${(e.standards||[]).map(s=>`
         <div style="border-left:3px solid ${col};padding:5px 9px;margin-bottom:5px;background:#F8F8FF;border-radius:3px">
-          <div style="font-family:monospace;font-size:10px;color:${col};margin-bottom:2px">${s.code} · ${s.strand} · ${s.subject}</div>
-          <div style="font-size:12px;line-height:1.5">${s.text}</div>
+          <div style="font-family:monospace;font-size:10px;color:${col};margin-bottom:2px">${h(s.code)} · ${h(s.strand)} · ${s.subject}</div>
+          <div style="font-size:12px;line-height:1.5">${h(s.text)}</div>
         </div>`).join('')}
       ${(e.caps||[]).length?`<div style="margin:6px 0">${e.caps.map(c=>`<span style="background:#FFF7ED;color:#C2410C;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;margin-right:3px">${c.icon} ${c.name}</span>`).join('')}</div>`:''}
-      <div style="font-size:13px;line-height:1.6;background:#F9FAFB;padding:9px;border-radius:5px;margin-top:6px"><strong>Observation:</strong> ${e.observation}</div>
-      ${e.cogVerbs?`<div style="font-size:11px;color:#6B7280;margin-top:5px">Cognitive verbs: <em>${e.cogVerbs}</em></div>`:''}
-      ${e.nextSteps?`<div style="font-size:12px;margin-top:6px;color:#374151"><strong>Next steps:</strong> ${e.nextSteps}</div>`:''}
+      <div style="font-size:13px;line-height:1.6;background:#F9FAFB;padding:9px;border-radius:5px;margin-top:6px"><strong>Observation:</strong> ${h(e.observation)}</div>
+      ${e.cogVerbs?`<div style="font-size:11px;color:#6B7280;margin-top:5px">Cognitive verbs: <em>${h(e.cogVerbs)}</em></div>`:''}
+      ${e.nextSteps?`<div style="font-size:12px;margin-top:6px;color:#374151"><strong>Next steps:</strong> ${h(e.nextSteps)}</div>`:''}
       ${(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).length
         ?`<div style="margin-top:8px">${e.attachments.filter(a=>a.type&&a.type.startsWith('image/')).map(a=>`<img src="${a.dataUrl}" style="max-width:130px;border-radius:6px;margin:3px;vertical-align:top">`).join('')}</div>`:''}
     </div>`;
@@ -1027,9 +1018,9 @@ function buildStudentPDF(name, evs){
   <div class="meta"><strong>${name}</strong> · ${evs.length} record${evs.length!==1?'s':''}<br>
   Generated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})}${S.settings.staffName?' · '+S.settings.staffName:''}${S.settings.campus?' · '+S.settings.campus:''}</div>
   ${evs.map(e=>evHTML(e,false)).join('')}
-  <div class="footer">Flexi Learning Evidence v3.1 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region</div>
+  <div class="footer">Flexi Learning Evidence v4.0 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region</div>
   </body></html>`;
-  const w=window.open('','_blank'); w.document.write(html); w.document.close(); w.print();
+  const w=window.open('','_blank');if(!w){toast('Pop-up blocked. Allow pop-ups to print.','er');return;}w.document.write(html);w.document.close();w.onload=()=>setTimeout(()=>w.print(),200);
   toast('✅ Student PDF ready!','ok');
 }
 
@@ -1082,9 +1073,9 @@ function buildClassPDF(filtered){
   </div>
   <h2 style="margin-bottom:10px">Class Summary</h2>
   ${body}
-  <div class="footer">Flexi Learning Evidence v3.1 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region</div>
+  <div class="footer">Flexi Learning Evidence v4.0 · ACARA V9 · Edmund Rice Flexible Schools · SA/WA Region</div>
   </body></html>`;
-  const w=window.open('','_blank'); w.document.write(html); w.document.close(); w.print();
+  const w=window.open('','_blank');if(!w){toast('Pop-up blocked. Allow pop-ups to print.','er');return;}w.document.write(html);w.document.close();w.onload=()=>setTimeout(()=>w.print(),200);
   toast('✅ Class PDF ready!','ok');
 }
 
@@ -1113,7 +1104,7 @@ function renderEvidence(){
   const q=(document.getElementById('evQ')?.value||'').toLowerCase();
   const list=document.getElementById('evidenceList');
   const items=S.evidence.filter(e=>{
-    const matchQ=!q||`${e.studentName} ${e.task} ${(e.subjects||[]).join(' ')} ${e.workingAt} ${(e.standards||[]).map(s=>s.text+' '+s.code).join(' ')} ${e.observation}`.toLowerCase().includes(q);
+    const matchQ=!q||`${h(e.studentName)} ${h(e.task)} ${(e.subjects||[]).join(' ')} ${h(e.workingAt)} ${(e.standards||[]).map(s=>s.text+' '+s.code).join(' ')} ${h(e.observation)}`.toLowerCase().includes(q);
     const isBoth=(e.subjects||[]).length===2;
     const matchF=curFilter==='all'||(curFilter==='Both'&&isBoth)||(curFilter==='English'&&!isBoth&&(e.subjects||[]).includes('English'))||(curFilter==='Mathematics'&&!isBoth&&(e.subjects||[]).includes('Mathematics'));
     return matchQ&&matchF;
@@ -1125,20 +1116,20 @@ function renderEvidence(){
     const thumbs=(e.attachments||[]).filter(a=>a.type&&a.type.startsWith('image/')).slice(0,3);
     const stdPrev=(e.standards||[]).slice(0,1).map(s=>s.text.slice(0,80)+'…').join('');
     return`<div class="ei ${cls}">
-      <div class="en">${e.studentName}</div>
+      <div class="en">${h(e.studentName)}</div>
       <div class="em">📅 ${fd(e.date)}${e.task?' · '+e.task:''}${e.staffName?' · '+e.staffName:''}</div>
       <div class="et">
         ${(e.subjects||[]).map(s=>`<span class="etg ${s==='English'?'e':'m'}">${s==='English'?'📖':'🔢'} ${s}</span>`).join('')}
-        <span class="etg y">Working at: ${e.workingAt}</span>
-        ${(e.standards||[]).map(s=>`<span class="etg g">${s.code}</span>`).join('')}
-        ${e.level?`<span class="etg lv">${e.level}</span>`:''}
+        <span class="etg y">Working at: ${h(e.workingAt)}</span>
+        ${(e.standards||[]).map(s=>`<span class="etg g">${h(s.code)}</span>`).join('')}
+        ${e.level?`<span class="etg lv">${h(e.level)}</span>`:''}
         ${(e.caps||[]).map(c=>`<span class="etg gc">${c.icon} ${c.short}</span>`).join('')}
       </div>
       ${stdPrev?`<div class="ep">"${stdPrev}"</div>`:''}
       ${thumbs.length?`<div class="eth">${thumbs.map(a=>`<img src="${a.dataUrl}"/>`).join('')}</div>`:''}
       <div class="ea">
         <button class="ab p" onclick="viewDet('${e.id}')">👁 View</button>
-        <button class="ab p" onclick="buildStudentPDF('${e.studentName}',[S.evidence.find(ev=>ev.id==='${e.id}')])">📄 PDF</button>
+        <button class="ab p" onclick="buildStudentPDF('${h(e.studentName)}',[S.evidence.find(ev=>ev.id==='${e.id}')])">📄 PDF</button>
         <button class="ab d" onclick="delEv('${e.id}')">🗑 Delete</button>
       </div>
     </div>`;
@@ -1151,11 +1142,11 @@ function renderRecent(){
   list.innerHTML=items.map(e=>{
     const cls=(e.subjects||[]).length===2?'both':(e.subjects||[]).includes('English')?'eng':'mat';
     return`<div class="ei ${cls}" onclick="viewDet('${e.id}')" style="cursor:pointer">
-      <div class="en">${e.studentName}</div>
+      <div class="en">${h(e.studentName)}</div>
       <div class="em">${fd(e.date)}${e.task?' · '+e.task:''}</div>
       <div class="et">
         ${(e.subjects||[]).map(s=>`<span class="etg ${s==='English'?'e':'m'}">${s==='English'?'📖':'🔢'} ${s}</span>`).join('')}
-        <span class="etg y">Working at: ${e.workingAt}</span>
+        <span class="etg y">Working at: ${h(e.workingAt)}</span>
       </div>
     </div>`;
   }).join('');
@@ -1165,42 +1156,42 @@ function viewDet(id){
   const isBoth=(e.subjects||[]).length===2;
   const col=isBoth?'var(--both)':(e.subjects||[]).includes('English')?'var(--eng)':'var(--mat)';
   const wsLinksHtml=Object.entries(e.wsLinks||{}).map(([subj,url])=>
-    `<a href="${url}" target="_blank" class="ws-link" style="margin-right:5px">${subj==='English'?'📖':'🔢'} ${subj} Work Samples →</a>`).join('');
+    `<a href="${safeUrl(url)}" target="_blank" class="ws-link" style="margin-right:5px">${subj==='English'?'📖':'🔢'} ${subj} Work Samples →</a>`).join('');
   document.getElementById('detContent').innerHTML=`
     <div class="mt">📋 Evidence Record</div>
     <div style="margin-bottom:11px">
-      <div style="font-size:18px;font-weight:800">${e.studentName}</div>
+      <div style="font-size:18px;font-weight:800">${h(e.studentName)}</div>
       <div style="font-size:12px;color:var(--muted)">${fd(e.date)}${e.staffName?' · '+e.staffName:''}${e.campus?' · '+e.campus:''}</div>
     </div>
     <div class="card" style="border-left:4px solid ${col}">
       <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px">
         ${(e.subjects||[]).map(s=>`<span class="etg ${s==='English'?'e':'m'}" style="font-size:12px">${s==='English'?'📖':'🔢'} ${s}</span>`).join('')}
-        <span class="etg y" style="font-size:12px">Working at: ${e.workingAt}</span>
-        ${e.level?`<span class="etg lv" style="font-size:12px">${e.level}</span>`:''}
+        <span class="etg y" style="font-size:12px">Working at: ${h(e.workingAt)}</span>
+        ${e.level?`<span class="etg lv" style="font-size:12px">${h(e.level)}</span>`:''}
       </div>
-      ${e.task?`<div style="font-size:13px;font-weight:700;margin-bottom:4px">Task: ${e.task}</div>`:''}
-      ${e.cogVerbs?`<div style="font-size:12px;color:var(--muted);margin-bottom:6px">Cognitive verbs: <em>${e.cogVerbs}</em></div>`:''}
+      ${e.task?`<div style="font-size:13px;font-weight:700;margin-bottom:4px">Task: ${h(e.task)}</div>`:''}
+      ${e.cogVerbs?`<div style="font-size:12px;color:var(--muted);margin-bottom:6px">Cognitive verbs: <em>${h(e.cogVerbs)}</em></div>`:''}
       ${wsLinksHtml?`<div style="margin-top:6px">${wsLinksHtml}</div>`:''}
     </div>
-    <div class="card"><div class="ct">Achievement Standards</div>
+    <div class="card"><div class="ct">Evidence Indicators</div>
       ${(e.standards||[]).map(s=>`<div style="margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--border)">
-        <div style="font-size:11px;font-family:monospace;color:${s.subject==='English'?'var(--eng)':'var(--mat)'};margin-bottom:2px">${s.code} · ${s.strand} · ${s.subject}</div>
-        <div style="font-size:13px;line-height:1.5">${s.text}</div>
+        <div style="font-size:11px;font-family:monospace;color:${s.subject==='English'?'var(--eng)':'var(--mat)'};margin-bottom:2px">${h(s.code)} · ${h(s.strand)} · ${s.subject}</div>
+        <div style="font-size:13px;line-height:1.5">${h(s.text)}</div>
       </div>`).join('')}
     </div>
     ${(e.caps||[]).length?`<div class="card"><div class="ct">General Capabilities</div><div style="display:flex;flex-wrap:wrap;gap:5px">${e.caps.map(c=>`<span class="etg gc" style="font-size:12px">${c.icon} ${c.name}</span>`).join('')}</div></div>`:''}
     <div class="card"><div class="ct">Teacher Observation</div><p style="font-size:14px;line-height:1.6">${e.observation||'—'}</p></div>
-    ${e.nextSteps?`<div class="card"><div class="ct">Next Steps</div><p style="font-size:14px;line-height:1.6">${e.nextSteps}</p></div>`:''}
+    ${e.nextSteps?`<div class="card"><div class="ct">Next Steps</div><p style="font-size:14px;line-height:1.6">${h(e.nextSteps)}</p></div>`:''}
     ${(e.attachments||[]).length?`<div class="card"><div class="ct">Attachments (${e.attachments.length})</div><div class="pg">
       ${e.attachments.map((a,i)=>{
         if(a.type&&a.type.startsWith('image/'))return`<div class="pi"><img src="${a.dataUrl}" onclick="bigImg('${id}',${i})" style="cursor:zoom-in"/></div>`;
         if(a.type&&a.type.startsWith('video/'))return`<div class="pi"><video src="${a.dataUrl}" controls></video></div>`;
-        return`<div class="pi"><div class="fi">📄<span>${a.name}</span></div></div>`;
+        return`<div class="pi"><div class="fi">📄<span>${h(a.name)}</span></div></div>`;
       }).join('')}
     </div></div>`:''}
     <div style="display:flex;gap:7px;margin-top:4px">
       <button class="btn btn-s" onclick="openStuExport('${e.studentId}')" style="flex:1">📋 All Records</button>
-      <button class="btn btn-s" onclick="buildStudentPDF('${e.studentName}',[S.evidence.find(ev=>ev.id==='${e.id}')])" style="flex:1">📄 This Record</button>
+      <button class="btn btn-s" onclick="buildStudentPDF('${h(e.studentName)}',[S.evidence.find(ev=>ev.id==='${e.id}')])" style="flex:1">📄 This Record</button>
     </div>`;
   document.getElementById('detModal').classList.add('on');
 }
@@ -1251,41 +1242,23 @@ function updateStats(){
   document.getElementById('stStudents').textContent=S.students.length;
 }
 function applySettings(){document.getElementById('sName').value=S.settings.staffName||'';document.getElementById('sCampus').value=S.settings.campus||'';}
-function saveSettings(){S.settings.staffName=document.getElementById('sName').value.trim();S.settings.campus=document.getElementById('sCampus').value;localStorage.setItem('fle5_cfg',JSON.stringify(S.settings));toast('✅ Saved!','ok');}
+function saveSettings(){S.settings.staffName=document.getElementById('sName').value.trim();S.settings.campus=document.getElementById('sCampus').value;persist();toast('✅ Saved!','ok');}
 function exportAllCSV(){
   if(!S.evidence.length){toast('No evidence to export','er');return;}
-  buildClassCSV(getFilteredStudents().length?getFilteredStudents():S.students.map(stu=>({stu,evs:S.evidence.filter(e=>e.studentId===stu.id)})).filter(x=>x.evs.length));
+  buildClassCSV(S.students.map(stu=>({stu,evs:S.evidence.filter(e=>e.studentId===stu.id)})).filter(x=>x.evs.length));
 }
-function backupJSON(){dl(JSON.stringify({version:'3.1',exported:new Date().toISOString(),evidence:S.evidence,students:S.students},null,2),`Flexi_Backup_${ts()}.json`,'application/json');toast('✅ Backup downloaded!','ok');}
+function backupJSON(){dl(JSON.stringify({version:'4.0',exported:new Date().toISOString(),evidence:S.evidence,students:S.students,settings:S.settings},null,2),`Flexi_Backup_${ts()}.json`,'application/json');toast('✅ Backup downloaded!','ok');}
 function restoreJSON(){document.getElementById('jsonIn').click();}
 function handleJSON(input){
   const f=input.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=e=>{try{const d=JSON.parse(e.target.result);if(!d.evidence||!d.students)throw 0;if(!confirm(`Restore ${d.evidence.length} records and ${d.students.length} students?`))return;S.evidence=d.evidence;S.students=d.students;persist();updateStats();renderRecent();renderEvidence();renderStudents();populateStuDrop();toast('✅ Restored!','ok');}catch(err){toast('❌ Invalid backup','er');}};
+  r.onload=e=>{try{const d=JSON.parse(e.target.result);if(!validState({evidence:d.evidence,students:d.students,settings:d.settings||{staffName:'',campus:''}}))throw 0;if(!confirm(`Restore ${d.evidence.length} records and ${d.students.length} students?`))return;S.evidence=d.evidence;S.students=d.students;S.settings={staffName:'',campus:'',...(d.settings||{})};persist();applySettings();updateStats();renderRecent();renderEvidence();renderStudents();populateStuDrop();toast('✅ Restored!','ok');}catch(err){toast('❌ Invalid backup','er');}};
   r.readAsText(f);input.value='';
 }
 function importCSV(){document.getElementById('csvIn').click();}
-function handleCSV(input){
-  const f=input.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=e=>{
-    const lines=e.target.result.split('\n').filter(l=>l.trim());
-    if(lines.length<2){toast('CSV appears empty','er');return;}
-    const h=lines[0].split(',').map(x=>x.trim().replace(/"/g,'').toLowerCase());
-    let n=0;
-    lines.slice(1).forEach(l=>{
-      const v=l.split(',').map(x=>x.trim().replace(/"/g,''));
-      const o={};h.forEach((hh,i)=>o[hh]=v[i]||'');
-      const first=o.firstname||o['first name']||o.first||'';
-      const last=o.lastname||o['last name']||o.last||'';
-      if(!first&&!last)return;
-      S.students.push({id:'st_'+Date.now()+'_'+n,firstName:first,lastName:last,year:o.year||o['year level']||'',campus:o.campus||o.site||''});n++;
-    });
-    persist();renderStudents();populateStuDrop();toast(`✅ Imported ${n} students`,'ok');
-  };
-  r.readAsText(f);input.value='';
-}
-function clearAll(){if(!confirm('Clear ALL data? Back up first!\nThis cannot be undone.'))return;S.evidence=[];S.students=[];persist();updateStats();renderRecent();renderEvidence();renderStudents();toast('🗑 Cleared','');}
+function parseCSV(text){const rows=[];let row=[],field='',quoted=false;text=text.replace(/^\uFEFF/,'');for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(quoted){if(c==='"'&&n==='"'){field+='"';i++;}else if(c==='"')quoted=false;else field+=c;}else if(c==='"')quoted=true;else if(c===','){row.push(field);field='';}else if(c==='\n'){row.push(field);rows.push(row);row=[];field='';}else if(c!=='\r')field+=c;}if(field||row.length){row.push(field);rows.push(row);}return rows;}
+function handleCSV(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const rows=parseCSV(e.target.result).filter(x=>x.some(v=>v.trim()));if(rows.length<2){toast('CSV appears empty','er');return;}const hdr=rows[0].map(x=>x.trim().toLowerCase());let added=0,dupes=0,rejected=0;for(const vals of rows.slice(1)){const o={};hdr.forEach((k,i)=>o[k]=(vals[i]||'').trim());const first=o.firstname||o['first name']||o.first||'',last=o.lastname||o['last name']||o.last||'';if(!first||!last){rejected++;continue;}const year=o.year||o['year level']||'',campus=o.campus||o.site||'';if(S.students.some(s=>s.firstName.toLowerCase()===first.toLowerCase()&&s.lastName.toLowerCase()===last.toLowerCase()&&s.year===year&&s.campus===campus)){dupes++;continue;}S.students.push({id:uid('st'),firstName:first,lastName:last,year,campus});added++;}persist();renderStudents();populateStuDrop();toast(`Imported ${added}; skipped ${dupes} duplicate(s), ${rejected} invalid row(s)`,'ok');}catch(err){toast('CSV could not be parsed','er');}};r.onerror=()=>toast('CSV could not be read','er');r.readAsText(f);input.value='';}
+function clearAll(){if(!confirm('Clear ALL students and evidence? Back up first!\nThis cannot be undone.'))return;S.evidence=[];S.students=[];persist();updateStats();renderRecent();renderEvidence();renderStudents();toast('🗑 Cleared','');}
 
 // ═══════════════════════════════════════
 //  HELPERS
@@ -1294,7 +1267,7 @@ function closeModal(id){document.getElementById(id).classList.remove('on');}
 function toast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className=`toast ${type} on`;setTimeout(()=>t.classList.remove('on'),3000);}
 function fd(d){if(!d)return'—';return new Date(d).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});}
 function ts(){return new Date().toISOString().split('T')[0];}
-function dl(c,n,m){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:m}));a.download=n;a.click();}
+function dl(c,n,m){const a=document.createElement('a'),u=URL.createObjectURL(new Blob([c],{type:m}));a.href=u;a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);}
 
 window.addEventListener('DOMContentLoaded',init);
 </script>

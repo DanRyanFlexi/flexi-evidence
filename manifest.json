@@ -1,7 +1,7 @@
 {
-  "name": "Flexi Learning Evidence",
+  "name": "Flexi Learning Evidence v4",
   "short_name": "Flexi Learning",
-  "description": "ACARA V9 Learning Evidence — English & Mathematics, Reception to Year 10",
+  "description": "Curriculum-aligned learning evidence capture for English and Mathematics, Reception to Year 10",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#005B52",
@@ -21,6 +21,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "productivity"],
-  "lang": "en-AU"
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "lang": "en-AU",
+  "id": "./",
+  "scope": "./"
 }
