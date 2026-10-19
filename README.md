@@ -1,11 +1,11 @@
 # Flexi Evidence Studio
 
-A simple curriculum-linked learning evidence capture interface for EREAFSL SA/WA.
+A clean React interface for capturing curriculum-linked learning evidence.
 
-## Local development
+## Run locally
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -16,14 +16,21 @@ npm run build
 npm run preview
 ```
 
-## GitHub Pages
+## Deploy to GitHub Pages
 
-Push to the `main` branch, then in the repository open **Settings > Pages** and choose **GitHub Actions** as the source. The included workflow builds and deploys the app.
+1. Create a GitHub repository.
+2. Upload this project to the repository root and push to `main`.
+3. In **Settings > Pages**, select **GitHub Actions** as the source.
+4. The included workflow builds and deploys the app.
 
-## Data
+## Current data model
 
-Evidence records are currently stored in the browser using `localStorage`. They are not synchronised between devices and should not be treated as an enterprise student-record system.
+Records are stored in the browser with `localStorage`. A JSON backup can be exported and imported. Browser storage is suitable for interface testing, not for live storage of identifiable young-person information.
 
-## Branding
+## Important limitations
 
-The interface uses the approved EREAFSL colour palette and Roboto. Add the approved EREAFSL logo asset separately before public/official deployment rather than recreating it in code.
+- No authentication or role-based access.
+- No central database or multi-device synchronisation.
+- No audit trail, retention controls or managed backup.
+- Australian Curriculum achievement-standard statements are not bundled. Staff currently paste the relevant statement.
+- The temporary Flexi Evidence mark is not the official EREAFSL logo. Add an approved logo asset before official deployment.
